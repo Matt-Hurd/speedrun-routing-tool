@@ -54,9 +54,13 @@
   
   .routeList__pointName {
     flex-basis: 50%;
+    max-width: 50%;
+    text-wrap: initial;
   }
-  
+
   .routeList__pointNotes {
     flex-basis: 40%;
+    max-width: 40%;
+    text-wrap: initial;
   }
   
