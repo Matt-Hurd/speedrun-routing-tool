@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    padding: 20px 0; /* Removed padding on sides */
+    padding: 0 0 10px; /* Removed padding on sides */
   }
 
   .routeList__branchName>strong,
@@ -32,7 +32,8 @@
   
   .routeList__branchName {
     font-weight: bold;
-    margin-bottom: 10px;
+    background-color: #a7a7e7;
+    padding: 10px 0;
   }
   
   .routeList__point {
