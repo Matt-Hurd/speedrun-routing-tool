@@ -45,7 +45,7 @@
   }
 
   .routeList__point--active, .routeList__point.routeList__point--active {
-    background-color: #ad2f2f;
+    background-color: #f58e8e;
   }
   
   .routeList__pointId {
