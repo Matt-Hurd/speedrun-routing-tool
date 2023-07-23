@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../../store';
 import { selectRouteById } from '../../store/routes/routesSlice';
 import { selectThingsForGame } from '../../store/things/thingsSlice';
+import './RouteListDisplay.css'; // Assuming you have a corresponding CSS file
 
 const RouteListDisplay: React.FC = () => {
   const progress = useSelector(selectProgress);
@@ -22,37 +23,25 @@ const RouteListDisplay: React.FC = () => {
   const activePointRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const scrollToActivePoint = () => {
-    if (activePointRef.current) {
-      const parent = activePointRef.current.parentElement;
-      if (parent) {
-        const parentHeight = parent.clientHeight;
-        const activeElemHeight = activePointRef.current.clientHeight;
-        const activeElemTop = activePointRef.current.offsetTop;
-        const centerPos = activeElemTop - (parentHeight / 2) + (activeElemHeight / 2);
-        parent.scrollTop = centerPos;
-      }
-    }
-  };
-
-  scrollToActivePoint();
+    activePointRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
   }, [progress]);
-
+  
   return (
-    <div style={{ overflowY: 'scroll', whiteSpace: 'nowrap', height: '100%' }}>
-      <button onClick={decrement}>Previous</button>
-      <button onClick={increment}>Next</button>
+    <div className="routeList">
       {route.branches.map((branch, branchIndex) => (
-        <div style={{ marginLeft: 20 }} key={branchIndex}>
-          <strong>{branch.name}</strong>
-          {branchIndex === progress.branchIndex && branch.points.map((point, pointIndex) => (
-            <div
-              style={{ marginLeft: 40 }}
+        <div className="routeList__branch" key={branchIndex}>
+          <div className="routeList__branchName">
+            <strong>{branch.name}</strong>
+          </div>
+          {branch.points.map((point, pointIndex) => (
+            <div 
+              className={`routeList__point ${branchIndex === progress.branchIndex && pointIndex === progress.pointIndex ? 'routeList__point--active' : ''}`} 
               key={branchIndex + "_" + pointIndex}
-              ref={pointIndex === progress.pointIndex ? activePointRef : null}
+              ref={branchIndex === progress.branchIndex && pointIndex === progress.pointIndex ? activePointRef : null}
             >
-              {pointIndex === progress.pointIndex && <strong>&gt;</strong>}
-              {things[point.thingId].name}
+              <div className="routeList__pointId">{pointIndex}</div>
+              <div className="routeList__pointName">{things[point.thingId].name}</div>
+              <div className="routeList__pointNotes">{point.notes}</div>
             </div>
           ))}
         </div>
@@ -60,5 +49,6 @@ const RouteListDisplay: React.FC = () => {
     </div>
   );
 };
+
 
 export default RouteListDisplay;

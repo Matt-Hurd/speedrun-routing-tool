@@ -2,12 +2,15 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Mosaic, MosaicWindow, MosaicBranch, MosaicNode } from 'react-mosaic-component';
 import 'react-mosaic-component/react-mosaic-component.css';
+import 'react-mosaic-component/styles/index.less';
 
 import MapDisplay from '../MapDisplay/MapDisplay';
 import ProgressDisplay from '../ProgressDisplay/ProgressDisplay';
 import RouteListDisplay from '../RouteListDisplay/RouteListDisplay';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { setRouteId, selectProgress, setGameId } from '../../store/progress/progressSlice';
+import classNames from 'classnames';
+import { Classes } from '@blueprintjs/core';
 
 import './RunMosaic.css'
 import { loadGames, selectGamesStatus } from '../../store/games/gamesSlice';
@@ -17,6 +20,9 @@ import { loadThings, selectThingsStatus } from '../../store/things/thingsSlice';
 import BranchNotesDisplay from '../BranchNotesDisplay/BranchNotesDisplay';
 import PointNotesDisplay from '../PointNotesDisplay/PointNotesDisplay';
 import { incrementProgress, decrementProgress } from '../../store/progress/progressSlice';
+
+import '@blueprintjs/core/lib/css/blueprint.css';
+import '@blueprintjs/icons/lib/css/blueprint-icons.css';
 
 
 type RunParams = {
@@ -145,6 +151,7 @@ const RunMosaic: React.FC = () => {
         renderTile={renderWindow}
         onChange={onChange}
         initialValue={initialLayout}
+        blueprintNamespace="bp5"
       />
     </div>
   );
