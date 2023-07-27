@@ -1,11 +1,21 @@
 .routeList {
-    height: 100vh;
+    height: 100%;
     overflow-y: auto;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    padding: 20px 0; /* Removed padding on sides */
+    padding: 0 0 10px; /* Removed padding on sides */
+  }
+
+  .routeList__branchName>strong,
+  .routeList__pointId {
+    padding: 0 3px;
+  }
+
+  .routeList__pointName,
+  .routeList__pointNotes {
+    padding: 0 8px
   }
 
   .routeList__pointId,
@@ -22,7 +32,8 @@
   
   .routeList__branchName {
     font-weight: bold;
-    margin-bottom: 10px;
+    background-color: #a7a7e7;
+    padding: 10px 0;
   }
   
   .routeList__point {
@@ -32,7 +43,6 @@
     width: 100%;
     padding: 10px 0;
     border-top: 1px solid #000;
-    white-space: nowrap; /* Added this to stop text from wrapping */
   }
   
   
@@ -45,16 +55,16 @@
   }
 
   .routeList__point--active, .routeList__point.routeList__point--active {
-    background-color: #ad2f2f;
+    background-color: #f58e8e;
   }
   
   .routeList__pointId {
-    flex-basis: 5%;
+    flex-basis: 2.6em;
   }
   
   .routeList__pointName {
-    flex-basis: 50%;
-    max-width: 50%;
+    flex-basis: calc(60% - 2.6em);
+    max-width: calc(60% - 2.6em);
     text-wrap: initial;
   }
 
