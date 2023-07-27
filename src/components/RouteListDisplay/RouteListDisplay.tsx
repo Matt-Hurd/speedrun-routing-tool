@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../../store';
 import { selectRouteById } from '../../store/routes/routesSlice';
 import { selectThingsForGame } from '../../store/things/thingsSlice';
-import './RouteListDisplay.css'; // Assuming you have a corresponding CSS file
+import './RouteListDisplay.scss'; // Assuming you have a corresponding CSS file
 
 const RouteListDisplay: React.FC = () => {
   const progress = useSelector(selectProgress);
