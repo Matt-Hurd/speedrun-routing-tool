@@ -7,22 +7,22 @@
         "sky": {
           "name": "Sky",
           "imagePath": "https://objmap-totk.zeldamods.org/game_files/map//Sky/maptex/{z}/{x}/{y}.webp",
-          "baseImagePath": "../assets/images/maps/sky.jpg"
+          "baseImagePath": "/assets/images/maps/sky.jpg"
         },
         "surface": {
           "name": "Surface",
           "imagePath": "https://objmap-totk.zeldamods.org/game_files/map//Ground/maptex/{z}/{x}/{y}.webp",
-          "baseImagePath": "../assets/images/maps/surface.jpg"
+          "baseImagePath": "/assets/images/maps/surface.jpg"
         },
         "cave": {
           "name": "Cave",
           "imagePath": "https://objmap-totk.zeldamods.org/game_files/map//Ground/maptex/{z}/{x}/{y}.webp",
-          "baseImagePath": "../assets/images/maps/surface.jpg"
+          "baseImagePath": "/assets/images/maps/surface.jpg"
         },
         "depths": {
           "name": "Depths",
           "imagePath": "https://objmap-totk.zeldamods.org/game_files/map//Depths/maptex/{z}/{x}/{y}.webp",
-          "baseImagePath": "../assets/images/maps/depths.jpg"
+          "baseImagePath": "/assets/images/maps/depths.jpg"
         }
       }
     }

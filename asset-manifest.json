@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/speedrun-routing-tool/static/css/main.3f4cd50c.css",
-    "main.js": "/speedrun-routing-tool/static/js/main.6e17d367.js",
+    "main.js": "/speedrun-routing-tool/static/js/main.00cab911.js",
     "static/js/787.28cb0dcd.chunk.js": "/speedrun-routing-tool/static/js/787.28cb0dcd.chunk.js",
     "static/media/blueprint-icons-20.svg?": "/speedrun-routing-tool/static/media/blueprint-icons-20.69e09533623b64863cf5.svg",
     "static/media/blueprint-icons-16.svg?": "/speedrun-routing-tool/static/media/blueprint-icons-16.928936b25a7f631d44d6.svg",
@@ -15,11 +15,11 @@
     "static/media/blueprint-icons-16.woff2?": "/speedrun-routing-tool/static/media/blueprint-icons-16.5d3be7e91ef0bd98ba43.woff2",
     "index.html": "/speedrun-routing-tool/index.html",
     "main.3f4cd50c.css.map": "/speedrun-routing-tool/static/css/main.3f4cd50c.css.map",
-    "main.6e17d367.js.map": "/speedrun-routing-tool/static/js/main.6e17d367.js.map",
+    "main.00cab911.js.map": "/speedrun-routing-tool/static/js/main.00cab911.js.map",
     "787.28cb0dcd.chunk.js.map": "/speedrun-routing-tool/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3f4cd50c.css",
-    "static/js/main.6e17d367.js"
+    "static/js/main.00cab911.js"
   ]
 }
