@@ -2,6 +2,13 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Map Keyboard Configuration
+
+* `Arrow Right` - Progress the map forward by one.
+* `Arrow Left` - Undo the progress by one.
+* `CTRL + SHIFT + Arrow Right` - Progress the map forward by a full branch.
+* `CTRL + SHIFT + Arrow Left` - Undo the progress by a full branch.
+
 ## Available Scripts
 
 In the project directory, you can run:

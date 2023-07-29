@@ -67,6 +67,51 @@ export const decrementProgress = createAsyncThunk(
   }
 );
 
+export const incrementSection = createAsyncThunk(
+  "section/increment",
+  (_, {getState}) => {
+    const state: RootState = getState() as RootState;
+    const {routes, progress} = state;
+
+    if (progress.routeId) {
+      const route = routes.routes[progress.gameId][progress.routeId];
+
+      if (progress.branchIndex < route.branches.length - 1) {
+        // Move to next branch
+        return {...progress, branchIndex: progress.branchIndex + 1, pointIndex: 0};
+      } else if (
+        progress.pointIndex < route.branches[progress.branchIndex].points.length - 1
+      ) {
+        return {...progress, pointIndex: route.branches[progress.branchIndex].points.length - 1};
+      }
+    }
+
+    // If no increment is possible, return the current progress
+    return progress;
+  }
+);
+
+export const decrementSection = createAsyncThunk(
+  "section/decrement",
+  (_, {getState}) => {
+    const state: RootState = getState() as RootState;
+    const {routes, progress} = state;
+
+    if (progress.routeId) {
+      if (progress.branchIndex > 0) {
+        // Move back to previous branch at first point
+        return {...progress, branchIndex: progress.branchIndex - 1, pointIndex: 0};
+      } else if (progress.pointIndex > 0) {
+        // Move back to first branch at first point
+        return {...progress, pointIndex: 0};
+      }
+    }
+
+    // If no decrement is possible, return the current progress
+    return progress;
+  }
+);
+
 export const progressSlice = createSlice({
   name: "progress",
   initialState,
@@ -88,6 +133,12 @@ export const progressSlice = createSlice({
       return action.payload;
     });
     builder.addCase(decrementProgress.fulfilled, (state, action) => {
+      return action.payload;
+    });
+    builder.addCase(incrementSection.fulfilled, (state, action) => {
+      return action.payload;
+    });
+    builder.addCase(decrementSection.fulfilled, (state, action) => {
       return action.payload;
     });
   },

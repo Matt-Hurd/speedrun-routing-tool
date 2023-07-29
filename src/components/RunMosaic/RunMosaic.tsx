@@ -19,7 +19,7 @@ import { useSelector } from 'react-redux';
 import { loadThings, selectThingsStatus } from '../../store/things/thingsSlice';
 import BranchNotesDisplay from '../BranchNotesDisplay/BranchNotesDisplay';
 import PointNotesDisplay from '../PointNotesDisplay/PointNotesDisplay';
-import { incrementProgress, decrementProgress } from '../../store/progress/progressSlice';
+import { incrementProgress, decrementProgress, incrementSection, decrementSection } from '../../store/progress/progressSlice';
 
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/icons/lib/css/blueprint-icons.css';
@@ -43,10 +43,18 @@ const RunMosaic: React.FC = () => {
     const handleKeyDown = (event: KeyboardEvent) => {
       switch (event.key) {
         case 'ArrowLeft':
-          dispatch(decrementProgress());
+          if (event.ctrlKey && event.shiftKey) {
+            dispatch(decrementSection());
+          } else {
+            dispatch(decrementProgress());
+          }
           break;
         case 'ArrowRight':
-          dispatch(incrementProgress());
+          if (event.ctrlKey && event.shiftKey) {
+            dispatch(incrementSection());
+          } else {
+            dispatch(incrementProgress());
+          }
           break;
         default:
           break;
