@@ -95,7 +95,7 @@ export const decrementSection = createAsyncThunk(
   "section/decrement",
   (_, {getState}) => {
     const state: RootState = getState() as RootState;
-    const {routes, progress} = state;
+    const {progress} = state;
 
     if (progress.routeId) {
       if (progress.branchIndex > 0) {
