@@ -2557,7 +2557,7 @@
               "thingId": "Mayam Shrine",
               "layerId": "sky",
               "shortNote": "Rauru's Blessing",
-              "htmlNote": ""
+              "htmlNote": "<p><span class=\"ql-size-huge\" style=\"color: rgb(230, 0, 0); background-color: rgb(0, 0, 0);\">OPEN THE CHEST</span></p>"
             },
             {
               "thingId": "Recycle Box : Shock Emitter : Light : Steering Stick : Homing Cart",
@@ -4080,7 +4080,7 @@
               "thingId": "Mayasiar Shrine",
               "layerId": "sky",
               "shortNote": "Rauru's Blessing",
-              "htmlNote": ""
+              "htmlNote": "<p><span class=\"ql-size-huge\" style=\"color: rgb(230, 0, 0); background-color: rgb(0, 0, 0);\">OPEN THE CHEST</span></p>"
             },
             {
               "thingId": "Recycle Box : Stake : Shock Emitter : Sled : Stabilizer : Frost Emitter",
@@ -8365,7 +8365,7 @@
               "thingId": "Kurakat Shrine",
               "layerId": "surface",
               "shortNote": "Rauru's Blessing",
-              "htmlNote": ""
+              "htmlNote": "<p><span class=\"ql-size-huge\" style=\"color: rgb(230, 0, 0); background-color: rgb(0, 0, 0);\">OPEN THE CHEST</span></p>"
             },
             {
               "thingId": "Addison (60)",
