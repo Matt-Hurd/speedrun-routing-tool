@@ -14,6 +14,7 @@ const ProgressDisplay: React.FC = () => {
 
   const route = useSelector((state: RootState) => selectRouteById(state, gameId, routeId));
   const things = useSelector((state: RootState) => selectThingsForGame(state, gameId));
+  const [overlayWindow, setOverlayWindow] = useState<Window | null>(null);
 
   const [counts, setCounts] = useState<{ [type: string]: number }>({
     Korok: 0,
@@ -26,6 +27,11 @@ const ProgressDisplay: React.FC = () => {
   const [shrineOffset, setShrineOffset] = useState(0);
   const [lightrootOffset, setLightrootOffset] = useState(0);
   const [bubbulfrogOffset, setBubbulfrogOffset] = useState(0);
+
+  const openOverlayWindow = () => {
+    const newWindow = window.open("#/overlay", "_blank", "width=800,height=600");
+    setOverlayWindow(newWindow);
+  };
 
   useEffect(() => {
     const getMaxPointIdx = (bidx: number, pointIndex: number) => {
@@ -77,6 +83,17 @@ const ProgressDisplay: React.FC = () => {
         padding: "10px",
       }}
     >
+      {" "}
+      <button
+        style={{
+          position: "absolute",
+          top: 0,
+          right: 0,
+        }}
+        onClick={openOverlayWindow}
+      >
+        Open Overlay Window
+      </button>
       <div
         style={{
           display: "flex",
@@ -117,7 +134,6 @@ const ProgressDisplay: React.FC = () => {
           onChange={(e) => setBubbulfrogOffset(Number(e.target.value))}
         />
       </div>
-
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <div
           style={{
