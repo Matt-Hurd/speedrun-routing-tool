@@ -1,5 +1,5 @@
 import React from 'react';
-import { selectProgress } from '../../store/progress/progressSlice';
+import { selectProgress } from '../../store/progressSlice';
 import { useSelector } from 'react-redux';
 
 const ProgressDisplay: React.FC = () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { selectActiveBranch } from '../../store/progress/progressSlice';
+import { selectActiveBranch } from '../../store/progressSlice';
 import { useSelector } from 'react-redux';
 
 const BranchNotesDisplay: React.FC = () => {

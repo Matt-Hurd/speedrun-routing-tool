@@ -1,7 +1,7 @@
 // store/routes/routesSlice.ts
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "..";
-import { Route } from "../../models";
+import { RootState } from ".";
+import { Route } from "../models";
 
 type RoutesState = {
   routes: Record<string, Record<string, Route>>;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { selectActivePoint } from '../../store/progress/progressSlice';
+import { selectActivePoint } from '../../store/progressSlice';
 import { useSelector } from 'react-redux';
 
 const PointNotesDisplay: React.FC = () => {

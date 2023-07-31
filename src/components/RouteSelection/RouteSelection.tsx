@@ -4,12 +4,12 @@ import {
   loadGames,
   selectGames,
   selectGamesStatus,
-} from "../../store/games/gamesSlice";
+} from "../../store/gamesSlice";
 import {
   loadRoutes,
   selectRoutes,
   selectRoutesStatus,
-} from "../../store/routes/routesSlice";
+} from "../../store/routesSlice";
 import { AppDispatch, RootState } from "../../store";
 import React from "react";
 import { Link } from "react-router-dom";

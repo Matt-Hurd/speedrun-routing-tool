@@ -3,8 +3,8 @@ import { Point } from "../../models";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { selectThingsForGame } from "../../store/things/thingsSlice";
-import { selectProgress } from "../../store/progress/progressSlice";
+import { selectThingsForGame } from "../../store/thingsSlice";
+import { selectProgress } from "../../store/progressSlice";
 
 interface MapUpdateProps {
   activePoint: Point;

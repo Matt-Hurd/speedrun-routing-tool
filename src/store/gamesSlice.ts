@@ -1,7 +1,7 @@
 // store/games/gamesSlice.ts
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "..";
-import { Game } from "../../models";
+import { RootState } from ".";
+import { Game } from "../models";
 
 type GamesState = {
   games: Record<string, Game>;

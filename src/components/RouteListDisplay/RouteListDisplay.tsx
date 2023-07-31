@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import { selectProgress, incrementProgress, decrementProgress } from '../../store/progress/progressSlice';
+import { selectProgress, incrementProgress, decrementProgress } from '../../store/progressSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../../store';
-import { selectRouteById } from '../../store/routes/routesSlice';
-import { selectThingsForGame } from '../../store/things/thingsSlice';
+import { selectRouteById } from '../../store/routesSlice';
+import { selectThingsForGame } from '../../store/thingsSlice';
 import './RouteListDisplay.scss'; // Assuming you have a corresponding CSS file
 
 const RouteListDisplay: React.FC = () => {

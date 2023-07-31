@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectRouteById } from "../../store/routes/routesSlice";
-import { selectProgress } from "../../store/progress/progressSlice";
+import { selectRouteById } from "../../store/routesSlice";
+import { selectProgress } from "../../store/progressSlice";
 import { RootState } from "../../store";
-import { selectThingsForGame } from "../../store/things/thingsSlice";
+import { selectThingsForGame } from "../../store/thingsSlice";
 import PolylineWithArrow from './PolylineWithArrow';
 
 const RouteLines: React.FC = () => {

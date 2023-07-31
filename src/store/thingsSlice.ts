@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "..";
-import { Thing } from "../../models";
+import { RootState } from ".";
+import { Thing } from "../models";
 
 type ThingsState = {
   things: Record<string, Record<string, Thing>>;

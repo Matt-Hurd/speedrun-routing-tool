@@ -1,7 +1,7 @@
 // progressSlice.ts
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../";
-import { selectRouteById } from "../routes/routesSlice";
+import { RootState } from "./";
+import { selectRouteById } from "./routesSlice";
 
 interface ProgressState {
   gameId: string;

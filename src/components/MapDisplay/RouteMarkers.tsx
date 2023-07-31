@@ -4,8 +4,8 @@ import { getIconForThing } from "./utilities";
 import { Thing, Branch } from "../../models";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { selectThingsForGame } from "../../store/things/thingsSlice";
-import { selectProgress } from "../../store/progress/progressSlice";
+import { selectThingsForGame } from "../../store/thingsSlice";
+import { selectProgress } from "../../store/progressSlice";
 
 import './popup.css';
 
