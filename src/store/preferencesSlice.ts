@@ -5,10 +5,12 @@ interface UserPreferencesState {
   hideCompletedMarkers: boolean;
 }
 
-const savedState = StorageManager.getItem('userPreferences');
-const initialState: UserPreferencesState = savedState ? JSON.parse(savedState) : {
-  hideCompletedMarkers: true,
-};
+const savedState = StorageManager.getItem("userPreferences");
+const initialState: UserPreferencesState = savedState
+  ? JSON.parse(savedState)
+  : {
+      hideCompletedMarkers: true,
+    };
 
 const userPreferencesSlice = createSlice({
   name: "userPreferences",
@@ -23,7 +25,6 @@ const userPreferencesSlice = createSlice({
   },
 });
 
-export const { toggleHideCompletedMarkers, setHideCompletedMarkers } =
-  userPreferencesSlice.actions;
+export const { toggleHideCompletedMarkers, setHideCompletedMarkers } = userPreferencesSlice.actions;
 
 export default userPreferencesSlice.reducer;
