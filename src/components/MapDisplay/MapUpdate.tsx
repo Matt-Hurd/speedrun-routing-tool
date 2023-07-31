@@ -3,8 +3,8 @@ import { Point } from "../../models";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import { selectThingsForGame } from "../../store/things/thingsSlice";
-import { selectProgress } from "../../store/progress/progressSlice";
+import { selectThingsForGame } from "../../store/thingsSlice";
+import { selectProgress } from "../../store/progressSlice";
 
 interface MapUpdateProps {
   activePoint: Point;
@@ -21,8 +21,8 @@ export const MapUpdate: React.FC<MapUpdateProps> = ({ activePoint }) => {
 
   useEffect(() => {
     map.setView([
-      -things[activePoint.thingId].coordinates.x,
-      things[activePoint.thingId].coordinates.y,
+      -things[activePoint.layerId][activePoint.thingId].coordinates.x,
+      things[activePoint.layerId][activePoint.thingId].coordinates.y,
     ]);
   }, [activePoint, map, things]);
 

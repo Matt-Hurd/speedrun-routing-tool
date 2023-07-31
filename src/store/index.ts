@@ -1,9 +1,11 @@
 import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit';
-import routesReducer from './routes/routesSlice';
-import gamesReducer from './games/gamesSlice';
-import thingsReducer from './things/thingsSlice';
-import progressReducer from './progress/progressSlice';
-import userPreferencesReducer from './preferences/preferencesSlice';
+import routesReducer from './routesSlice';
+import gamesReducer from './gamesSlice';
+import thingsReducer from './thingsSlice';
+import progressReducer from './progressSlice';
+import userPreferencesReducer from './preferencesSlice';
+import notesReducer from './notesSlice';
+import StorageManager from '../utils/StorageManager';
 
 export const store = configureStore({
   reducer: {
@@ -12,11 +14,12 @@ export const store = configureStore({
     games: gamesReducer,
     things: thingsReducer,
     userPreferences: userPreferencesReducer,
+    notes: notesReducer,
   },
 });
 
 store.subscribe(() => {
-  localStorage.setItem('userPreferences', JSON.stringify(store.getState().userPreferences));
+  StorageManager.setItem('userPreferences', JSON.stringify(store.getState().userPreferences));
 });
 
 export type RootState = ReturnType<typeof store.getState>;

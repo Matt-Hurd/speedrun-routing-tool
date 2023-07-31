@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectRouteById } from "../../store/routes/routesSlice";
-import { selectProgress } from "../../store/progress/progressSlice";
+import { selectRouteById } from "../../store/routesSlice";
+import { selectProgress } from "../../store/progressSlice";
 import { RootState } from "../../store";
-import { selectThingsForGame } from "../../store/things/thingsSlice";
+import { selectThingsForGame } from "../../store/thingsSlice";
 import PolylineWithArrow from './PolylineWithArrow';
 
 const RouteLines: React.FC = () => {
@@ -21,15 +21,14 @@ const RouteLines: React.FC = () => {
   if (!route) return null;
 
   const polylines = [];
-  let visibleLayerId = things[route.branches[branchIndex].points[pointIndex].thingId].layerId
+  let visibleLayerId = route.branches[branchIndex].points[pointIndex].layerId
   let lastLayerId = null;
   let lastPosition = null;
 
-  // Get the last point of the previous branch if it exists
   if (branchIndex > 0 && pointIndex === 0) {
     const previousBranch = route.branches[branchIndex - 1];
     const lastPointOfPreviousBranch = previousBranch.points[previousBranch.points.length - 1];
-    const lastThingOfPreviousBranch = things[lastPointOfPreviousBranch.thingId];
+    const lastThingOfPreviousBranch = things[lastPointOfPreviousBranch.layerId][lastPointOfPreviousBranch.thingId];
     if (lastThingOfPreviousBranch) {
       lastLayerId = lastThingOfPreviousBranch.layerId;
       lastPosition = [-lastThingOfPreviousBranch.coordinates.x, lastThingOfPreviousBranch.coordinates.y];
@@ -38,9 +37,9 @@ const RouteLines: React.FC = () => {
 
   const activeBranch = route.branches[branchIndex];
 
-  for (let i = hideCompletedMarkers ? pointIndex : 0; i < activeBranch.points.length; i++) {
-    const thingId = activeBranch.points[i].thingId;
-    const thing = things[thingId];
+  for (let i = hideCompletedMarkers ? Math.max(0, pointIndex - 1) : 0; i < activeBranch.points.length; i++) {
+    const point = activeBranch.points[i];
+    const thing = things[point.layerId][point.thingId];
 
     if (!thing) continue;
 
@@ -57,11 +56,10 @@ const RouteLines: React.FC = () => {
     lastLayerId = thing.layerId;
   }
 
-  // Get the first point of the next branch if it exists
   if (branchIndex < route.branches.length - 1) {
     const nextBranch = route.branches[branchIndex + 1];
     const firstPointOfNextBranch = nextBranch.points[0];
-    const firstThingOfNextBranch = things[firstPointOfNextBranch.thingId];
+    const firstThingOfNextBranch = things[firstPointOfNextBranch.layerId][firstPointOfNextBranch.thingId];
     if (firstThingOfNextBranch) {
       if (firstThingOfNextBranch.layerId === visibleLayerId && lastPosition !== null) {
         const position = [-firstThingOfNextBranch.coordinates.x, firstThingOfNextBranch.coordinates.y];

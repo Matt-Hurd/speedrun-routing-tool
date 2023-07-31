@@ -3,11 +3,11 @@ import "leaflet/dist/leaflet.css";
 import "./leaflet_tile_workaround.js";
 import { ImageOverlay, MapContainer, Pane } from "react-leaflet";
 import { useSelector } from "react-redux";
-import { selectRouteById } from "../../store/routes/routesSlice";
-import { selectProgress } from "../../store/progress/progressSlice";
+import { selectRouteById } from "../../store/routesSlice";
+import { selectProgress } from "../../store/progressSlice";
 import { RootState } from "../../store";
-import { selectGameById } from "../../store/games/gamesSlice";
-import { selectThingsForGame } from "../../store/things/thingsSlice";
+import { selectGameById } from "../../store/gamesSlice";
+import { selectThingsForGame } from "../../store/thingsSlice";
 import { RouteMarkers } from './RouteMarkers';
 import { MapUpdate } from './MapUpdate';
 import { MapEvents } from './MapEvents';
@@ -45,13 +45,14 @@ const MapDisplay: React.FC = () => {
       maxZoom={7}
       minZoom={-5}
       crs={crs}
+      keyboard={false}
     >
-      <RouteMarkers branch={route.branches[branchIndex]} activeThing={things[activePoint.thingId]} />
+      <RouteMarkers branch={route.branches[branchIndex]} activeThing={things[activePoint.layerId][activePoint.thingId]} />
       <RouteLines />
       <MapUpdate activePoint={activePoint} />
       <Pane name="bg" style={{ zIndex: 0 }}>
       <ImageOverlay
-          url={game.layers[things[activePoint.thingId].layerId].baseImagePath}
+          url={process.env.PUBLIC_URL + game.layers[activePoint.layerId].baseImagePath}
           bounds={outerBounds}
         />
       </Pane>
