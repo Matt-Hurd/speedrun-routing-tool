@@ -9,6 +9,7 @@ export default class Branch {
   constructor(
     name: string) {
 
+      
     this.name = name;
     this.points = [];
   }
