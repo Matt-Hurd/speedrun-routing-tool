@@ -6,8 +6,17 @@ export default class Branch {
   htmlNote: string = "";
   points: Point[];
 
-  constructor(name: string) {
+  constructor(
+    
+    
+    name: string) {
     this.name = name;
     this.points = [];
   }
+
+
+
 }
+
+
+
