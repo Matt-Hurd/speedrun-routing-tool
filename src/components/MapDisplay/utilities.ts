@@ -37,14 +37,17 @@ const potentialIcons = [
   "x",
 ];
 
-const icons = potentialIcons.reduce((accum, obj) => {
-  accum[obj] = L.icon({
-    iconUrl: process.env.PUBLIC_URL + "/assets/images/route_icons/" + obj + ".png",
-    iconSize: [40, 40],
-    iconAnchor: [20, 20],
-  });
-  return accum;
-}, {} as Record<string, L.Icon>);
+const icons = potentialIcons.reduce(
+  (accum, obj) => {
+    accum[obj] = L.icon({
+      iconUrl: process.env.PUBLIC_URL + "/assets/images/route_icons/" + obj + ".png",
+      iconSize: [40, 40],
+      iconAnchor: [20, 20],
+    });
+    return accum;
+  },
+  {} as Record<string, L.Icon>,
+);
 
 const defaultIcon = L.icon({
   iconUrl: process.env.PUBLIC_URL + "/assets/images/route_icons/blank.png",

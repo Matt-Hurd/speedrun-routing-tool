@@ -12,12 +12,8 @@ const ProgressDisplay: React.FC = () => {
   const progress = useSelector(selectProgress);
   const { gameId, routeId, pointIndex, branchIndex } = progress;
 
-  const route = useSelector((state: RootState) =>
-    selectRouteById(state, gameId, routeId)
-  );
-  const things = useSelector((state: RootState) =>
-    selectThingsForGame(state, gameId)
-  );
+  const route = useSelector((state: RootState) => selectRouteById(state, gameId, routeId));
+  const things = useSelector((state: RootState) => selectThingsForGame(state, gameId));
 
   const [counts, setCounts] = useState<{ [type: string]: number }>({
     Korok: 0,
@@ -55,8 +51,7 @@ const ProgressDisplay: React.FC = () => {
             if (type === "Korok") {
               const k = things[point.layerId][point.thingId] as Korok;
               if (k.korokType === "Korok Friends") newCounts[type] += 2;
-              else if (k.korokType !== "" && k.korokType !== undefined)
-                newCounts[type]++;
+              else if (k.korokType !== "" && k.korokType !== undefined) newCounts[type]++;
             } else {
               newCounts[type]++;
             }
@@ -133,9 +128,7 @@ const ProgressDisplay: React.FC = () => {
           }}
         >
           <img
-            src={
-              process.env.PUBLIC_URL + "/assets/images/route_icons/shrine.png"
-            }
+            src={process.env.PUBLIC_URL + "/assets/images/route_icons/shrine.png"}
             alt="Shrines"
             style={{ width: "40px", height: "40px", paddingRight: "5px" }}
           />{" "}
@@ -150,10 +143,7 @@ const ProgressDisplay: React.FC = () => {
           }}
         >
           <img
-            src={
-              process.env.PUBLIC_URL +
-              "/assets/images/route_icons/lightroot.png"
-            }
+            src={process.env.PUBLIC_URL + "/assets/images/route_icons/lightroot.png"}
             alt="Lightroots"
             style={{ width: "40px", height: "40px", paddingRight: "5px" }}
           />{" "}
@@ -168,9 +158,7 @@ const ProgressDisplay: React.FC = () => {
           }}
         >
           <img
-            src={
-              process.env.PUBLIC_URL + "/assets/images/route_icons/korok.png"
-            }
+            src={process.env.PUBLIC_URL + "/assets/images/route_icons/korok.png"}
             alt="Koroks"
             style={{ width: "40px", height: "40px", paddingRight: "5px" }}
           />{" "}
@@ -185,10 +173,7 @@ const ProgressDisplay: React.FC = () => {
           }}
         >
           <img
-            src={
-              process.env.PUBLIC_URL +
-              "/assets/images/route_icons/bubbulfrog.png"
-            }
+            src={process.env.PUBLIC_URL + "/assets/images/route_icons/bubbulfrog.png"}
             alt="Bubbulgems"
             style={{ width: "40px", height: "40px", paddingRight: "5px" }}
           />{" "}

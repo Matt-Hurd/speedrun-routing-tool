@@ -3,10 +3,7 @@ import { useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet-polylinedecorator";
 
-const PolylineWithArrow: React.FC<{ positions: any; color: string }> = ({
-  positions,
-  color,
-}) => {
+const PolylineWithArrow: React.FC<{ positions: any; color: string }> = ({ positions, color }) => {
   const map = useMap();
 
   useEffect(() => {

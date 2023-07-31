@@ -2,10 +2,10 @@
 
 ## Map Keyboard Configuration
 
-* `Arrow Right` - Progress the map forward by one.
-* `Arrow Left` - Undo the progress by one.
-* `CTRL + SHIFT + Arrow Right` - Progress the map forward by a full branch.
-* `CTRL + SHIFT + Arrow Left` - Undo the progress by a full branch.
+- `Arrow Right` - Progress the map forward by one.
+- `Arrow Left` - Undo the progress by one.
+- `CTRL + SHIFT + Arrow Right` - Progress the map forward by a full branch.
+- `CTRL + SHIFT + Arrow Left` - Undo the progress by a full branch.
 
 ## Table of Contents
 

@@ -1,4 +1,4 @@
-import { RootState } from '.'
+import { RootState } from ".";
 
 export const selectCurrentRoute = (state: RootState) =>
   state.routes.routes[state.progress.gameId][state.progress.routeId];

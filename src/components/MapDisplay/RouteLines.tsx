@@ -1,27 +1,23 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React from "react";
+import { useSelector } from "react-redux";
 import { selectRouteById } from "../../store/routesSlice";
 import { selectProgress } from "../../store/progressSlice";
 import { RootState } from "../../store";
 import { selectThingsForGame } from "../../store/thingsSlice";
-import PolylineWithArrow from './PolylineWithArrow';
+import PolylineWithArrow from "./PolylineWithArrow";
 
 const RouteLines: React.FC = () => {
   const progress = useSelector(selectProgress);
   const hideCompletedMarkers = useSelector((state: RootState) => state.userPreferences.hideCompletedMarkers);
   const { gameId, routeId, branchIndex, pointIndex } = progress;
 
-  const route = useSelector((state: RootState) =>
-    selectRouteById(state, gameId, routeId)
-  );
-  const things = useSelector((state: RootState) =>
-    selectThingsForGame(state, gameId)
-  );
+  const route = useSelector((state: RootState) => selectRouteById(state, gameId, routeId));
+  const things = useSelector((state: RootState) => selectThingsForGame(state, gameId));
 
   if (!route) return null;
 
   const polylines = [];
-  let visibleLayerId = route.branches[branchIndex].points[pointIndex].layerId
+  let visibleLayerId = route.branches[branchIndex].points[pointIndex].layerId;
   let lastLayerId = null;
   let lastPosition = null;
 
@@ -49,9 +45,11 @@ const RouteLines: React.FC = () => {
 
     if ((thing.layerId === visibleLayerId || lastLayerId === visibleLayerId) && lastPosition !== null) {
       const position = [-thing.coordinates.x, thing.coordinates.y];
-      polylines.push(<PolylineWithArrow key={`polyline-${polylines.length}`} positions={[lastPosition, position]} color="blue" />);
-    } 
-    
+      polylines.push(
+        <PolylineWithArrow key={`polyline-${polylines.length}`} positions={[lastPosition, position]} color="blue" />,
+      );
+    }
+
     lastPosition = [-thing.coordinates.x, thing.coordinates.y];
     lastLayerId = thing.layerId;
   }
@@ -63,7 +61,9 @@ const RouteLines: React.FC = () => {
     if (firstThingOfNextBranch) {
       if (firstThingOfNextBranch.layerId === visibleLayerId && lastPosition !== null) {
         const position = [-firstThingOfNextBranch.coordinates.x, firstThingOfNextBranch.coordinates.y];
-        polylines.push(<PolylineWithArrow key={`polyline-${polylines.length}`} positions={[lastPosition, position]} color="blue" />);
+        polylines.push(
+          <PolylineWithArrow key={`polyline-${polylines.length}`} positions={[lastPosition, position]} color="blue" />,
+        );
       }
     }
   }

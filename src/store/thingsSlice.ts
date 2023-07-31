@@ -4,7 +4,7 @@ import { Thing } from "../models";
 
 type ThingsState = {
   things: Record<string, Record<string, Record<string, Thing>>>;
-  status: "idle" | "loading" | 'succeeded' | "failed";
+  status: "idle" | "loading" | "succeeded" | "failed";
 };
 
 const initialState: ThingsState = {
@@ -78,7 +78,7 @@ export const thingsSlice = createSlice({
 export const selectThingsForGame = (state: RootState, gameId: string) => state.things.things[gameId] || {};
 export const selectThingById = (state: RootState, gameId: string, thingId: string) =>
   state.things.things[gameId]?.[thingId];
-  
+
 export const selectThingsStatus = (state: RootState) => state.things.status;
 
 export default thingsSlice.reducer;

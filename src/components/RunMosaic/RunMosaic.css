@@ -1,4 +1,7 @@
-html, body, #root, .run-mosaic {
+html,
+body,
+#root,
+.run-mosaic {
   margin: 0;
   height: 100%;
   width: 100%;
