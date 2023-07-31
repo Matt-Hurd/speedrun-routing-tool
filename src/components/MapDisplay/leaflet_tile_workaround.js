@@ -1,5 +1,5 @@
 /* eslint-disable */
-import L from 'leaflet';
+import L from "leaflet";
 // https://github.com/Leaflet/Leaflet.TileLayer.NoGap
 // "THE BEER-WARE LICENSE":
 // <ivan@sanchezortega.es> wrote this file. As long as you retain this notice you
@@ -20,32 +20,27 @@ L.TileLayer.mergeOptions({
 });
 
 L.TileLayer.include({
-  _onUpdateLevel: function(z, zoom) {
+  _onUpdateLevel: function (z, zoom) {
     if (this.options.dumpToCanvas) {
-      this._levels[z].canvas.style.zIndex =
-        this.options.maxZoom - Math.abs(zoom - z);
+      this._levels[z].canvas.style.zIndex = this.options.maxZoom - Math.abs(zoom - z);
     }
   },
 
-  _onRemoveLevel: function(z) {
+  _onRemoveLevel: function (z) {
     if (this.options.dumpToCanvas) {
       L.DomUtil.remove(this._levels[z].canvas);
     }
   },
 
-  _onCreateLevel: function(level) {
+  _onCreateLevel: function (level) {
     if (this.options.dumpToCanvas) {
-      level.canvas = L.DomUtil.create(
-        "canvas",
-        "leaflet-tile-container leaflet-zoom-animated",
-        this._container
-      );
+      level.canvas = L.DomUtil.create("canvas", "leaflet-tile-container leaflet-zoom-animated", this._container);
       level.ctx = level.canvas.getContext("2d");
       this._resetCanvasSize(level);
     }
   },
 
-  _removeTile: function(key) {
+  _removeTile: function (key) {
     if (this.options.dumpToCanvas) {
       var tile = this._tiles[key];
       var level = this._levels[tile.coords.z];
@@ -53,9 +48,7 @@ L.TileLayer.include({
 
       if (level) {
         // Where in the canvas should this tile go?
-        var offset = L.point(tile.coords.x, tile.coords.y)
-          .subtract(level.canvasRange.min)
-          .scaleBy(this.getTileSize());
+        var offset = L.point(tile.coords.x, tile.coords.y).subtract(level.canvasRange.min).scaleBy(this.getTileSize());
 
         level.ctx.clearRect(offset.x, offset.y, tileSize.x, tileSize.y);
       }
@@ -64,7 +57,7 @@ L.TileLayer.include({
     L.GridLayer.prototype._removeTile.call(this, key);
   },
 
-  _resetCanvasSize: function(level) {
+  _resetCanvasSize: function (level) {
     var buff = this.options.keepBuffer,
       pixelBounds = this._getTiledPixelBounds(this._map.getCenter()),
       tileRange = this._pxBoundsToTileRange(pixelBounds),
@@ -75,16 +68,13 @@ L.TileLayer.include({
 
     var pixelRange = L.bounds(
         tileRange.min.scaleBy(tileSize),
-        tileRange.max.add([1, 1]).scaleBy(tileSize) // This prevents an off-by-one when checking if tiles are inside
+        tileRange.max.add([1, 1]).scaleBy(tileSize), // This prevents an off-by-one when checking if tiles are inside
       ),
       mustRepositionCanvas = false,
       neededSize = pixelRange.max.subtract(pixelRange.min);
 
     // Resize the canvas, if needed, and only to make it bigger.
-    if (
-      neededSize.x > level.canvas.width ||
-      neededSize.y > level.canvas.height
-    ) {
+    if (neededSize.x > level.canvas.width || neededSize.y > level.canvas.height) {
       // Resizing canvases erases the currently drawn content, I'm afraid.
       // To keep it, dump the pixels to another canvas, then display it on
       // top. This could be done with getImageData/putImageData, but that
@@ -106,9 +96,7 @@ L.TileLayer.include({
 
     // Translate the canvas contents if it's moved around
     if (level.canvasRange) {
-      var offset = level.canvasRange.min
-        .subtract(tileRange.min)
-        .scaleBy(this.getTileSize());
+      var offset = level.canvasRange.min.subtract(tileRange.min).scaleBy(this.getTileSize());
 
       //      console.info('Offsetting by ', offset);
 
@@ -128,12 +116,7 @@ L.TileLayer.include({
           t.height = level.canvas.height;
           this._tmpContext = t.getContext("2d");
         }
-        this._tmpContext.clearRect(
-          0,
-          0,
-          level.canvas.width,
-          level.canvas.height
-        );
+        this._tmpContext.clearRect(0, 0, level.canvas.width, level.canvas.height);
         this._tmpContext.drawImage(level.canvas, 0, 0);
         level.ctx.clearRect(0, 0, level.canvas.width, level.canvas.height);
         level.ctx.drawImage(this._tmpCanvas, offset.x, offset.y);
@@ -151,16 +134,12 @@ L.TileLayer.include({
     // console.log('Level origin: ', level.origin );
 
     if (mustRepositionCanvas) {
-      this._setCanvasZoomTransform(
-        level,
-        this._map.getCenter(),
-        this._map.getZoom()
-      );
+      this._setCanvasZoomTransform(level, this._map.getCenter(), this._map.getZoom());
     }
   },
 
   /// set transform/position of canvas, in addition to the transform/position of the individual tile container
-  _setZoomTransform: function(level, center, zoom) {
+  _setZoomTransform: function (level, center, zoom) {
     L.GridLayer.prototype._setZoomTransform.call(this, level, center, zoom);
     if (this.options.dumpToCanvas) {
       this._setCanvasZoomTransform(level, center, zoom);
@@ -170,16 +149,13 @@ L.TileLayer.include({
   // This will get called twice:
   // * From _setZoomTransform
   // * When the canvas has shifted due to a new tile being loaded
-  _setCanvasZoomTransform: function(level, center, zoom) {
+  _setCanvasZoomTransform: function (level, center, zoom) {
     // console.log('_setCanvasZoomTransform', level, center, zoom);
     if (!level.canvasOrigin) {
       return;
     }
     var scale = this._map.getZoomScale(zoom, level.zoom),
-      translate = level.canvasOrigin
-        .multiplyBy(scale)
-        .subtract(this._map._getNewPixelOrigin(center, zoom))
-        .round();
+      translate = level.canvasOrigin.multiplyBy(scale).subtract(this._map._getNewPixelOrigin(center, zoom)).round();
 
     if (L.Browser.any3d) {
       L.DomUtil.setTransform(level.canvas, translate, scale);
@@ -188,7 +164,7 @@ L.TileLayer.include({
     }
   },
 
-  _onOpaqueTile: function(tile) {
+  _onOpaqueTile: function (tile) {
     if (!this.options.dumpToCanvas) {
       return;
     }
@@ -209,7 +185,7 @@ L.TileLayer.include({
   // like `{x: Number, y: Number, z: Number}`; the image source must have the
   // same size as the `tileSize` option for the layer. Has no effect if `dumpToCanvas`
   // is `false`.
-  dumpPixels: function(coords, imageSource) {
+  dumpPixels: function (coords, imageSource) {
     var level = this._levels[coords.z],
       tileSize = this.getTileSize();
 
@@ -225,9 +201,7 @@ L.TileLayer.include({
     }
 
     // Where in the canvas should this tile go?
-    var offset = L.point(coords.x, coords.y)
-      .subtract(level.canvasRange.min)
-      .scaleBy(this.getTileSize());
+    var offset = L.point(coords.x, coords.y).subtract(level.canvasRange.min).scaleBy(this.getTileSize());
 
     try {
       level.ctx.drawImage(imageSource, offset.x, offset.y, tileSize.x, tileSize.y);

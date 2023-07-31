@@ -1,15 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  loadGames,
-  selectGames,
-  selectGamesStatus,
-} from "../../store/gamesSlice";
-import {
-  loadRoutes,
-  selectRoutes,
-  selectRoutesStatus,
-} from "../../store/routesSlice";
+import { loadGames, selectGames, selectGamesStatus } from "../../store/gamesSlice";
+import { loadRoutes, selectRoutes, selectRoutesStatus } from "../../store/routesSlice";
 import { AppDispatch, RootState } from "../../store";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -47,7 +39,7 @@ function RouteSelection() {
   return (
     <div>
       <h2>Select a game</h2>
-      {Object.values(games).map(game => (
+      {Object.values(games).map((game) => (
         <button key={game.id} onClick={() => setSelectedGameId(game.id)}>
           {game.name}
         </button>
@@ -55,9 +47,9 @@ function RouteSelection() {
       {selectedGameId && (
         <>
           <h2>Select a route</h2>
-          {routesStatus === 'loading' && <div>Loading routes...</div>}
-          {routesStatus === 'failed' && <div>Error loading routes</div>}
-          {Object.values(allRoutes[selectedGameId]).map(route => (
+          {routesStatus === "loading" && <div>Loading routes...</div>}
+          {routesStatus === "failed" && <div>Error loading routes</div>}
+          {Object.values(allRoutes[selectedGameId]).map((route) => (
             <Link key={route.id} to={`/${selectedGameId}/${route.id}`}>
               {route.name}
             </Link>

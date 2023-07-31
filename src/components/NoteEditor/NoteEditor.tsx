@@ -18,7 +18,7 @@ const modules = {
     ],
     handlers: {
       image: function () {},
-    }
+    },
   },
 };
 
@@ -38,7 +38,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ notes, onNotesChange }) => {
       const range = editor.getSelection();
       editor.insertEmbed(range!.index, "image", url);
     },
-    [quillRef]
+    [quillRef],
   );
 
   const selectLocalImage = useCallback(() => {
@@ -56,13 +56,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ notes, onNotesChange }) => {
   }, [quillRef, selectLocalImage]);
 
   return (
-    <ReactQuill
-    style={{height:"100%"}}
-      ref={quillRef}
-      modules={modules}
-      value={notes}
-      onChange={onNotesChange}
-    />
+    <ReactQuill style={{ height: "100%" }} ref={quillRef} modules={modules} value={notes} onChange={onNotesChange} />
   );
 };
 

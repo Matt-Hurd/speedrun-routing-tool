@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store';
-import StorageManager from '../utils/StorageManager';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store";
+import StorageManager from "../utils/StorageManager";
 
 interface NoteState {
   pointNotes: Record<string, string>;
@@ -8,30 +8,33 @@ interface NoteState {
 }
 
 const initialState: NoteState = {
-  pointNotes: StorageManager.getItem('pointNotes') || {},
-  branchNotes: StorageManager.getItem('branchNotes') || {},
+  pointNotes: StorageManager.getItem("pointNotes") || {},
+  branchNotes: StorageManager.getItem("branchNotes") || {},
 };
 
 export const noteSlice = createSlice({
-  name: 'notes',
+  name: "notes",
   initialState,
   reducers: {
     updatePointNote: (state, action: PayloadAction<{ pointId: string; note: string }>) => {
       const { pointId, note } = action.payload;
       state.pointNotes[pointId] = note;
-      StorageManager.setItem('pointNotes', state.pointNotes);
+      StorageManager.setItem("pointNotes", state.pointNotes);
     },
     updateBranchNote: (state, action: PayloadAction<{ branchId: string; note: string }>) => {
       const { branchId, note } = action.payload;
       state.branchNotes[branchId] = note;
-      StorageManager.setItem('branchNotes', state.branchNotes);
+      StorageManager.setItem("branchNotes", state.branchNotes);
     },
-    importNotes: (state, action: PayloadAction<{ pointNotes: Record<string, string>; branchNotes: Record<string, string> }>) => {
+    importNotes: (
+      state,
+      action: PayloadAction<{ pointNotes: Record<string, string>; branchNotes: Record<string, string> }>,
+    ) => {
       const { pointNotes, branchNotes } = action.payload;
       state.pointNotes = pointNotes;
       state.branchNotes = branchNotes;
-      StorageManager.setItem('pointNotes', pointNotes);
-      StorageManager.setItem('branchNotes', branchNotes);
+      StorageManager.setItem("pointNotes", pointNotes);
+      StorageManager.setItem("branchNotes", branchNotes);
     },
   },
 });

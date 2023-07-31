@@ -8,11 +8,11 @@ import { selectProgress } from "../../store/progressSlice";
 import { RootState } from "../../store";
 import { selectGameById } from "../../store/gamesSlice";
 import { selectThingsForGame } from "../../store/thingsSlice";
-import { RouteMarkers } from './RouteMarkers';
-import { MapUpdate } from './MapUpdate';
-import { MapEvents } from './MapEvents';
-import RouteLines from './RouteLines';
-import { outerBounds, crs } from './mapConstants';
+import { RouteMarkers } from "./RouteMarkers";
+import { MapUpdate } from "./MapUpdate";
+import { MapEvents } from "./MapEvents";
+import RouteLines from "./RouteLines";
+import { outerBounds, crs } from "./mapConstants";
 
 import "./leaflet_tile_workaround.js";
 
@@ -21,14 +21,10 @@ const MapDisplay: React.FC = () => {
 
   const { gameId, routeId, pointIndex, branchIndex } = progress;
 
-  const route = useSelector((state: RootState) =>
-    selectRouteById(state, gameId, routeId)
-  );
+  const route = useSelector((state: RootState) => selectRouteById(state, gameId, routeId));
   const game = useSelector((state: RootState) => selectGameById(state, gameId));
   const activePoint = route.branches[branchIndex].points[pointIndex];
-  const things = useSelector((state: RootState) =>
-    selectThingsForGame(state, gameId)
-  );
+  const things = useSelector((state: RootState) => selectThingsForGame(state, gameId));
 
   if (!route) return null;
 
@@ -38,20 +34,15 @@ const MapDisplay: React.FC = () => {
   };
 
   return (
-    <MapContainer
-      style={style}
-      bounds={outerBounds}
-      zoom={0}
-      maxZoom={7}
-      minZoom={-5}
-      crs={crs}
-      keyboard={false}
-    >
-      <RouteMarkers branch={route.branches[branchIndex]} activeThing={things[activePoint.layerId][activePoint.thingId]} />
+    <MapContainer style={style} bounds={outerBounds} zoom={0} maxZoom={7} minZoom={-5} crs={crs} keyboard={false}>
+      <RouteMarkers
+        branch={route.branches[branchIndex]}
+        activeThing={things[activePoint.layerId][activePoint.thingId]}
+      />
       <RouteLines />
       <MapUpdate activePoint={activePoint} />
       <Pane name="bg" style={{ zIndex: 0 }}>
-      <ImageOverlay
+        <ImageOverlay
           url={process.env.PUBLIC_URL + game.layers[activePoint.layerId].baseImagePath}
           bounds={outerBounds}
         />

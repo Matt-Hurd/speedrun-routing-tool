@@ -4,7 +4,7 @@ import { Route } from "../models";
 
 type RoutesState = {
   routes: Record<string, Record<string, Route>>;
-  status: "idle" | "loading" | 'succeeded' | "failed";
+  status: "idle" | "loading" | "succeeded" | "failed";
 };
 
 const initialState: RoutesState = {
@@ -30,10 +30,13 @@ export const routesSlice = createSlice({
       .addCase(loadRoutes.fulfilled, (state, action: PayloadAction<{ gameId: string; routes: Route[] }>) => {
         state.status = "succeeded";
         const { gameId, routes } = action.payload;
-        state.routes[gameId] = routes.reduce((accum, route) => {
-          accum[route.id] = route;
-          return accum;
-        }, {} as Record<string, Route>);
+        state.routes[gameId] = routes.reduce(
+          (accum, route) => {
+            accum[route.id] = route;
+            return accum;
+          },
+          {} as Record<string, Route>,
+        );
       })
       .addCase(loadRoutes.rejected, (state) => {
         state.status = "failed";

@@ -4,7 +4,7 @@ import { Game } from "../models";
 
 type GamesState = {
   games: Record<string, Game>;
-  status: "idle" | "loading" | 'succeeded' | "failed";
+  status: "idle" | "loading" | "succeeded" | "failed";
 };
 
 const initialState: GamesState = {
@@ -40,8 +40,7 @@ export const gamesSlice = createSlice({
 });
 
 export const selectGames = (state: RootState) => state.games.games;
-export const selectGameById = (state: RootState, gameId: string) =>
-  state.games.games[gameId];
+export const selectGameById = (state: RootState, gameId: string) => state.games.games[gameId];
 
 export const selectGamesStatus = (state: RootState) => state.games.status;
 

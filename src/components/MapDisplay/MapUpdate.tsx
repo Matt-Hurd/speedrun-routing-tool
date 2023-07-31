@@ -15,9 +15,7 @@ export const MapUpdate: React.FC<MapUpdateProps> = ({ activePoint }) => {
 
   const { gameId } = progress;
   const map = useMap();
-  const things = useSelector((state: RootState) =>
-    selectThingsForGame(state, gameId)
-  );
+  const things = useSelector((state: RootState) => selectThingsForGame(state, gameId));
 
   useEffect(() => {
     map.setView([

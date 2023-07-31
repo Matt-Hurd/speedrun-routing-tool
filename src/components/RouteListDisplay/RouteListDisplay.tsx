@@ -1,18 +1,18 @@
-import React, { useEffect, useRef } from 'react';
-import { selectProgress } from '../../store/progressSlice';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../store';
-import { selectRouteById } from '../../store/routesSlice';
-import { selectThingsForGame } from '../../store/thingsSlice';
-import './RouteListDisplay.scss';
-import { Korok, Point } from '../../models';
+import React, { useEffect, useRef } from "react";
+import { selectProgress } from "../../store/progressSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
+import { selectRouteById } from "../../store/routesSlice";
+import { selectThingsForGame } from "../../store/thingsSlice";
+import "./RouteListDisplay.scss";
+import { Korok, Point } from "../../models";
 
 const RouteListDisplay: React.FC = () => {
   const progress = useSelector(selectProgress);
 
   const route = useSelector((state: RootState) => selectRouteById(state, progress.gameId, progress.routeId));
   const things = useSelector((state: RootState) => selectThingsForGame(state, progress.gameId));
-  
+
   const activePointRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -20,16 +20,15 @@ const RouteListDisplay: React.FC = () => {
   }, [progress]);
 
   const getNote = (point: Point) => {
-    if (point.shortNote !== "")
-      return point.shortNote
-    const thing = things[point.layerId][point.thingId]
-    if (thing.type === "Korok"){
-      const korok = thing as Korok
-      return korok.korokType
+    if (point.shortNote !== "") return point.shortNote;
+    const thing = things[point.layerId][point.thingId];
+    if (thing.type === "Korok") {
+      const korok = thing as Korok;
+      return korok.korokType;
     }
-    return ""
-  }
-  
+    return "";
+  };
+
   return (
     <div className="routeList">
       {route.branches.map((branch, branchIndex) => (
@@ -38,8 +37,12 @@ const RouteListDisplay: React.FC = () => {
             <strong>{branch.name}</strong>
           </div>
           {branch.points.map((point, pointIndex) => (
-            <div 
-              className={`routeList__point ${branchIndex === progress.branchIndex && pointIndex === progress.pointIndex ? 'routeList__point--active' : ''}`} 
+            <div
+              className={`routeList__point ${
+                branchIndex === progress.branchIndex && pointIndex === progress.pointIndex
+                  ? "routeList__point--active"
+                  : ""
+              }`}
               key={branchIndex + "_" + pointIndex}
               ref={branchIndex === progress.branchIndex && pointIndex === progress.pointIndex ? activePointRef : null}
             >
@@ -53,6 +56,5 @@ const RouteListDisplay: React.FC = () => {
     </div>
   );
 };
-
 
 export default RouteListDisplay;

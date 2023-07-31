@@ -10,12 +10,8 @@ const UpcomingDisplay: React.FC = () => {
   const progress = useSelector(selectProgress);
   const { gameId, routeId, pointIndex, branchIndex } = progress;
 
-  const route = useSelector((state: RootState) =>
-    selectRouteById(state, gameId, routeId)
-  );
-  const things = useSelector((state: RootState) =>
-    selectThingsForGame(state, gameId)
-  );
+  const route = useSelector((state: RootState) => selectRouteById(state, gameId, routeId));
+  const things = useSelector((state: RootState) => selectThingsForGame(state, gameId));
 
   const [rockKorokCount, setRockKorokCount] = useState(0);
   const [points, setPoints] = useState(0);
@@ -30,11 +26,7 @@ const UpcomingDisplay: React.FC = () => {
     for (let bidx = branchIndex; bidx < route.branches.length; bidx++) {
       if (provingGroundFound) break;
 
-      for (
-        let pidx = bidx === branchIndex ? pointIndex : 0;
-        pidx < route.branches[bidx].points.length;
-        pidx++
-      ) {
+      for (let pidx = bidx === branchIndex ? pointIndex : 0; pidx < route.branches[bidx].points.length; pidx++) {
         const point = route.branches[bidx].points[pidx];
         const thing = things[point.layerId][point.thingId];
 

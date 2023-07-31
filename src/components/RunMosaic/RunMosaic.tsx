@@ -1,11 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import {
-  Mosaic,
-  MosaicWindow,
-  MosaicBranch,
-  MosaicNode,
-} from "react-mosaic-component";
+import { Mosaic, MosaicWindow, MosaicBranch, MosaicNode } from "react-mosaic-component";
 import "react-mosaic-component/react-mosaic-component.css";
 import "react-mosaic-component/styles/index.less";
 
@@ -13,23 +8,19 @@ import MapDisplay from "../MapDisplay/MapDisplay";
 import ProgressDisplay from "../ProgressDisplay/ProgressDisplay";
 import RouteListDisplay from "../RouteListDisplay/RouteListDisplay";
 import { useAppDispatch, useAppSelector } from "../../hooks";
-import {
-  setRouteId,
-  selectProgress,
-  setGameId,
-} from "../../store/progressSlice";
+import { setRouteId, selectProgress, setGameId } from "../../store/progressSlice";
 
-import './RunMosaic.css'
-import { loadGames, selectGamesStatus } from '../../store/gamesSlice';
-import { loadRoutes, selectRoutesStatus } from '../../store/routesSlice';
-import { useSelector } from 'react-redux';
-import { loadThings, selectThingsStatus } from '../../store/thingsSlice';
-import BranchNotesDisplay from '../BranchNotesDisplay/BranchNotesDisplay';
-import PointNotesDisplay from '../PointNotesDisplay/PointNotesDisplay';
-import { incrementProgress, decrementProgress, incrementSection, decrementSection } from '../../store/progressSlice';
+import "./RunMosaic.css";
+import { loadGames, selectGamesStatus } from "../../store/gamesSlice";
+import { loadRoutes, selectRoutesStatus } from "../../store/routesSlice";
+import { useSelector } from "react-redux";
+import { loadThings, selectThingsStatus } from "../../store/thingsSlice";
+import BranchNotesDisplay from "../BranchNotesDisplay/BranchNotesDisplay";
+import PointNotesDisplay from "../PointNotesDisplay/PointNotesDisplay";
+import { incrementProgress, decrementProgress, incrementSection, decrementSection } from "../../store/progressSlice";
 
-import '@blueprintjs/core/lib/css/blueprint.css';
-import '@blueprintjs/icons/lib/css/blueprint-icons.css';
+import "@blueprintjs/core/lib/css/blueprint.css";
+import "@blueprintjs/icons/lib/css/blueprint-icons.css";
 
 import "@blueprintjs/core/lib/css/blueprint.css";
 import "@blueprintjs/icons/lib/css/blueprint-icons.css";
@@ -52,14 +43,14 @@ const RunMosaic: React.FC = () => {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       switch (event.key) {
-        case 'ArrowLeft':
+        case "ArrowLeft":
           if (event.ctrlKey && event.shiftKey) {
             dispatch(decrementSection());
           } else {
             dispatch(decrementProgress());
           }
           break;
-        case 'ArrowRight':
+        case "ArrowRight":
           if (event.ctrlKey && event.shiftKey) {
             dispatch(incrementSection());
           } else {
@@ -179,12 +170,7 @@ const RunMosaic: React.FC = () => {
 
   return (
     <div className="run-mosaic">
-      <Mosaic
-        renderTile={renderWindow}
-        onChange={onChange}
-        initialValue={initialLayout}
-        blueprintNamespace="bp5"
-      />
+      <Mosaic renderTile={renderWindow} onChange={onChange} initialValue={initialLayout} blueprintNamespace="bp5" />
     </div>
   );
 };
