@@ -1,0 +1,61 @@
+.overlay-display {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100px;
+  width: 1700px;
+  font-family: "Courier New", Courier, monospace;
+  background-color: #202020;
+  color: white;
+
+  .progress-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .progress-title {
+      font-size: 2em;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+
+    .progress-container {
+      position: relative;
+      height: 30px;
+      width: 100px;
+      background-color: #555;
+      border-radius: 15px;
+      overflow: hidden;
+      margin-bottom: 5px;
+
+      .progress-bar {
+        height: 100%;
+        background-color: #27ae60;
+      }
+
+      .progress-count {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2em;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .dungeon-status {
+    display: flex;
+    justify-content: space-around;
+    width: 200px;
+
+    img {
+      height: 60px;
+    }
+  }
+}
