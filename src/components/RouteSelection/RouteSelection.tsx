@@ -44,7 +44,6 @@ function RouteSelection() {
     return <div>Loading...</div>;
   }
 
-  // Render dropdown options for each route in each game
   return (
     <div>
       <h2>Select a game</h2>

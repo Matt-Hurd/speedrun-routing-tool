@@ -1,6 +1,6 @@
 export default class Layer {
   name: string;
-  imagePath: string; // Path to the image file for the layer
+  imagePath: string;
   baseImagePath: string;
 
   constructor(name: string, imagePath: string, baseImagePath: string) {

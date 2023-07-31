@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import StorageManager from "../utils/StorageManager";
 
 interface UserPreferencesState {
   hideCompletedMarkers: boolean;
 }
 
-const savedState = localStorage.getItem('userPreferences');
+const savedState = StorageManager.getItem('userPreferences');
 const initialState: UserPreferencesState = savedState ? JSON.parse(savedState) : {
   hideCompletedMarkers: true,
 };

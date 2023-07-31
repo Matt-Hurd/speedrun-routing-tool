@@ -1,6 +1,5 @@
-// progressSlice.ts
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "./";
+import { RootState } from ".";
 import { selectRouteById } from "./routesSlice";
 
 interface ProgressState {
@@ -30,15 +29,12 @@ export const incrementProgress = createAsyncThunk(
         progress.branchIndex < route.branches.length - 1 &&
         progress.pointIndex === route.branches[progress.branchIndex].points.length - 1
       ) {
-        // Move to next branch
         return { ...progress, branchIndex: progress.branchIndex + 1, pointIndex: 0 };
       } else if (progress.pointIndex < route.branches[progress.branchIndex].points.length - 1) {
-        // Move to next point
         return { ...progress, pointIndex: progress.pointIndex + 1 };
       }
     }
 
-    // If no increment is possible, return the current progress
     return progress;
   }
 );
@@ -53,16 +49,13 @@ export const decrementProgress = createAsyncThunk(
       const route = routes.routes[progress.gameId][progress.routeId];
 
       if (progress.branchIndex > 0 && progress.pointIndex === 0) {
-        // Move to previous branch's last point
         const prevBranchLastPointIndex = route.branches[progress.branchIndex - 1].points.length - 1;
         return { ...progress, branchIndex: progress.branchIndex - 1, pointIndex: prevBranchLastPointIndex };
       } else if (progress.pointIndex > 0) {
-        // Move to previous point
         return { ...progress, pointIndex: progress.pointIndex - 1 };
       }
     }
 
-    // If no decrement is possible, return the current progress
     return progress;
   }
 );

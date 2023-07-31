@@ -1,4 +1,3 @@
-// store/games/gamesSlice.ts
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from ".";
 import { Game } from "../models";
@@ -13,9 +12,8 @@ const initialState: GamesState = {
   status: "idle",
 };
 
-// Thunk action to load games from games.json
 export const loadGames = createAsyncThunk("games/loadGames", async () => {
-  const response = await fetch("/assets/games.json");
+  const response = await fetch(`${process.env.PUBLIC_URL}/assets/games.json`);
   const games: Game[] = await response.json();
   return games;
 });

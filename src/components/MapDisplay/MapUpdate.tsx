@@ -21,8 +21,8 @@ export const MapUpdate: React.FC<MapUpdateProps> = ({ activePoint }) => {
 
   useEffect(() => {
     map.setView([
-      -things[activePoint.thingId].coordinates.x,
-      things[activePoint.thingId].coordinates.y,
+      -things[activePoint.layerId][activePoint.thingId].coordinates.x,
+      things[activePoint.layerId][activePoint.thingId].coordinates.y,
     ]);
   }, [activePoint, map, things]);
 

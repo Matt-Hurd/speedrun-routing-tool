@@ -1,4 +1,3 @@
-// store/routes/routesSlice.ts
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from ".";
 import { Route } from "../models";
@@ -14,7 +13,7 @@ const initialState: RoutesState = {
 };
 
 export const loadRoutes = createAsyncThunk("routes/loadRoutes", async (gameId: string) => {
-  const response = await fetch(`/assets/${gameId}/routes.json`);
+  const response = await fetch(`${process.env.PUBLIC_URL}/assets/${gameId}/routes.json`);
   const routes: Route[] = await response.json();
   return { gameId, routes };
 });

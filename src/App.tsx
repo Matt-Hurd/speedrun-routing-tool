@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import RunMosaic from "./components/RunMosaic/RunMosaic";
 import RouteSelection from "./components/RouteSelection/RouteSelection";
 import { Provider } from "react-redux";

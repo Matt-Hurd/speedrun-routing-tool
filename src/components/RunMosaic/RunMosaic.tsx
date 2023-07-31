@@ -1,29 +1,40 @@
-import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { Mosaic, MosaicWindow, MosaicBranch, MosaicNode } from 'react-mosaic-component';
-import 'react-mosaic-component/react-mosaic-component.css';
-import 'react-mosaic-component/styles/index.less';
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import {
+  Mosaic,
+  MosaicWindow,
+  MosaicBranch,
+  MosaicNode,
+} from "react-mosaic-component";
+import "react-mosaic-component/react-mosaic-component.css";
+import "react-mosaic-component/styles/index.less";
 
-import MapDisplay from '../MapDisplay/MapDisplay';
-import ProgressDisplay from '../ProgressDisplay/ProgressDisplay';
-import RouteListDisplay from '../RouteListDisplay/RouteListDisplay';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setRouteId, selectProgress, setGameId } from '../../store/progress/progressSlice';
-import classNames from 'classnames';
-import { Classes } from '@blueprintjs/core';
+import MapDisplay from "../MapDisplay/MapDisplay";
+import ProgressDisplay from "../ProgressDisplay/ProgressDisplay";
+import RouteListDisplay from "../RouteListDisplay/RouteListDisplay";
+import { useAppDispatch, useAppSelector } from "../../hooks";
+import {
+  setRouteId,
+  selectProgress,
+  setGameId,
+} from "../../store/progressSlice";
 
 import './RunMosaic.css'
-import { loadGames, selectGamesStatus } from '../../store/games/gamesSlice';
-import { loadRoutes, selectRoutesStatus } from '../../store/routes/routesSlice';
+import { loadGames, selectGamesStatus } from '../../store/gamesSlice';
+import { loadRoutes, selectRoutesStatus } from '../../store/routesSlice';
 import { useSelector } from 'react-redux';
-import { loadThings, selectThingsStatus } from '../../store/things/thingsSlice';
+import { loadThings, selectThingsStatus } from '../../store/thingsSlice';
 import BranchNotesDisplay from '../BranchNotesDisplay/BranchNotesDisplay';
 import PointNotesDisplay from '../PointNotesDisplay/PointNotesDisplay';
-import { incrementProgress, decrementProgress, incrementSection, decrementSection } from '../../store/progress/progressSlice';
+import { incrementProgress, decrementProgress, incrementSection, decrementSection } from '../../store/progressSlice';
 
 import '@blueprintjs/core/lib/css/blueprint.css';
 import '@blueprintjs/icons/lib/css/blueprint-icons.css';
 
+import "@blueprintjs/core/lib/css/blueprint.css";
+import "@blueprintjs/icons/lib/css/blueprint-icons.css";
+import UpcomingDisplay from "../UpcomingDisplay/UpcomingDisplay";
+import StorageManager from "../../utils/StorageManager";
 
 type RunParams = {
   gameId: string;
@@ -38,7 +49,6 @@ const RunMosaic: React.FC = () => {
   const thingsStatus = useSelector(selectThingsStatus);
   const dispatch = useAppDispatch();
 
-  
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       switch (event.key) {
@@ -61,14 +71,13 @@ const RunMosaic: React.FC = () => {
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
 
-    // Make sure to clean up the event listener when the component unmounts
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [dispatch]);
-  
+
   useEffect(() => {
     if (gamesStatus === "idle") {
       dispatch(loadGames());
@@ -76,48 +85,54 @@ const RunMosaic: React.FC = () => {
   }, [gamesStatus, dispatch]);
 
   useEffect(() => {
-    if (gameId === undefined )
-      return;
-      if (routesStatus === "idle") {
-        dispatch(loadRoutes(gameId));
-      }
-      if (thingsStatus === "idle") {
-        dispatch(loadThings(gameId));
-      }
+    if (gameId === undefined) return;
+    if (routesStatus === "idle") {
+      dispatch(loadRoutes(gameId));
+    }
+    if (thingsStatus === "idle") {
+      dispatch(loadThings(gameId));
+    }
   }, [dispatch, gameId, thingsStatus, routesStatus]);
-  
+
   useEffect(() => {
-    if (routeId === undefined)
-        throw new Error('routeId invalid in RunMosaic');
-      dispatch(setRouteId(routeId));
-      dispatch(setGameId(gameId));
+    if (routeId === undefined) throw new Error("routeId invalid in RunMosaic");
+    dispatch(setRouteId(routeId));
+    dispatch(setGameId(gameId));
   }, [routeId, gameId, dispatch]);
-  
-  if (!progress || !progress.routeId || gameId === undefined || routesStatus !== "succeeded" || gamesStatus !== "succeeded" || thingsStatus !== "succeeded") {
-    // Show a loading spinner, or any other placeholder
+
+  if (
+    !progress ||
+    !progress.routeId ||
+    gameId === undefined ||
+    routesStatus !== "succeeded" ||
+    gamesStatus !== "succeeded" ||
+    thingsStatus !== "succeeded"
+  ) {
     return <div>Loading...</div>;
   }
 
-  // Render a MosaicWindow for each key in the layout
   const renderWindow = (id: string, path: MosaicBranch[]) => {
     let component: JSX.Element;
 
     switch (id) {
-      case 'Map':
+      case "Map":
         component = <MapDisplay />;
         break;
-      case 'Progress':
+      case "Progress":
         component = <ProgressDisplay />;
         break;
-      case 'Route List':
+      case "Route List":
         component = <RouteListDisplay />;
         break;
-      case 'Point Notes':
-          component = <PointNotesDisplay />;
-          break;
-      case 'Branch Notes':
-          component = <BranchNotesDisplay />;
-          break;
+      case "Point Notes":
+        component = <PointNotesDisplay />;
+        break;
+      case "Branch Notes":
+        component = <BranchNotesDisplay />;
+        break;
+      case "Upcoming Display":
+        component = <UpcomingDisplay />;
+        break;
       default:
         component = <div />;
     }
@@ -130,29 +145,38 @@ const RunMosaic: React.FC = () => {
   };
 
   const onChange = (currentNode: MosaicNode<string> | null) => {
-    localStorage.setItem("layout", JSON.stringify(currentNode));
+    StorageManager.setItem("layout", JSON.stringify(currentNode));
   };
 
-  const initialLayoutStorage = localStorage.getItem("layout")
-  const initialLayout = initialLayoutStorage ? JSON.parse(initialLayoutStorage) : {
-    direction: 'row',
-    first: 'Map',
-    second: {
-      direction: 'column',
-      first: {
-        direction: 'row',
-        first: 'Progress',
-        second: 'Route List',
-      },
-      second: {
-        direction: 'row',
-        first: 'Point Notes',
-        second: 'Branch Notes',
-      },
-    },
-    splitPercentage: 40,
-  };
-  
+  const initialLayoutStorage = StorageManager.getItem("layout");
+  const initialLayout = initialLayoutStorage
+    ? JSON.parse(initialLayoutStorage)
+    : {
+        direction: "row",
+        first: {
+          direction: "column",
+          first: "Map",
+          second: {
+            first: "Route List",
+            second: {
+              first: "Upcoming Display",
+              second: "Progress",
+              direction: "column",
+              splitPercentage: 60,
+            },
+            direction: "row",
+            splitPercentage: 70,
+          },
+          splitPercentage: 67,
+        },
+        second: {
+          first: "Point Notes",
+          second: "Branch Notes",
+          direction: "column",
+        },
+        splitPercentage: 77,
+      };
+
   return (
     <div className="run-mosaic">
       <Mosaic

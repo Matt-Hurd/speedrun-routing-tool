@@ -2,8 +2,9 @@ import Point from "./Point";
 
 export default class Branch {
   name: string;
-  notes: string = '';
-  points: Point[]; // Array of points in the branch
+  shortNote: string = "";
+  htmlNote: string = "";
+  points: Point[];
 
   constructor(name: string) {
     this.name = name;
