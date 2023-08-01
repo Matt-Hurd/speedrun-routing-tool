@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
 import { selectProgress } from "../../store/progressSlice";
-import { selectRouteById } from "../../store/routesSlice";
-import { selectThingsForGame } from "../../store/thingsSlice";
 
 import "./ProgressDisplay.scss";
 import { Korok } from "../../models";
+import { selectRouteData } from "../../store/routeSlice";
 
 const ProgressDisplay: React.FC = () => {
   const progress = useSelector(selectProgress);
-  const { gameId, routeId, pointIndex, branchIndex } = progress;
+  const { pointIndex, branchIndex } = progress;
+  const route = useSelector(selectRouteData);
 
-  const route = useSelector((state: RootState) => selectRouteById(state, gameId, routeId));
-  const things = useSelector((state: RootState) => selectThingsForGame(state, gameId));
   const [overlayWindow, setOverlayWindow] = useState<Window | null>(null);
 
   const [counts, setCounts] = useState<{ [type: string]: number }>({
@@ -29,11 +26,12 @@ const ProgressDisplay: React.FC = () => {
   const [bubbulfrogOffset, setBubbulfrogOffset] = useState(0);
 
   const openOverlayWindow = () => {
-    const newWindow = window.open("#/overlay", "_blank", "width=800,height=600");
+    const newWindow = window.open("#/overlay", "_blank", "width=1080,height=600");
     setOverlayWindow(newWindow);
   };
 
   useEffect(() => {
+    if (!route) return;
     const getMaxPointIdx = (bidx: number, pointIndex: number) => {
       if (bidx === branchIndex) return pointIndex;
       return route.branches[bidx].points.length;
@@ -52,10 +50,10 @@ const ProgressDisplay: React.FC = () => {
         const point = route.branches[bidx].points[pidx];
         if (!visitedThings.has(point.thingId + point.layerId)) {
           visitedThings.add(point.thingId + point.layerId);
-          const type = things[point.layerId][point.thingId].type;
+          const type = route.things[point.layerId][point.thingId].type;
           if (newCounts[type] !== undefined) {
             if (type === "Korok") {
-              const k = things[point.layerId][point.thingId] as Korok;
+              const k = route.things[point.layerId][point.thingId] as Korok;
               if (k.korokType === "Korok Friends") newCounts[type] += 2;
               else if (k.korokType !== "" && k.korokType !== undefined) newCounts[type]++;
             } else {
@@ -69,7 +67,7 @@ const ProgressDisplay: React.FC = () => {
     }
 
     setCounts(newCounts);
-  }, [route, branchIndex, pointIndex, things]);
+  }, [route, branchIndex, pointIndex]);
 
   return (
     <div
@@ -144,7 +142,7 @@ const ProgressDisplay: React.FC = () => {
           }}
         >
           <img
-            src={process.env.PUBLIC_URL + "/assets/images/route_icons/shrine.png"}
+            src={process.env.PUBLIC_URL + "/assets/images/progress/shrine.png"}
             alt="Shrines"
             style={{ width: "40px", height: "40px", paddingRight: "5px" }}
           />{" "}
@@ -159,7 +157,7 @@ const ProgressDisplay: React.FC = () => {
           }}
         >
           <img
-            src={process.env.PUBLIC_URL + "/assets/images/route_icons/lightroot.png"}
+            src={process.env.PUBLIC_URL + "/assets/images/progress/lightroot.png"}
             alt="Lightroots"
             style={{ width: "40px", height: "40px", paddingRight: "5px" }}
           />{" "}
@@ -174,7 +172,7 @@ const ProgressDisplay: React.FC = () => {
           }}
         >
           <img
-            src={process.env.PUBLIC_URL + "/assets/images/route_icons/korok.png"}
+            src={process.env.PUBLIC_URL + "/assets/images/progress/korok.png"}
             alt="Koroks"
             style={{ width: "40px", height: "40px", paddingRight: "5px" }}
           />{" "}
@@ -189,7 +187,7 @@ const ProgressDisplay: React.FC = () => {
           }}
         >
           <img
-            src={process.env.PUBLIC_URL + "/assets/images/route_icons/bubbulfrog.png"}
+            src={process.env.PUBLIC_URL + "/assets/images/progress/bubbulfrog.png"}
             alt="Bubbulgems"
             style={{ width: "40px", height: "40px", paddingRight: "5px" }}
           />{" "}

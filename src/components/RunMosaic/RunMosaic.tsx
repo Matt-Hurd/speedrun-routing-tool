@@ -7,14 +7,11 @@ import "react-mosaic-component/styles/index.less";
 import MapDisplay from "../MapDisplay/MapDisplay";
 import ProgressDisplay from "../ProgressDisplay/ProgressDisplay";
 import RouteListDisplay from "../RouteListDisplay/RouteListDisplay";
-import { useAppDispatch, useAppSelector } from "../../hooks";
-import { setRouteId, selectProgress, setGameId } from "../../store/progressSlice";
+import { useAppDispatch } from "../../hooks";
 
 import "./RunMosaic.css";
-import { loadGames, selectGamesStatus } from "../../store/gamesSlice";
-import { loadRoutes, selectRoutesStatus } from "../../store/routesSlice";
+import { loadRoute, selectRouteStatus } from "../../store/routeSlice";
 import { useSelector } from "react-redux";
-import { loadThings, selectThingsStatus } from "../../store/thingsSlice";
 import BranchNotesDisplay from "../BranchNotesDisplay/BranchNotesDisplay";
 import PointNotesDisplay from "../PointNotesDisplay/PointNotesDisplay";
 import { incrementProgress, decrementProgress, incrementSection, decrementSection } from "../../store/progressSlice";
@@ -22,22 +19,16 @@ import { incrementProgress, decrementProgress, incrementSection, decrementSectio
 import "@blueprintjs/core/lib/css/blueprint.css";
 import "@blueprintjs/icons/lib/css/blueprint-icons.css";
 
-import "@blueprintjs/core/lib/css/blueprint.css";
-import "@blueprintjs/icons/lib/css/blueprint-icons.css";
 import UpcomingDisplay from "../UpcomingDisplay/UpcomingDisplay";
 import StorageManager from "../../utils/StorageManager";
 
 type RunParams = {
-  gameId: string;
-  routeId: string;
+  routeUrl: string;
 };
 
 const RunMosaic: React.FC = () => {
-  const { gameId, routeId } = useParams<RunParams>();
-  const progress = useAppSelector(selectProgress);
-  const gamesStatus = useSelector(selectGamesStatus);
-  const routesStatus = useSelector(selectRoutesStatus);
-  const thingsStatus = useSelector(selectThingsStatus);
+  const { routeUrl } = useParams<RunParams>();
+  const routeStatus = useSelector(selectRouteStatus);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -70,35 +61,13 @@ const RunMosaic: React.FC = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (gamesStatus === "idle") {
-      dispatch(loadGames());
+    if (routeUrl === undefined) return;
+    if (routeStatus === "idle") {
+      dispatch(loadRoute(routeUrl));
     }
-  }, [gamesStatus, dispatch]);
+  }, [dispatch, routeUrl, routeStatus]);
 
-  useEffect(() => {
-    if (gameId === undefined) return;
-    if (routesStatus === "idle") {
-      dispatch(loadRoutes(gameId));
-    }
-    if (thingsStatus === "idle") {
-      dispatch(loadThings(gameId));
-    }
-  }, [dispatch, gameId, thingsStatus, routesStatus]);
-
-  useEffect(() => {
-    if (routeId === undefined) throw new Error("routeId invalid in RunMosaic");
-    dispatch(setRouteId(routeId));
-    dispatch(setGameId(gameId));
-  }, [routeId, gameId, dispatch]);
-
-  if (
-    !progress ||
-    !progress.routeId ||
-    gameId === undefined ||
-    routesStatus !== "succeeded" ||
-    gamesStatus !== "succeeded" ||
-    thingsStatus !== "succeeded"
-  ) {
+  if (routeStatus !== "succeeded") {
     return <div>Loading...</div>;
   }
 

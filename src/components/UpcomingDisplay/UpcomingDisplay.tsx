@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
 import { selectProgress } from "../../store/progressSlice";
-import { selectRouteById } from "../../store/routesSlice";
-import { selectThingsForGame } from "../../store/thingsSlice";
 import { Korok, Shrine } from "../../models/Thing";
+import { selectRouteData } from "../../store/routeSlice";
 
 const UpcomingDisplay: React.FC = () => {
   const progress = useSelector(selectProgress);
-  const { gameId, routeId, pointIndex, branchIndex } = progress;
-
-  const route = useSelector((state: RootState) => selectRouteById(state, gameId, routeId));
-  const things = useSelector((state: RootState) => selectThingsForGame(state, gameId));
+  const route = useSelector(selectRouteData);
+  const { pointIndex, branchIndex } = progress;
 
   const [rockKorokCount, setRockKorokCount] = useState(0);
   const [points, setPoints] = useState(0);
   const [zuggleBosses, setZuggleBosses] = useState(0);
 
   useEffect(() => {
+    if (!route) return;
     let rockKorokCount = 0;
     let points = 0;
     let provingGroundFound = false;
@@ -28,7 +25,7 @@ const UpcomingDisplay: React.FC = () => {
 
       for (let pidx = bidx === branchIndex ? pointIndex : 0; pidx < route.branches[bidx].points.length; pidx++) {
         const point = route.branches[bidx].points[pidx];
-        const thing = things[point.layerId][point.thingId];
+        const thing = route.things[point.layerId][point.thingId];
 
         if (thing.type === "Shrine") {
           const shrine = thing as Shrine;
@@ -52,7 +49,7 @@ const UpcomingDisplay: React.FC = () => {
     setRockKorokCount(rockKorokCount);
     setPoints(points);
     setZuggleBosses(zuggleBosses);
-  }, [route, branchIndex, pointIndex, things]);
+  }, [route, branchIndex, pointIndex]);
 
   return (
     <div style={{ fontSize: "24px", height: "100%", padding: "10px" }}>
