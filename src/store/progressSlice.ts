@@ -1,34 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from ".";
-import { selectRouteById } from "./routesSlice";
 
 interface ProgressState {
-  gameId: string;
-  routeId: string;
   branchIndex: number;
   pointIndex: number;
 }
 
 const initialState: ProgressState = {
-  gameId: "",
-  routeId: "",
   branchIndex: 0,
   pointIndex: 0,
 };
 
 export const incrementProgress = createAsyncThunk("progress/increment", (_, { getState }) => {
   const state: RootState = getState() as RootState;
-  const { routes, progress } = state;
+  const { progress } = state;
 
-  if (progress.routeId) {
-    const route = routes.routes[progress.gameId][progress.routeId];
-
+  if (state.route.data) {
     if (
-      progress.branchIndex < route.branches.length - 1 &&
-      progress.pointIndex === route.branches[progress.branchIndex].points.length - 1
+      progress.branchIndex < state.route.data.branches.length - 1 &&
+      progress.pointIndex === state.route.data.branches[progress.branchIndex].points.length - 1
     ) {
       return { ...progress, branchIndex: progress.branchIndex + 1, pointIndex: 0 };
-    } else if (progress.pointIndex < route.branches[progress.branchIndex].points.length - 1) {
+    } else if (progress.pointIndex < state.route.data.branches[progress.branchIndex].points.length - 1) {
       return { ...progress, pointIndex: progress.pointIndex + 1 };
     }
   }
@@ -38,13 +31,11 @@ export const incrementProgress = createAsyncThunk("progress/increment", (_, { ge
 
 export const decrementProgress = createAsyncThunk("progress/decrement", (_, { getState }) => {
   const state: RootState = getState() as RootState;
-  const { routes, progress } = state;
+  const { progress } = state;
 
-  if (progress.routeId) {
-    const route = routes.routes[progress.gameId][progress.routeId];
-
+  if (state.route.data) {
     if (progress.branchIndex > 0 && progress.pointIndex === 0) {
-      const prevBranchLastPointIndex = route.branches[progress.branchIndex - 1].points.length - 1;
+      const prevBranchLastPointIndex = state.route.data.branches[progress.branchIndex - 1].points.length - 1;
       return { ...progress, branchIndex: progress.branchIndex - 1, pointIndex: prevBranchLastPointIndex };
     } else if (progress.pointIndex > 0) {
       return { ...progress, pointIndex: progress.pointIndex - 1 };
@@ -56,20 +47,16 @@ export const decrementProgress = createAsyncThunk("progress/decrement", (_, { ge
 
 export const incrementSection = createAsyncThunk("section/increment", (_, { getState }) => {
   const state: RootState = getState() as RootState;
-  const { routes, progress } = state;
+  const { progress } = state;
 
-  if (progress.routeId) {
-    const route = routes.routes[progress.gameId][progress.routeId];
-
-    if (progress.branchIndex < route.branches.length - 1) {
-      // Move to next branch
+  if (state.route.data) {
+    if (progress.branchIndex < state.route.data.branches.length - 1) {
       return { ...progress, branchIndex: progress.branchIndex + 1, pointIndex: 0 };
-    } else if (progress.pointIndex < route.branches[progress.branchIndex].points.length - 1) {
-      return { ...progress, pointIndex: route.branches[progress.branchIndex].points.length - 1 };
+    } else if (progress.pointIndex < state.route.data.branches[progress.branchIndex].points.length - 1) {
+      return { ...progress, pointIndex: state.route.data.branches[progress.branchIndex].points.length - 1 };
     }
   }
 
-  // If no increment is possible, return the current progress
   return progress;
 });
 
@@ -77,17 +64,14 @@ export const decrementSection = createAsyncThunk("section/decrement", (_, { getS
   const state: RootState = getState() as RootState;
   const { progress } = state;
 
-  if (progress.routeId) {
+  if (state.route.data) {
     if (progress.branchIndex > 0) {
-      // Move back to previous branch at first point
       return { ...progress, branchIndex: progress.branchIndex - 1, pointIndex: 0 };
     } else if (progress.pointIndex > 0) {
-      // Move back to first branch at first point
       return { ...progress, pointIndex: 0 };
     }
   }
 
-  // If no decrement is possible, return the current progress
   return progress;
 });
 
@@ -97,14 +81,6 @@ export const progressSlice = createSlice({
   reducers: {
     setProgress: (state, action) => {
       return action.payload;
-    },
-    setRouteId: (state, action) => {
-      state.routeId = action.payload;
-      state.branchIndex = 0;
-      state.pointIndex = 0;
-    },
-    setGameId: (state, action) => {
-      state.gameId = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -124,32 +100,22 @@ export const progressSlice = createSlice({
 });
 
 export const selectActivePoint = (state: RootState) => {
-  if (!state.progress.routeId || !state.progress.gameId) {
+  if (!state.route.data) {
     return null;
   }
 
-  const route = selectRouteById(state, state.progress.gameId, state.progress.routeId);
-  if (!route) {
-    return null;
-  }
-
-  return route.branches[state.progress.branchIndex].points[state.progress.pointIndex];
+  return state.route.data.branches[state.progress.branchIndex].points[state.progress.pointIndex];
 };
 
 export const selectActiveBranch = (state: RootState) => {
-  if (!state.progress.routeId || !state.progress.gameId) {
+  if (!state.route.data) {
     return null;
   }
 
-  const route = selectRouteById(state, state.progress.gameId, state.progress.routeId);
-  if (!route) {
-    return null;
-  }
-
-  return route.branches[state.progress.branchIndex];
+  return state.route.data.branches[state.progress.branchIndex];
 };
 
-export const { setProgress, setRouteId, setGameId } = progressSlice.actions;
+export const { setProgress } = progressSlice.actions;
 
 export const selectProgress = (state: RootState) => state.progress;
 

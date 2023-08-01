@@ -1,0 +1,15 @@
+[
+  {
+    "name": "Tears of the Kingdom",
+    "routes": [
+      {
+        "name": "Hundo Local",
+        "path": "/speedrun-routing-tool/assets/example_route/totk_hundo_abah/route.json"
+      },
+      {
+        "name": "Hundo Remote",
+        "path": "https://raw.githubusercontent.com/Matt-Hurd/totk-speedrun-routes/master/totk_hundo_abah/route.json"
+      }
+    ]
+  }
+]

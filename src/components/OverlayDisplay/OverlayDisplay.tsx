@@ -2,10 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { motion } from "framer-motion";
 import "./OverlayDisplay.scss";
-import { Thing } from "../../models";
+import { Route, Thing } from "../../models";
 import { RootState } from "../../store";
-import { selectRouteById } from "../../store/routesSlice";
-import { selectThingsForGame } from "../../store/thingsSlice";
 
 type DungeonStatus = {
   [key: string]: boolean;
@@ -26,8 +24,7 @@ const TOTAL_BUBBULFROG = 147;
 
 interface OverlayDisplayProps {
   progress: any;
-  route: any;
-  things: any;
+  route: Route | null;
 }
 
 class OverlayDisplay extends React.Component<OverlayDisplayProps> {
@@ -40,17 +37,13 @@ class OverlayDisplay extends React.Component<OverlayDisplayProps> {
   };
 
   componentDidUpdate(prevProps: OverlayDisplayProps) {
-    if (
-      this.props.route !== prevProps.route ||
-      this.props.progress !== prevProps.progress ||
-      this.props.things !== prevProps.things
-    ) {
+    if (this.props.route !== prevProps.route || this.props.progress !== prevProps.progress) {
       this.calculateProgress();
     }
   }
 
   calculateProgress = () => {
-    const { route, progress, things } = this.props;
+    const { route, progress } = this.props;
     if (!route) return;
 
     let newKorokCount = 0;
@@ -65,7 +58,7 @@ class OverlayDisplay extends React.Component<OverlayDisplayProps> {
 
       for (let pidx = 0; pidx < pointCount; pidx++) {
         const point = branch.points[pidx];
-        const thing = things[point.layerId][point.thingId] as Thing;
+        const thing = route.things[point.layerId][point.thingId] as Thing;
 
         switch (thing.type) {
           case "Korok":
@@ -141,7 +134,7 @@ class OverlayDisplay extends React.Component<OverlayDisplayProps> {
           {Object.entries(dungeonStatus).map(([dungeon, isComplete]) => (
             <motion.img
               key={dungeon}
-              src={process.env.PUBLIC_URL + `/assets/images/${dungeon}.png`}
+              src={process.env.PUBLIC_URL + `/assets/images/overlay/${dungeon}.png`}
               initial={{ opacity: isComplete ? 1 : 0.3 }}
               animate={{ opacity: isComplete ? 1 : 0.3 }}
             />
@@ -153,11 +146,9 @@ class OverlayDisplay extends React.Component<OverlayDisplayProps> {
 }
 
 const mapStateToProps = (state: RootState) => {
-  const { gameId, routeId } = state.progress;
-  const route = selectRouteById(state, gameId, routeId);
-  const things = selectThingsForGame(state, gameId);
+  const route = state.route.data;
 
-  return { progress: state.progress, route, things };
+  return { progress: state.progress, route };
 };
 
 export default connect(mapStateToProps)(OverlayDisplay);

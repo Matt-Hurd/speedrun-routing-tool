@@ -3,31 +3,32 @@ import { useSelector } from "react-redux";
 import { selectProgress } from "../../store/progressSlice";
 import StorageManager from "../../utils/StorageManager";
 import NoteEditor from "../NoteEditor/NoteEditor";
-import { RootState } from "../../store";
-import { selectRouteById } from "../../store/routesSlice";
+import { selectRouteData } from "../../store/routeSlice";
 
 const PointNotesDisplay: React.FC = () => {
-  const { gameId, routeId, pointIndex, branchIndex } = useSelector(selectProgress);
+  const { pointIndex, branchIndex } = useSelector(selectProgress);
+  const route = useSelector(selectRouteData);
   const [notes, setNotes] = useState("");
 
-  const route = useSelector((state: RootState) => selectRouteById(state, gameId, routeId));
-
   useEffect(() => {
-    const savedNotes = StorageManager.getItem(`${gameId}_${routeId}_${branchIndex}_${pointIndex}`);
+    if (!route) return;
+    const savedNotes = StorageManager.getItem(`${route.game}_${route.name}_${branchIndex}_${pointIndex}`);
     if (savedNotes) {
       setNotes(savedNotes);
     } else {
       setNotes(route.branches[branchIndex].points[pointIndex].htmlNote);
     }
-  }, [gameId, routeId, pointIndex, branchIndex, route.branches]);
+  }, [pointIndex, branchIndex, route?.branches, route?.game, route?.name, route]);
+
+  if (!route) return;
 
   const handleNotesChange = (content: string) => {
     if (content === "<p><br></p>" || content === "<p></p>") {
-      StorageManager.removeItem(`${gameId}_${routeId}_${branchIndex}_${pointIndex}`);
+      StorageManager.removeItem(`${route.game}_${route.name}_${branchIndex}_${pointIndex}`);
       return;
     }
     setNotes(content);
-    StorageManager.setItem(`${gameId}_${routeId}_${branchIndex}_${pointIndex}`, content);
+    StorageManager.setItem(`${route.game}_${route.name}_${branchIndex}_${pointIndex}`, content);
   };
 
   return <NoteEditor notes={notes} onNotesChange={handleNotesChange} />;

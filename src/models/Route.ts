@@ -1,28 +1,15 @@
-import { Game, Point, Branch } from "./";
+import { Game, Branch, Thing } from "./";
 
 export default class Route {
-  id: string;
   name: string;
-  branches: Branch[];
+  url: string;
   game: Game;
+  branches: Branch[] = [];
+  things: Record<string, Record<string, Thing>> = {};
 
-  pointsFlatList: Point[];
-  pointIndices: Map<Point, number>;
-
-  constructor(id: string, name: string, game: Game) {
-    this.id = id;
+  constructor(name: string, url: string, game: Game) {
     this.name = name;
-    this.branches = [];
+    this.url = url;
     this.game = game;
-
-    this.pointsFlatList = [];
-    this.pointIndices = new Map();
-
-    this.branches.forEach((branch) => {
-      branch.points.forEach((point) => {
-        this.pointsFlatList.push(point);
-        this.pointIndices.set(point, this.pointsFlatList.length - 1);
-      });
-    });
   }
 }

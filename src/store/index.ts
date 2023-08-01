@@ -1,7 +1,5 @@
 import { Action, ThunkAction, combineReducers, configureStore } from "@reduxjs/toolkit";
-import routesReducer from "./routesSlice";
-import gamesReducer from "./gamesSlice";
-import thingsReducer from "./thingsSlice";
+import routeReducer from "./routeSlice";
 import progressReducer from "./progressSlice";
 import userPreferencesReducer from "./preferencesSlice";
 import notesReducer from "./notesSlice";
@@ -14,9 +12,7 @@ export const store = configureStore({
   reducer: withReduxStateSync(
     combineReducers({
       progress: progressReducer,
-      routes: routesReducer,
-      games: gamesReducer,
-      things: thingsReducer,
+      route: routeReducer,
       userPreferences: userPreferencesReducer,
       notes: notesReducer,
     }),

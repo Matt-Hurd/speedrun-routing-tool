@@ -1,27 +1,25 @@
 import React, { useEffect, useRef } from "react";
 import { selectProgress } from "../../store/progressSlice";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
-import { selectRouteById } from "../../store/routesSlice";
-import { selectThingsForGame } from "../../store/thingsSlice";
 import "./RouteListDisplay.scss";
 import { Korok, Point } from "../../models";
+import { selectRouteData } from "../../store/routeSlice";
 
 const RouteListDisplay: React.FC = () => {
-  const progress = useSelector(selectProgress);
-
-  const route = useSelector((state: RootState) => selectRouteById(state, progress.gameId, progress.routeId));
-  const things = useSelector((state: RootState) => selectThingsForGame(state, progress.gameId));
+  const { branchIndex, pointIndex } = useSelector(selectProgress);
+  const route = useSelector(selectRouteData);
 
   const activePointRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     activePointRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-  }, [progress]);
+  }, [branchIndex, pointIndex]);
+
+  if (!route) return;
 
   const getNote = (point: Point) => {
     if (point.shortNote !== "") return point.shortNote;
-    const thing = things[point.layerId][point.thingId];
+    const thing = route.things[point.layerId][point.thingId];
     if (thing.type === "Korok") {
       const korok = thing as Korok;
       return korok.korokType;
@@ -31,23 +29,21 @@ const RouteListDisplay: React.FC = () => {
 
   return (
     <div className="routeList">
-      {route.branches.map((branch, branchIndex) => (
-        <div className="routeList__branch" key={branchIndex}>
+      {route.branches.map((branch, bIdx) => (
+        <div className="routeList__branch" key={bIdx}>
           <div className="routeList__branchName">
             <strong>{branch.name}</strong>
           </div>
-          {branch.points.map((point, pointIndex) => (
+          {branch.points.map((point, pIdx) => (
             <div
               className={`routeList__point ${
-                branchIndex === progress.branchIndex && pointIndex === progress.pointIndex
-                  ? "routeList__point--active"
-                  : ""
+                bIdx === branchIndex && pIdx === pointIndex ? "routeList__point--active" : ""
               }`}
-              key={branchIndex + "_" + pointIndex}
-              ref={branchIndex === progress.branchIndex && pointIndex === progress.pointIndex ? activePointRef : null}
+              key={bIdx + "_" + pIdx}
+              ref={bIdx === branchIndex && pIdx === pointIndex ? activePointRef : null}
             >
-              <div className="routeList__pointId">{pointIndex}</div>
-              <div className="routeList__pointName">{things[point.layerId][point.thingId].name}</div>
+              <div className="routeList__pointId">{pIdx}</div>
+              <div className="routeList__pointName">{route.things[point.layerId][point.thingId].name}</div>
               <div className="routeList__pointNotes">{getNote(point)}</div>
             </div>
           ))}
