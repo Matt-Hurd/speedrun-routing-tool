@@ -1,7 +1,7 @@
 {
-  "name": "my-app",
+  "name": "totum",
   "version": "0.1.0",
-  "homepage": "https://matt-hurd.github.io/speedrun-routing-tool/#",
+  "homepage": "https://matt-hurd.github.io/totum/#",
   "private": true,
   "dependencies": {
     "@blueprintjs/core": "^5.1.4",
