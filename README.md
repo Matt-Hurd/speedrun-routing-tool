@@ -1,4 +1,4 @@
-# Speedrun Routing Tool
+# Totum
 
 ## Map Keyboard Configuration
 
@@ -16,7 +16,7 @@
 
 ## Features
 
-Speedrun Routing Tool allows users to:
+Totum allows users to:
 
 - View different game maps (sky, surface, cave, depths) with points and branches plotted on them.
 - Interact with these points and branches.
@@ -31,8 +31,8 @@ Speedrun Routing Tool allows users to:
 Clone the repository:
 
 ```sh
-git clone https://github.com/matt-hurd/speedrun-routing-tool.git
-cd speedrun-routing-tool
+git clone https://github.com/matt-hurd/totum.git
+cd totum
 ```
 
 Install the dependencies:
@@ -55,4 +55,4 @@ We use GitHub issues to track bugs and enhancements. If you find a bug or have a
 
 ## License
 
-Speedrun Routing Tool is released under the GNU GPLv3 License. See the [LICENSE](LICENSE) file for more details.
+Totum is released under the GNU GPLv3 License. See the [LICENSE](LICENSE) file for more details.
