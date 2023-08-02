@@ -9,9 +9,9 @@ import { MapUpdate } from "./MapUpdate";
 import { MapEvents } from "./MapEvents";
 import RouteLines from "./RouteLines";
 import { outerBounds, crs } from "./mapConstants";
+import { selectRouteData } from "../../store/routeSlice";
 
 import "./leaflet_tile_workaround.js";
-import { selectRouteData } from "../../store/routeSlice.ts";
 
 const MapDisplay: React.FC = () => {
   const progress = useSelector(selectProgress);

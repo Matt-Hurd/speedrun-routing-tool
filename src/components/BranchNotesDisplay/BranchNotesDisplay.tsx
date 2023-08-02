@@ -21,7 +21,7 @@ const BranchNotesDisplay: React.FC = () => {
   }, [branchIndex, route?.branches, route]);
 
   const handleNotesChange = (content: string) => {
-    if (!route) return;
+    if (!route) return null;
     if (content === "<p><br></p>" || content === "<p></p>") {
       StorageManager.removeItem(`${route.game}_${route.name}_${branchIndex}`);
       return;

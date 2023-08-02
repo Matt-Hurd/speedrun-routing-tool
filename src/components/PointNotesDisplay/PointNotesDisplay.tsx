@@ -20,7 +20,7 @@ const PointNotesDisplay: React.FC = () => {
     }
   }, [pointIndex, branchIndex, route?.branches, route?.game, route?.name, route]);
 
-  if (!route) return;
+  if (!route) return null;
 
   const handleNotesChange = (content: string) => {
     if (content === "<p><br></p>" || content === "<p></p>") {

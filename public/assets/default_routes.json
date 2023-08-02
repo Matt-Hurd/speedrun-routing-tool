@@ -4,7 +4,7 @@
     "routes": [
       {
         "name": "Hundo Local",
-        "path": "/speedrun-routing-tool/assets/example_route/totk_hundo_abah/route.json"
+        "path": "/totum/assets/example_route/totk_hundo_abah/route.json"
       },
       {
         "name": "Hundo Remote",

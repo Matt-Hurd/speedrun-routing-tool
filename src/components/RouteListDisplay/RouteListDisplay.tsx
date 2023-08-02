@@ -15,7 +15,7 @@ const RouteListDisplay: React.FC = () => {
     activePointRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
   }, [branchIndex, pointIndex]);
 
-  if (!route) return;
+  if (!route) return null;
 
   const getNote = (point: Point) => {
     if (point.shortNote !== "") return point.shortNote;
