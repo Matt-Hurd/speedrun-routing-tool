@@ -53,7 +53,7 @@ export const RouteMarkers: React.FC<RouteMarkersProps> = ({ branch, activeThing 
     }
   }, [activeThing]);
 
-  if (!route) return;
+  if (!route) return null;
 
   return (
     <LayerGroup>
