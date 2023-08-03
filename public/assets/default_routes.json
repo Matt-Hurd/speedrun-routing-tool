@@ -3,8 +3,8 @@
     "name": "Tears of the Kingdom",
     "routes": [
       {
-        "name": "Hundo Local",
-        "path": "/totum/assets/example_route/totk_hundo_abah/route.json"
+        "name": "Centum v1.1",
+        "path": "/totum/assets/example_route/totk_hundo_centum/route.json"
       },
       {
         "name": "Hundo Remote",
