@@ -76,6 +76,8 @@ export const RouteMarkers: React.FC<RouteMarkersProps> = ({ branch, activeThing 
           <Popup autoPan={false}>
             {route.things[point.layerId][point.thingId].name}
             <br />
+            {point.shortNote}
+            <br />
             {route.things[point.layerId][point.thingId].coordinates.y.toFixed(0)} |{" "}
             {route.things[point.layerId][point.thingId].coordinates.x.toFixed(0)} |{" "}
             {route.things[point.layerId][point.thingId].coordinates.z.toFixed(0)}
