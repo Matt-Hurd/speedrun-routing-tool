@@ -34,7 +34,7 @@ export const RouteMarkers: React.FC<RouteMarkersProps> = ({ branch, activeThing 
     if (!thing.icon) return defaultIcon;
     const icon = icons[thing.icon];
     if (icon !== undefined) {
-      return defaultIcon;
+      return icon;
     }
 
     const newIcon = L.icon({
@@ -57,10 +57,15 @@ export const RouteMarkers: React.FC<RouteMarkersProps> = ({ branch, activeThing 
 
   return (
     <LayerGroup>
-      {branch.points.slice(hideCompletedMarkers ? pointIndex : 0).map((point, index) => (
+      {branch.points.map((point, index) => (
         <Marker
           key={index}
-          opacity={route.things[point.layerId][point.thingId].layerId === activeThing.layerId ? 1 : 0}
+          opacity={
+            (hideCompletedMarkers ? pointIndex : 0) <= index &&
+            route.things[point.layerId][point.thingId].layerId === activeThing.layerId
+              ? 1
+              : 0
+          }
           position={[
             -route.things[point.layerId][point.thingId].coordinates.x,
             route.things[point.layerId][point.thingId].coordinates.y,
@@ -68,7 +73,7 @@ export const RouteMarkers: React.FC<RouteMarkersProps> = ({ branch, activeThing 
           icon={getIconForThing(route.things[point.layerId][point.thingId])}
           ref={(ref) => markerRefs.current.set(point.thingId, ref)}
         >
-          <Popup>
+          <Popup autoPan={false}>
             {route.things[point.layerId][point.thingId].name}
             <br />
             {route.things[point.layerId][point.thingId].coordinates.y.toFixed(0)} |{" "}
