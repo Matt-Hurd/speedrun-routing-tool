@@ -44,7 +44,12 @@ const RouteLines: React.FC = () => {
     if ((thing.layerId === visibleLayerId || lastLayerId === visibleLayerId) && lastPosition !== null) {
       const position = [-thing.coordinates.x, thing.coordinates.y];
       polylines.push(
-        <PolylineWithArrow key={`polyline-${polylines.length}`} positions={[lastPosition, position]} color="blue" />,
+        <PolylineWithArrow
+          key={`polyline-${polylines.length}`}
+          positions={[lastPosition, position]}
+          color="blue"
+          warp={point.action === "WARP"}
+        />,
       );
     }
 
@@ -60,7 +65,12 @@ const RouteLines: React.FC = () => {
       if (firstThingOfNextBranch.layerId === visibleLayerId && lastPosition !== null) {
         const position = [-firstThingOfNextBranch.coordinates.x, firstThingOfNextBranch.coordinates.y];
         polylines.push(
-          <PolylineWithArrow key={`polyline-${polylines.length}`} positions={[lastPosition, position]} color="blue" />,
+          <PolylineWithArrow
+            key={`polyline-${polylines.length}`}
+            positions={[lastPosition, position]}
+            color="blue"
+            warp={firstPointOfNextBranch.action === "WARP"}
+          />,
         );
       }
     }

@@ -11,7 +11,7 @@ const ProgressDisplay: React.FC = () => {
   const { pointIndex, branchIndex } = progress;
   const route = useSelector(selectRouteData);
 
-  const [overlayWindow, setOverlayWindow] = useState<Window | null>(null);
+  const [, setOverlayWindow] = useState<Window | null>(null);
 
   const [counts, setCounts] = useState<{ [type: string]: number }>({
     Korok: 0,

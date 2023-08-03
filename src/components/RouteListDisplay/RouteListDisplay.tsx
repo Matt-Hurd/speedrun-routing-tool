@@ -34,19 +34,21 @@ const RouteListDisplay: React.FC = () => {
           <div className="routeList__branchName">
             <strong>{branch.name}</strong>
           </div>
-          {branch.points.map((point, pIdx) => (
-            <div
-              className={`routeList__point ${
-                bIdx === branchIndex && pIdx === pointIndex ? "routeList__point--active" : ""
-              }`}
-              key={bIdx + "_" + pIdx}
-              ref={bIdx === branchIndex && pIdx === pointIndex ? activePointRef : null}
-            >
-              <div className="routeList__pointId">{pIdx}</div>
-              <div className="routeList__pointName">{route.things[point.layerId][point.thingId].name}</div>
-              <div className="routeList__pointNotes">{getNote(point)}</div>
-            </div>
-          ))}
+          {bIdx !== branchIndex
+            ? null
+            : branch.points.map((point, pIdx) => (
+                <div
+                  className={`routeList__point ${
+                    bIdx === branchIndex && pIdx === pointIndex ? "routeList__point--active" : ""
+                  }`}
+                  key={bIdx + "_" + pIdx}
+                  ref={bIdx === branchIndex && pIdx === pointIndex ? activePointRef : null}
+                >
+                  <div className="routeList__pointId">{pIdx}</div>
+                  <div className="routeList__pointName">{route.things[point.layerId][point.thingId].name}</div>
+                  <div className="routeList__pointNotes">{getNote(point)}</div>
+                </div>
+              ))}
         </div>
       ))}
     </div>
