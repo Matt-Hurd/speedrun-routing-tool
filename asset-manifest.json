@@ -1,8 +1,10 @@
 {
   "files": {
-    "main.css": "/totum/static/css/main.bdbebd87.css",
-    "main.js": "/totum/static/js/main.fcc5495f.js",
+    "main.css": "/totum/static/css/main.cb71d03c.css",
+    "main.js": "/totum/static/js/main.6f66752d.js",
     "static/js/787.eeaed3d0.chunk.js": "/totum/static/js/787.eeaed3d0.chunk.js",
+    "static/media/nintendo_NTLG-DB_DH_002.bfotf.otf": "/totum/static/media/nintendo_NTLG-DB_DH_002.bfotf.bc9a55193b3193807654.otf",
+    "static/media/ninP_RodinNTLG-B_DH_003_subset.bfotf.otf": "/totum/static/media/ninP_RodinNTLG-B_DH_003_subset.bfotf.46bf47ff55a3c67eccb6.otf",
     "static/media/blueprint-icons-20.svg?": "/totum/static/media/blueprint-icons-20.69e09533623b64863cf5.svg",
     "static/media/blueprint-icons-16.svg?": "/totum/static/media/blueprint-icons-16.928936b25a7f631d44d6.svg",
     "static/media/blueprint-icons-20.eot?": "/totum/static/media/blueprint-icons-20.7a9cd56e4f1468be3c57.eot",
@@ -11,15 +13,17 @@
     "static/media/blueprint-icons-16.ttf?": "/totum/static/media/blueprint-icons-16.fe34be7b52fe280ae6fc.ttf",
     "static/media/blueprint-icons-20.woff?": "/totum/static/media/blueprint-icons-20.6bafdea7cca3b5a2de42.woff",
     "static/media/blueprint-icons-16.woff?": "/totum/static/media/blueprint-icons-16.6908f1544dc20870cd80.woff",
+    "static/media/Nin-ZeldaGlyphs-v2-Deco.bfotf.otf": "/totum/static/media/Nin-ZeldaGlyphs-v2-Deco.bfotf.792dd910fbd2eab2d98e.otf",
     "static/media/blueprint-icons-20.woff2?": "/totum/static/media/blueprint-icons-20.c20dc60373b0a5fbfa7f.woff2",
     "static/media/blueprint-icons-16.woff2?": "/totum/static/media/blueprint-icons-16.5d3be7e91ef0bd98ba43.woff2",
+    "static/media/Nin-ZeldaBotW-Ancient.bfotf.otf": "/totum/static/media/Nin-ZeldaBotW-Ancient.bfotf.b4bf6795973b44f8c20d.otf",
     "index.html": "/totum/index.html",
-    "main.bdbebd87.css.map": "/totum/static/css/main.bdbebd87.css.map",
-    "main.fcc5495f.js.map": "/totum/static/js/main.fcc5495f.js.map",
+    "main.cb71d03c.css.map": "/totum/static/css/main.cb71d03c.css.map",
+    "main.6f66752d.js.map": "/totum/static/js/main.6f66752d.js.map",
     "787.eeaed3d0.chunk.js.map": "/totum/static/js/787.eeaed3d0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.bdbebd87.css",
-    "static/js/main.fcc5495f.js"
+    "static/css/main.cb71d03c.css",
+    "static/js/main.6f66752d.js"
   ]
 }
