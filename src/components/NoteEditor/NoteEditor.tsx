@@ -3,6 +3,7 @@ import ReactQuill, { Quill } from "react-quill";
 import BlotFormatter from "quill-blot-formatter";
 
 import "react-quill/dist/quill.snow.css";
+import "./NoteEditor.scss";
 
 const modules = {
   blotFormatter: {},
