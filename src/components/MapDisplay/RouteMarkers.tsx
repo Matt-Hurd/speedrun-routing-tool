@@ -48,8 +48,8 @@ export const RouteMarkers: React.FC<RouteMarkersProps> = ({ branch, activeThing 
   };
 
   useEffect(() => {
-    if (activeThing && markerRefs.current.has(activeThing.id)) {
-      markerRefs.current.get(activeThing.id).openPopup();
+    if (activeThing && markerRefs.current.has(activeThing.uid)) {
+      markerRefs.current.get(activeThing.uid).openPopup();
     }
   }, [activeThing]);
 
