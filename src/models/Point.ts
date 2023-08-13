@@ -7,7 +7,6 @@ enum Action {
 
 export default class Point {
   thingId: string = "";
-  layerId: string = "";
   shortNote: string = "";
   htmlNote: string = "";
   action: Action = Action.None;

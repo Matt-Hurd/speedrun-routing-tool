@@ -30,7 +30,7 @@ const PointNotesDisplay: React.FC = () => {
     if (!route) return;
     const savedNotes = StorageManager.getItem(`${route.game}_${route.name}_${branchIndex}_${pointIndex}`);
     const point = route.branches[branchIndex].points[pointIndex];
-    const thing = route.things[point.layerId][point.thingId];
+    const thing = route.things[point.thingId];
     if (savedNotes) {
       setNotes(savedNotes);
     } else {
@@ -42,7 +42,7 @@ const PointNotesDisplay: React.FC = () => {
 
   const handleNotesChange = (content: string) => {
     const point = route.branches[branchIndex].points[pointIndex];
-    const thing = route.things[point.layerId][point.thingId];
+    const thing = route.things[point.thingId];
     if (content === "<p><br></p>" || content === "<p></p>" || content === `<p>${getDefaultNote(point, thing)}</p>`) {
       StorageManager.removeItem(`${route.game}_${route.name}_${branchIndex}_${pointIndex}`);
       return;

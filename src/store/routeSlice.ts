@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Route, Thing } from "../models";
+import { Route } from "../models";
 import { AppDispatch, RootState } from ".";
 
 interface RouteState {
@@ -35,19 +35,6 @@ export const loadRoute = createAsyncThunk<Route, string, { dispatch: AppDispatch
   },
 );
 
-const convertPayloadToRoute = (payload: any) => {
-  let newThings: Record<string, Record<string, Thing>> = {};
-  payload.things.forEach((thing: Thing) => {
-    if (!newThings[thing.layerId]) {
-      newThings[thing.layerId] = {};
-    }
-    newThings[thing.layerId][thing.id] = thing;
-  });
-
-  payload.things = newThings;
-  return payload;
-};
-
 const routeSlice = createSlice({
   name: "route",
   initialState,
@@ -59,7 +46,7 @@ const routeSlice = createSlice({
       })
       .addCase(loadRoute.fulfilled, (state, action: PayloadAction<Route>) => {
         state.status = "succeeded";
-        state.data = convertPayloadToRoute(action.payload);
+        state.data = action.payload;
       })
       .addCase(loadRoute.rejected, (state, action) => {
         state.status = "failed";

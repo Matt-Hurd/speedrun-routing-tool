@@ -48,12 +48,12 @@ const ProgressDisplay: React.FC = () => {
     for (let bidx = 0; bidx <= branchIndex; bidx++) {
       for (let pidx = 0; pidx < getMaxPointIdx(bidx, pointIndex); pidx++) {
         const point = route.branches[bidx].points[pidx];
-        const thing = route.things[point.layerId][point.thingId];
+        const thing = route.things[point.thingId];
 
         if (thing.type === "Shrine" && point.action !== "COMPLETE") continue;
 
-        if (!visitedThings.has(point.thingId + point.layerId)) {
-          visitedThings.add(point.thingId + point.layerId);
+        if (!visitedThings.has(point.thingId)) {
+          visitedThings.add(point.thingId);
           const type = thing.type;
           if (newCounts[type] !== undefined) {
             if (type === "Korok") {

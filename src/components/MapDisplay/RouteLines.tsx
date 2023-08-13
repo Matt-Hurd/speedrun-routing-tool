@@ -13,16 +13,18 @@ const RouteLines: React.FC = () => {
 
   if (!route) return null;
 
+  const point = route.branches[branchIndex].points[pointIndex];
+  const thing = route.things[point.thingId];
+  const visibleLayerId = thing.layerId;
+
   const polylines = [];
-  let visibleLayerId = route.branches[branchIndex].points[pointIndex].layerId;
   let lastLayerId = null;
   let lastPosition = null;
 
   if (branchIndex > 0 && pointIndex === 0) {
     const previousBranch = route.branches[branchIndex - 1];
     const lastPointOfPreviousBranch = previousBranch.points[previousBranch.points.length - 1];
-    const lastThingOfPreviousBranch =
-      route.things[lastPointOfPreviousBranch.layerId][lastPointOfPreviousBranch.thingId];
+    const lastThingOfPreviousBranch = route.things[lastPointOfPreviousBranch.thingId];
     if (lastThingOfPreviousBranch) {
       lastLayerId = lastThingOfPreviousBranch.layerId;
       lastPosition = [-lastThingOfPreviousBranch.coordinates.x, lastThingOfPreviousBranch.coordinates.y];
@@ -33,7 +35,7 @@ const RouteLines: React.FC = () => {
 
   for (let i = hideCompletedMarkers ? Math.max(0, pointIndex - 1) : 0; i < activeBranch.points.length; i++) {
     const point = activeBranch.points[i];
-    const thing = route.things[point.layerId][point.thingId];
+    const thing = route.things[point.thingId];
 
     if (!thing) continue;
 
@@ -60,7 +62,7 @@ const RouteLines: React.FC = () => {
   if (branchIndex < route.branches.length - 1) {
     const nextBranch = route.branches[branchIndex + 1];
     const firstPointOfNextBranch = nextBranch.points[0];
-    const firstThingOfNextBranch = route.things[firstPointOfNextBranch.layerId][firstPointOfNextBranch.thingId];
+    const firstThingOfNextBranch = route.things[firstPointOfNextBranch.thingId];
     if (firstThingOfNextBranch) {
       if (firstThingOfNextBranch.layerId === visibleLayerId && lastPosition !== null) {
         const position = [-firstThingOfNextBranch.coordinates.x, firstThingOfNextBranch.coordinates.y];
