@@ -70,127 +70,32 @@ const ProgressDisplay: React.FC = () => {
   }, [route, branchIndex, pointIndex]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-around",
-        backgroundColor: "black",
-        fontSize: "24px",
-        height: "100%",
-        flexDirection: "column",
-        padding: "10px",
-      }}
-    >
+    <div className={"progress-window"}>
       {" "}
-      <button
-        style={{
-          position: "absolute",
-          top: 0,
-          right: 0,
-        }}
-        onClick={openOverlayWindow}
-      >
+      <button className={"overlay-window-button"} onClick={openOverlayWindow}>
         Open Overlay Window
       </button>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          marginBottom: "10px",
-        }}
-      >
-        <input
-          style={{
-            width: "100%",
-          }}
-          type="number"
-          value={shrineOffset}
-          onChange={(e) => setShrineOffset(Number(e.target.value))}
-        />
-        <input
-          style={{
-            width: "100%",
-          }}
-          type="number"
-          value={lightrootOffset}
-          onChange={(e) => setLightrootOffset(Number(e.target.value))}
-        />
-        <input
-          style={{
-            width: "100%",
-          }}
-          type="number"
-          value={korokOffset}
-          onChange={(e) => setKorokOffset(Number(e.target.value))}
-        />
-        <input
-          style={{
-            width: "100%",
-          }}
-          type="number"
-          value={bubbulfrogOffset}
-          onChange={(e) => setBubbulfrogOffset(Number(e.target.value))}
-        />
+      <div className={"progress-input-adjusters"}>
+        <input type="number" value={shrineOffset} onChange={(e) => setShrineOffset(Number(e.target.value))} />
+        <input type="number" value={lightrootOffset} onChange={(e) => setLightrootOffset(Number(e.target.value))} />
+        <input type="number" value={korokOffset} onChange={(e) => setKorokOffset(Number(e.target.value))} />
+        <input type="number" value={bubbulfrogOffset} onChange={(e) => setBubbulfrogOffset(Number(e.target.value))} />
       </div>
-      <div style={{ display: "flex", justifyContent: "space-around" }}>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "white",
-          }}
-        >
-          <img
-            src={process.env.PUBLIC_URL + "/assets/images/progress/shrine.png"}
-            alt="Shrines"
-            style={{ width: "40px", height: "40px", paddingRight: "5px" }}
-          />{" "}
+      <div className={"progress-icons"}>
+        <div className={"progress-icon"}>
+          <img src={process.env.PUBLIC_URL + "/assets/images/progress/shrine.png"} alt="Shrines" />{" "}
           {counts["Shrine"] + shrineOffset}
         </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "white",
-          }}
-        >
-          <img
-            src={process.env.PUBLIC_URL + "/assets/images/progress/lightroot.png"}
-            alt="Lightroots"
-            style={{ width: "40px", height: "40px", paddingRight: "5px" }}
-          />{" "}
+        <div className={"progress-icon"}>
+          <img src={process.env.PUBLIC_URL + "/assets/images/progress/lightroot.png"} alt="Lightroots" />{" "}
           {counts["Lightroot"] + lightrootOffset}
         </div>{" "}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "white",
-          }}
-        >
-          <img
-            src={process.env.PUBLIC_URL + "/assets/images/progress/korok.png"}
-            alt="Koroks"
-            style={{ width: "40px", height: "40px", paddingRight: "5px" }}
-          />{" "}
+        <div className={"progress-icon"}>
+          <img src={process.env.PUBLIC_URL + "/assets/images/progress/korok.png"} alt="Koroks" />{" "}
           {counts["Korok"] + korokOffset}
         </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "white",
-          }}
-        >
-          <img
-            src={process.env.PUBLIC_URL + "/assets/images/progress/bubbulfrog.png"}
-            alt="Bubbulgems"
-            style={{ width: "40px", height: "40px", paddingRight: "5px" }}
-          />{" "}
+        <div className={"progress-icon"}>
+          <img src={process.env.PUBLIC_URL + "/assets/images/progress/bubbulfrog.png"} alt="Bubbulgems" />{" "}
           {counts["Bubbulfrog"] + bubbulfrogOffset}
         </div>
       </div>

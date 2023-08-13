@@ -1,0 +1,17 @@
+.quill {
+  display: flex;
+  flex-direction: column;
+
+  .ql-toolbar.ql-snow {
+    border: 0;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .ql-container.ql-snow {
+    border: 0;
+  }
+
+  .ql-editor:focus {
+    outline-offset: -2px;
+  }
+}

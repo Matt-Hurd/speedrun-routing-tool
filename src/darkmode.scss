@@ -1,0 +1,179 @@
+#root2 {
+  background: var(--default-background);
+  color: var(--default-color);
+
+  a {
+    color: var(--default-link-color);
+  }
+
+  //========================
+  // Mosaic
+  //========================
+  .mosaic.mosaic-blueprint-theme {
+    background: var(--default-background);
+    color: var(--default-color);
+
+    .mosaic-window,
+    .mosaic-preview {
+      .mosaic-window-toolbar {
+        background: var(--window-toolbar-background);
+      }
+
+      .mosaic-window-title {
+        color: var(--window-toolbar-color);
+      }
+
+      .mosaic-window-body {
+        background: var(--window-background);
+        color: var(--window-color);
+      }
+    }
+  }
+
+  .bp5-button[class*="bp5-icon-"]::before {
+    color: var(--window-controls-color);
+  }
+
+  //========================
+  // CKEditor
+  //========================
+  .ql-snow .ql-fill,
+  .ql-snow .ql-stroke,
+  .ql-snow .ql-stroke.ql-fill {
+    stroke: var(--ckeditor-controls-color);
+  }
+
+  .ql-snow .ql-picker {
+    color: var(--ckeditor-controls-color);
+  }
+
+  .ql-snow .ql-picker-options {
+    background-color: var(--ckeditor-controls-background);
+  }
+
+  .ql-toolbar.ql-snow {
+    border-color: var(--ckeditor-controls-broder-color);
+  }
+
+  //========================
+  // Leaflet
+  //========================
+  .leaflet-container {
+    background-color: var(--leaflet-background);
+
+    a.leaflet-popup-close-button {
+      color: var(--leaflet-controls-color);
+    }
+
+    .leaflet-control-attribution {
+      background-color: var(--leaflet-background);
+    }
+
+    .leaflet-popup-content-wrapper {
+      background-color: var(--leaflet-popup-background);
+      color: var(--leaflet-popup-color);
+    }
+
+    .leaflet-bar a {
+      background: var(--leaflet-controls-background);
+      color: var(--leaflet-controls-color);
+    }
+  }
+
+  //========================
+  // Route List
+  //========================
+  .routeList {
+    .routeList__branch {
+      .routeList__branchName {
+        background: #442156;
+      }
+
+      .routeList__point {
+        &:nth-child(odd) {
+          background: var(--color-scale-gray-8);
+        }
+
+        &:nth-child(even) {
+          background: var(--color-scale-gray-7);
+        }
+
+        &.routeList__point--active {
+          background: darken(#f58e8e, 50%);
+        }
+      }
+    }
+  }
+
+  //========================
+  // Forms
+  //========================
+  .progress-window {
+    background: var(--window-background);
+
+    .overlay-window-button {
+      border-style: solid;
+      border-width: 1px;
+    }
+
+    .overlay-window-button,
+    .progress-input-adjusters input {
+      background: var(--input-background);
+      color: var(--input-color);
+      border-color: var(--input-border-color);
+
+      &:hover,
+      &:active,
+      &:focus {
+        background: var(--input-background-hover);
+        color: var(--input-color-hover);
+        border-color: var(--input-border-color-hover);
+      }
+    }
+  }
+}
+
+:root {
+  --default-black: #010409;
+  --default-white: #ffffff;
+  --default-background: var(--color-scale-gray-7);
+  --default-color: #e6edf3;
+  --default-link-color: #1f6feb;
+
+  --color-scale-gray-0: #f0f6fc;
+  --color-scale-gray-1: #c9d1d9;
+  --color-scale-gray-2: #b1bac4;
+  --color-scale-gray-3: #8b949e;
+  --color-scale-gray-4: #6e7681;
+  --color-scale-gray-5: #484f58;
+  --color-scale-gray-6: #30363d;
+  --color-scale-gray-7: #21262d;
+  --color-scale-gray-8: #161b22;
+  $colorScaleGray9: #0d1117;
+  --color-scale-gray-9: #{$colorScaleGray9};
+  $colorScaleGray9Opacity: rgba($colorScaleGray9, 0.69);
+  --color-scale-gray-9-opacity: #{$colorScaleGray9Opacity};
+
+  --window-toolbar-color: var(--default-color);
+  --window-toolbar-background: var(--default-black);
+  --window-controls-color: var(--color-scale-gray-5);
+  --window-background: var(--color-scale-gray-9);
+  --window-color: var(--default-color);
+
+  --ckeditor-controls-background: var(--default-black);
+  --ckeditor-controls-color: var(--color-scale-gray-1);
+  --ckeditor-controls-broder-color: var(--color-scale-gray-5);
+
+  --leaflet-background: var(--color-scale-gray-9);
+  --leaflet-popup-background: var(--color-scale-gray-9-opacity);
+  --leaflet-popup-color: var(--default-color);
+  --leaflet-controls-background: var(--color-scale-gray-6);
+  --leaflet-controls-color: var(--color-scale-gray-2);
+
+  --input-background: var(--color-scale-gray-7);
+  --input-background-hover: var(--color-scale-gray-6);
+  --input-color: var(--color-scale-gray-4);
+  --input-color-hover: var(--color-scale-gray-1);
+  --input-border-color: var(--input-color);
+  --input-border-color-hover: var(--input-color-hover);
+}
