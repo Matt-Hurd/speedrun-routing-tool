@@ -74,70 +74,33 @@ const ProgressDisplay: React.FC = () => {
   }, [route, branchIndex, pointIndex]);
 
   return (
-    <div className="progress-display-container">
-      <button className="open-overlay-button" onClick={openOverlayWindow}>
+    <div className={"progress-window"}>
+      {" "}
+      <button className={"overlay-window-button"} onClick={openOverlayWindow}>
         Open Overlay Window
       </button>
-      <div className="input-container">
-        <input
-          className="input-field"
-          type="number"
-          value={shrineOffset}
-          onChange={(e) => setShrineOffset(Number(e.target.value))}
-        />
-        <input
-          className="input-field"
-          type="number"
-          value={lightrootOffset}
-          onChange={(e) => setLightrootOffset(Number(e.target.value))}
-        />
-        <input
-          className="input-field"
-          type="number"
-          value={korokOffset}
-          onChange={(e) => setKorokOffset(Number(e.target.value))}
-        />
-        <input
-          className="input-field"
-          type="number"
-          value={bubbulfrogOffset}
-          onChange={(e) => setBubbulfrogOffset(Number(e.target.value))}
-        />
+      <div className={"progress-input-adjusters"}>
+        <input type="number" value={shrineOffset} onChange={(e) => setShrineOffset(Number(e.target.value))} />
+        <input type="number" value={lightrootOffset} onChange={(e) => setLightrootOffset(Number(e.target.value))} />
+        <input type="number" value={korokOffset} onChange={(e) => setKorokOffset(Number(e.target.value))} />
+        <input type="number" value={bubbulfrogOffset} onChange={(e) => setBubbulfrogOffset(Number(e.target.value))} />
       </div>
-      <div className="progress-container">
-        <div className="progress-icon-container">
-          <img
-            className="progress-icon"
-            src={process.env.PUBLIC_URL + "/assets/images/progress/shrine.png"}
-            alt="Shrines"
-          />
-          <div className="progress-count">{counts["Shrine"] + shrineOffset}</div>
+      <div className={"progress-icons"}>
+        <div className={"progress-icon"}>
+          <img src={process.env.PUBLIC_URL + "/assets/images/progress/shrine.png"} alt="Shrines" />{" "}
+          {counts["Shrine"] + shrineOffset}
         </div>
-        <div className="progress-icon-container">
-          <img
-            className="progress-icon"
-            src={process.env.PUBLIC_URL + "/assets/images/progress/lightroot.png"}
-            alt="Lightroots"
-          />
-          <div className="progress-count">{counts["Lightroot"] + lightrootOffset}</div>
+        <div className={"progress-icon"}>
+          <img src={process.env.PUBLIC_URL + "/assets/images/progress/lightroot.png"} alt="Lightroots" />{" "}
+          {counts["Lightroot"] + lightrootOffset}
+        </div>{" "}
+        <div className={"progress-icon"}>
+          <img src={process.env.PUBLIC_URL + "/assets/images/progress/korok.png"} alt="Koroks" />{" "}
+          {counts["Korok"] + korokOffset} ({counts["Korok"]}
         </div>
-        <div className="progress-icon-container">
-          <img
-            className="progress-icon"
-            src={process.env.PUBLIC_URL + "/assets/images/progress/korok.png"}
-            alt="Koroks"
-          />
-          <div className="progress-count">
-            {counts["Korok"] + korokOffset} ({counts["Korok"]})
-          </div>
-        </div>
-        <div className="progress-icon-container">
-          <img
-            className="progress-icon"
-            src={process.env.PUBLIC_URL + "/assets/images/progress/bubbulfrog.png"}
-            alt="Bubbulgems"
-          />
-          <div className="progress-count">{counts["Bubbulfrog"] + bubbulfrogOffset}</div>
+        <div className={"progress-icon"}>
+          <img src={process.env.PUBLIC_URL + "/assets/images/progress/bubbulfrog.png"} alt="Bubbulgems" />{" "}
+          {counts["Bubbulfrog"] + bubbulfrogOffset}
         </div>
       </div>
     </div>

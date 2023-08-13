@@ -1,4 +1,4 @@
-.progress-display-container {
+.progress-window {
   display: flex;
   justify-content: space-around;
   background-color: black;
@@ -6,44 +6,39 @@
   height: 100%;
   flex-direction: column;
   padding: 10px;
-}
 
-.open-overlay-button {
-  position: absolute;
-  top: 0;
-  right: 0;
-}
+  .overlay-window-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 
-.input-container,
-.progress-container {
-  display: flex;
-  justify-content: space-around;
-}
+  .progress-input-adjusters {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 10px;
+    gap: 8px;
 
-.input-field {
-  width: 100%;
-}
+    input {
+      width: 100%;
+    }
+  }
 
-.progress-icon-container {
-  font-family: ZeldaMain;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 120px;
-  color: white;
-}
+  .progress-icons {
+    display: flex;
+    justify-content: space-around;
 
-.progress-icon {
-  width: 40px;
-  height: 40px;
-  padding-right: 0px;
-}
+    .progress-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
 
-.progress-count {
-  width: 170px;
-  text-align: left;
-}
-
-.input-container {
-  margin-bottom: 10px;
+      > img {
+        width: 40px;
+        height: 40px;
+        padding-right: 5px;
+      }
+    }
+  }
 }
