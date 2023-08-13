@@ -1,4 +1,4 @@
-#root {
+.darkmode {
   background: var(--default-background);
   color: var(--default-color);
 
@@ -129,6 +129,22 @@
         color: var(--input-color-hover);
         border-color: var(--input-border-color-hover);
       }
+    }
+  }
+
+  ::-webkit-scrollbar {
+    width: initial;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-scale-gray-6);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-scale-gray-3);
+
+    &:hover {
+      background: var(--color-scale-gray-2);
     }
   }
 }
