@@ -56,9 +56,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ notes, onNotesChange }) => {
     }
   }, [quillRef, selectLocalImage]);
 
-  return (
-    <ReactQuill style={{ height: "100%" }} ref={quillRef} modules={modules} value={notes} onChange={onNotesChange} />
-  );
+  return <ReactQuill ref={quillRef} modules={modules} value={notes} onChange={onNotesChange} />;
 };
 
 export default NoteEditor;

@@ -1,6 +1,7 @@
 .quill {
   display: flex;
   flex-direction: column;
+  height: 100%;
 
   .ql-toolbar.ql-snow {
     border: 0;
@@ -11,7 +12,9 @@
     border: 0;
   }
 
-  .ql-editor:focus {
-    outline-offset: -2px;
+  .ql-editor {
+    &:focus {
+      outline-offset: -2px;
+    }
   }
 }

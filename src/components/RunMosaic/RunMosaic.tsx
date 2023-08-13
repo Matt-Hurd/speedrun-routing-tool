@@ -21,6 +21,7 @@ import "@blueprintjs/icons/lib/css/blueprint-icons.css";
 
 import UpcomingDisplay from "../UpcomingDisplay/UpcomingDisplay";
 import StorageManager from "../../utils/StorageManager";
+import { RootState } from "../../store";
 
 type RunParams = {
   routeUrl: string;
@@ -30,6 +31,7 @@ const RunMosaic: React.FC = () => {
   const { routeUrl } = useParams<RunParams>();
   const routeStatus = useSelector(selectRouteStatus);
   const dispatch = useAppDispatch();
+  const darkMode = useSelector((state: RootState) => state.userPreferences.darkMode);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -137,8 +139,10 @@ const RunMosaic: React.FC = () => {
         splitPercentage: 77,
       };
 
+  const darkModeClass = darkMode ? "darkmode" : "";
+
   return (
-    <div className="run-mosaic">
+    <div className={"run-mosaic " + darkModeClass}>
       <Mosaic renderTile={renderWindow} onChange={onChange} initialValue={initialLayout} blueprintNamespace="bp5" />
     </div>
   );

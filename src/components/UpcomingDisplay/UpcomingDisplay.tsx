@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { selectProgress } from "../../store/progressSlice";
 import { Korok, Shrine } from "../../models/Thing";
 import { selectRouteData } from "../../store/routeSlice";
+import "./UpcomingDisplay.scss";
 
 const UpcomingDisplay: React.FC = () => {
   const progress = useSelector(selectProgress);
@@ -52,7 +53,7 @@ const UpcomingDisplay: React.FC = () => {
   }, [route, branchIndex, pointIndex]);
 
   return (
-    <div style={{ fontSize: "24px", height: "100%", padding: "10px" }}>
+    <div className={"upcoming-window"}>
       <p>Before next proving ground:</p>
       <p>Points: {points}</p>
       <p>Rock Koroks: {rockKorokCount}</p>
