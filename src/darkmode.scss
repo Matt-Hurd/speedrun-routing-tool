@@ -17,6 +17,22 @@
     .mosaic-preview {
       .mosaic-window-toolbar {
         background: var(--window-toolbar-background);
+
+        &.draggable:hover {
+          background: var(--window-toolbar-background-hover);
+
+          .mosaic-window-title {
+            color: var(--window-toolbar-color-hover);
+          }
+
+          .bp5-button[class*="bp5-icon-"]::before {
+            color: var(--window-controls-color-hover);
+          }
+
+          .bp5-button.bp5-minimal:hover {
+            background: var(--window-controls-background-hover);
+          }
+        }
       }
 
       .mosaic-window-title {
@@ -171,13 +187,18 @@
   --color-scale-gray-9-opacity: #{$colorScaleGray9Opacity};
 
   --window-toolbar-color: var(--default-color);
+  --window-toolbar-color-hover: var(--default-color);
   --window-toolbar-background: var(--default-black);
+  --window-toolbar-background-hover: var(--color-scale-gray-4);
   --window-controls-color: var(--color-scale-gray-5);
+  --window-controls-color-hover: var(--color-scale-gray-1);
+  --window-controls-background-hover: var(--color-scale-gray-8);
   --window-background: var(--color-scale-gray-9);
   --window-color: var(--default-color);
 
   --ckeditor-controls-background: var(--default-black);
   --ckeditor-controls-color: var(--color-scale-gray-1);
+  --ckeditor-controls-color-hover: var(--color-scale-gray-1);
   --ckeditor-controls-broder-color: var(--color-scale-gray-5);
 
   --leaflet-background: var(--color-scale-gray-9);
