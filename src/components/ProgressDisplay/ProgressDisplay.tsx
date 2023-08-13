@@ -96,7 +96,7 @@ const ProgressDisplay: React.FC = () => {
         </div>{" "}
         <div className={"progress-icon"}>
           <img src={process.env.PUBLIC_URL + "/assets/images/progress/korok.png"} alt="Koroks" />{" "}
-          {counts["Korok"] + korokOffset} ({counts["Korok"]}
+          {counts["Korok"] + korokOffset} ({counts["Korok"]})
         </div>
         <div className={"progress-icon"}>
           <img src={process.env.PUBLIC_URL + "/assets/images/progress/bubbulfrog.png"} alt="Bubbulgems" />{" "}
