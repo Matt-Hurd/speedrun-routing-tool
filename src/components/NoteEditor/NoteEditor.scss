@@ -1,19 +1,40 @@
-.ql-editor .ql-size-small {
-  font-size: 20px;
-}
+.quill {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
-.ql-container {
-  font-size: 30px;
-}
+  .ql-toolbar.ql-snow {
+    border: 0;
+    border-bottom: 1px solid #ccc;
+  }
 
-.ql-editor .ql-size {
-  font-size: 40px;
-}
+  .ql-container.ql-snow {
+    border: 0;
+  }
 
-.ql-editor .ql-size-large {
-  font-size: 60px;
-}
+  .ql-editor {
+    &:focus {
+      outline-offset: -2px;
+    }
+  }
 
-.ql-editor .ql-size-huge {
-  font-size: 80px;
+  .ql-editor .ql-size-small {
+    font-size: 20px;
+  }
+
+  .ql-container {
+    font-size: 30px;
+  }
+
+  .ql-editor .ql-size {
+    font-size: 40px;
+  }
+
+  .ql-editor .ql-size-large {
+    font-size: 60px;
+  }
+
+  .ql-editor .ql-size-huge {
+    font-size: 80px;
+  }
 }
