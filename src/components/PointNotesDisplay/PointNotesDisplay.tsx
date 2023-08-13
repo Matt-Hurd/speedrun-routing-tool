@@ -4,6 +4,22 @@ import { selectProgress } from "../../store/progressSlice";
 import StorageManager from "../../utils/StorageManager";
 import NoteEditor from "../NoteEditor/NoteEditor";
 import { selectRouteData } from "../../store/routeSlice";
+import { Korok, Thing, Shrine, Point } from "../../models";
+
+const getDefaultNote = (point: Point, thing: Thing) => {
+  const chestShrines = ["Mayasiar Shrine", "Kurakat Shrine", "Mayam Shrine", "Ganos Shrine"];
+  if (point.htmlNote) {
+    return point.htmlNote;
+  } else if (thing.type === "Korok") {
+    return (thing as Korok).korokType;
+  } else if (thing.type === "Shrine") {
+    if ((thing as Shrine).isProvingGrounds && point.action === "COMPLETE")
+      return '<span style="color: rgb(230, 0, 0); background-color: rgb(0, 0, 0);" class="ql-size-huge">ZUGGLE SHIELD</span>';
+    if (point.action === "COMPLETE" && chestShrines.includes(thing.name))
+      return '<span style="color: rgb(230, 0, 0); background-color: rgb(0, 0, 0);" class="ql-size-huge">OPEN CHEST</span>';
+  }
+  return "";
+};
 
 const PointNotesDisplay: React.FC = () => {
   const { pointIndex, branchIndex } = useSelector(selectProgress);
@@ -13,17 +29,21 @@ const PointNotesDisplay: React.FC = () => {
   useEffect(() => {
     if (!route) return;
     const savedNotes = StorageManager.getItem(`${route.game}_${route.name}_${branchIndex}_${pointIndex}`);
+    const point = route.branches[branchIndex].points[pointIndex];
+    const thing = route.things[point.layerId][point.thingId];
     if (savedNotes) {
       setNotes(savedNotes);
     } else {
-      setNotes(route.branches[branchIndex].points[pointIndex].htmlNote);
+      setNotes(getDefaultNote(point, thing));
     }
   }, [pointIndex, branchIndex, route?.branches, route?.game, route?.name, route]);
 
   if (!route) return null;
 
   const handleNotesChange = (content: string) => {
-    if (content === "<p><br></p>" || content === "<p></p>") {
+    const point = route.branches[branchIndex].points[pointIndex];
+    const thing = route.things[point.layerId][point.thingId];
+    if (content === "<p><br></p>" || content === "<p></p>" || content === `<p>${getDefaultNote(point, thing)}</p>`) {
       StorageManager.removeItem(`${route.game}_${route.name}_${branchIndex}_${pointIndex}`);
       return;
     }

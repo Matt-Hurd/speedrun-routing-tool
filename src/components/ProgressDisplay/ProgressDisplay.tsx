@@ -48,12 +48,16 @@ const ProgressDisplay: React.FC = () => {
     for (let bidx = 0; bidx <= branchIndex; bidx++) {
       for (let pidx = 0; pidx < getMaxPointIdx(bidx, pointIndex); pidx++) {
         const point = route.branches[bidx].points[pidx];
+        const thing = route.things[point.layerId][point.thingId];
+
+        if (thing.type === "Shrine" && point.action !== "COMPLETE") continue;
+
         if (!visitedThings.has(point.thingId + point.layerId)) {
           visitedThings.add(point.thingId + point.layerId);
-          const type = route.things[point.layerId][point.thingId].type;
+          const type = thing.type;
           if (newCounts[type] !== undefined) {
             if (type === "Korok") {
-              const k = route.things[point.layerId][point.thingId] as Korok;
+              const k = thing as Korok;
               if (k.korokType === "Korok Friends") newCounts[type] += 2;
               else if (k.korokType !== "" && k.korokType !== undefined) newCounts[type]++;
             } else {
@@ -70,128 +74,70 @@ const ProgressDisplay: React.FC = () => {
   }, [route, branchIndex, pointIndex]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-around",
-        backgroundColor: "black",
-        fontSize: "24px",
-        height: "100%",
-        flexDirection: "column",
-        padding: "10px",
-      }}
-    >
-      {" "}
-      <button
-        style={{
-          position: "absolute",
-          top: 0,
-          right: 0,
-        }}
-        onClick={openOverlayWindow}
-      >
+    <div className="progress-display-container">
+      <button className="open-overlay-button" onClick={openOverlayWindow}>
         Open Overlay Window
       </button>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-around",
-          marginBottom: "10px",
-        }}
-      >
+      <div className="input-container">
         <input
-          style={{
-            width: "100%",
-          }}
+          className="input-field"
           type="number"
           value={shrineOffset}
           onChange={(e) => setShrineOffset(Number(e.target.value))}
         />
         <input
-          style={{
-            width: "100%",
-          }}
+          className="input-field"
           type="number"
           value={lightrootOffset}
           onChange={(e) => setLightrootOffset(Number(e.target.value))}
         />
         <input
-          style={{
-            width: "100%",
-          }}
+          className="input-field"
           type="number"
           value={korokOffset}
           onChange={(e) => setKorokOffset(Number(e.target.value))}
         />
         <input
-          style={{
-            width: "100%",
-          }}
+          className="input-field"
           type="number"
           value={bubbulfrogOffset}
           onChange={(e) => setBubbulfrogOffset(Number(e.target.value))}
         />
       </div>
-      <div style={{ display: "flex", justifyContent: "space-around" }}>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "white",
-          }}
-        >
+      <div className="progress-container">
+        <div className="progress-icon-container">
           <img
+            className="progress-icon"
             src={process.env.PUBLIC_URL + "/assets/images/progress/shrine.png"}
             alt="Shrines"
-            style={{ width: "40px", height: "40px", paddingRight: "5px" }}
-          />{" "}
-          {counts["Shrine"] + shrineOffset}
+          />
+          <div className="progress-count">{counts["Shrine"] + shrineOffset}</div>
         </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "white",
-          }}
-        >
+        <div className="progress-icon-container">
           <img
+            className="progress-icon"
             src={process.env.PUBLIC_URL + "/assets/images/progress/lightroot.png"}
             alt="Lightroots"
-            style={{ width: "40px", height: "40px", paddingRight: "5px" }}
-          />{" "}
-          {counts["Lightroot"] + lightrootOffset}
-        </div>{" "}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "white",
-          }}
-        >
+          />
+          <div className="progress-count">{counts["Lightroot"] + lightrootOffset}</div>
+        </div>
+        <div className="progress-icon-container">
           <img
+            className="progress-icon"
             src={process.env.PUBLIC_URL + "/assets/images/progress/korok.png"}
             alt="Koroks"
-            style={{ width: "40px", height: "40px", paddingRight: "5px" }}
-          />{" "}
-          {counts["Korok"] + korokOffset}
+          />
+          <div className="progress-count">
+            {counts["Korok"] + korokOffset} ({counts["Korok"]})
+          </div>
         </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "white",
-          }}
-        >
+        <div className="progress-icon-container">
           <img
+            className="progress-icon"
             src={process.env.PUBLIC_URL + "/assets/images/progress/bubbulfrog.png"}
             alt="Bubbulgems"
-            style={{ width: "40px", height: "40px", paddingRight: "5px" }}
-          />{" "}
-          {counts["Bubbulfrog"] + bubbulfrogOffset}
+          />
+          <div className="progress-count">{counts["Bubbulfrog"] + bubbulfrogOffset}</div>
         </div>
       </div>
     </div>

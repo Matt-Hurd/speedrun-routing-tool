@@ -21,6 +21,7 @@ import "@blueprintjs/icons/lib/css/blueprint-icons.css";
 
 import UpcomingDisplay from "../UpcomingDisplay/UpcomingDisplay";
 import StorageManager from "../../utils/StorageManager";
+import liveSplitService from "../../services/LiveSplitWebSocket";
 
 type RunParams = {
   routeUrl: string;
@@ -30,6 +31,7 @@ const RunMosaic: React.FC = () => {
   const { routeUrl } = useParams<RunParams>();
   const routeStatus = useSelector(selectRouteStatus);
   const dispatch = useAppDispatch();
+  const liveSplit = liveSplitService;
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -66,6 +68,27 @@ const RunMosaic: React.FC = () => {
       dispatch(loadRoute(routeUrl));
     }
   }, [dispatch, routeUrl, routeStatus]);
+
+  useEffect(() => {
+    function handleLoad() {
+      (async () => {
+        liveSplit.connect();
+      })();
+    }
+    if (document.readyState === "complete") {
+      handleLoad();
+    } else {
+      window.addEventListener("load", handleLoad);
+      return () => {
+        window.removeEventListener("load", handleLoad);
+      };
+    }
+    return () => {
+      if (liveSplit) {
+        liveSplit.disconnect();
+      }
+    };
+  }, [liveSplit]);
 
   if (routeStatus !== "succeeded") {
     return <div>Loading...</div>;

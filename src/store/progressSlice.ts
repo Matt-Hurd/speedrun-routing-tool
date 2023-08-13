@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from ".";
+import liveSplitService from "../services/LiveSplitWebSocket";
 
 interface ProgressState {
   branchIndex: number;
@@ -11,15 +12,34 @@ const initialState: ProgressState = {
   pointIndex: 0,
 };
 
-export const incrementProgress = createAsyncThunk("progress/increment", (_, { getState }) => {
+export const incrementProgress = createAsyncThunk("progress/increment", async (_, { getState }) => {
   const state: RootState = getState() as RootState;
   const { progress } = state;
+  const liveSplit = liveSplitService;
 
   if (state.route.data) {
+    const point = state.route.data.branches[progress.branchIndex].points[progress.pointIndex];
+    const thing = state.route.data.things[point.layerId][point.thingId];
+    if (
+      liveSplit.isConnected() &&
+      ((thing.type === "Shrine" && point.action === "COMPLETE") || thing.type === "Lightroot")
+    ) {
+      const currentSplitName = await liveSplit.getCurrentSplitName();
+      if (currentSplitName.endsWith(thing.name)) {
+        liveSplit.split();
+      }
+    }
+
     if (
       progress.branchIndex < state.route.data.branches.length - 1 &&
       progress.pointIndex === state.route.data.branches[progress.branchIndex].points.length - 1
     ) {
+      if (liveSplit.isConnected()) {
+        const currentSplitName = await liveSplit.getCurrentSplitName();
+        if (currentSplitName === state.route.data.branches[progress.branchIndex]?.name) {
+          liveSplit.split();
+        }
+      }
       return { ...progress, branchIndex: progress.branchIndex + 1, pointIndex: 0 };
     } else if (progress.pointIndex < state.route.data.branches[progress.branchIndex].points.length - 1) {
       return { ...progress, pointIndex: progress.pointIndex + 1 };
@@ -29,17 +49,40 @@ export const incrementProgress = createAsyncThunk("progress/increment", (_, { ge
   return progress;
 });
 
-export const decrementProgress = createAsyncThunk("progress/decrement", (_, { getState }) => {
+export const decrementProgress = createAsyncThunk("progress/decrement", async (_, { getState }) => {
   const state: RootState = getState() as RootState;
   const { progress } = state;
+  const liveSplit = liveSplitService;
 
   if (state.route.data) {
+    let newProgress;
     if (progress.branchIndex > 0 && progress.pointIndex === 0) {
       const prevBranchLastPointIndex = state.route.data.branches[progress.branchIndex - 1].points.length - 1;
-      return { ...progress, branchIndex: progress.branchIndex - 1, pointIndex: prevBranchLastPointIndex };
+      if (liveSplit.isConnected()) {
+        const previousSplitName = await liveSplit.getPreviousSplitName();
+        if (previousSplitName === state.route.data.branches[progress.branchIndex - 1]?.name) {
+          liveSplit.unsplit();
+        }
+      }
+      newProgress = { ...progress, branchIndex: progress.branchIndex - 1, pointIndex: prevBranchLastPointIndex };
     } else if (progress.pointIndex > 0) {
-      return { ...progress, pointIndex: progress.pointIndex - 1 };
+      newProgress = { ...progress, pointIndex: progress.pointIndex - 1 };
     }
+    if (newProgress) {
+      const point = state.route.data.branches[newProgress.branchIndex].points[newProgress.pointIndex];
+      const thing = state.route.data.things[point.layerId][point.thingId];
+      if (
+        liveSplit.isConnected() &&
+        ((thing.type === "Shrine" && point.action === "COMPLETE") || thing.type === "Lightroot")
+      ) {
+        const previousSplitName = await liveSplit.getPreviousSplitName();
+        if (previousSplitName.endsWith(thing.name)) {
+          liveSplit.unsplit();
+        }
+      }
+    }
+
+    return newProgress;
   }
 
   return progress;

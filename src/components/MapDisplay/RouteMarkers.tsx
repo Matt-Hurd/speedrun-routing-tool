@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { LayerGroup, Marker, Popup } from "react-leaflet";
-import { Thing, Branch } from "../../models";
+import { Thing, Branch, Korok } from "../../models";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { selectProgress } from "../../store/progressSlice";
@@ -76,7 +76,9 @@ export const RouteMarkers: React.FC<RouteMarkersProps> = ({ branch, activeThing 
           <Popup autoPan={false}>
             {route.things[point.layerId][point.thingId].name}
             <br />
-            {point.shortNote}
+            {route.things[point.layerId][point.thingId].type === "Korok"
+              ? (route.things[point.layerId][point.thingId] as Korok).korokType
+              : point.shortNote}
             <br />
             {route.things[point.layerId][point.thingId].coordinates.y.toFixed(0)} |{" "}
             {route.things[point.layerId][point.thingId].coordinates.x.toFixed(0)} |{" "}
