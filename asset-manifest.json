@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/totum/static/css/main.cb71d03c.css",
-    "main.js": "/totum/static/js/main.6f66752d.js",
+    "main.css": "/totum/static/css/main.1f29d524.css",
+    "main.js": "/totum/static/js/main.ad7a5676.js",
     "static/js/787.eeaed3d0.chunk.js": "/totum/static/js/787.eeaed3d0.chunk.js",
     "static/media/nintendo_NTLG-DB_DH_002.bfotf.otf": "/totum/static/media/nintendo_NTLG-DB_DH_002.bfotf.bc9a55193b3193807654.otf",
     "static/media/ninP_RodinNTLG-B_DH_003_subset.bfotf.otf": "/totum/static/media/ninP_RodinNTLG-B_DH_003_subset.bfotf.46bf47ff55a3c67eccb6.otf",
@@ -18,12 +18,12 @@
     "static/media/blueprint-icons-16.woff2?": "/totum/static/media/blueprint-icons-16.5d3be7e91ef0bd98ba43.woff2",
     "static/media/Nin-ZeldaBotW-Ancient.bfotf.otf": "/totum/static/media/Nin-ZeldaBotW-Ancient.bfotf.b4bf6795973b44f8c20d.otf",
     "index.html": "/totum/index.html",
-    "main.cb71d03c.css.map": "/totum/static/css/main.cb71d03c.css.map",
-    "main.6f66752d.js.map": "/totum/static/js/main.6f66752d.js.map",
+    "main.1f29d524.css.map": "/totum/static/css/main.1f29d524.css.map",
+    "main.ad7a5676.js.map": "/totum/static/js/main.ad7a5676.js.map",
     "787.eeaed3d0.chunk.js.map": "/totum/static/js/787.eeaed3d0.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.cb71d03c.css",
-    "static/js/main.6f66752d.js"
+    "static/css/main.1f29d524.css",
+    "static/js/main.ad7a5676.js"
   ]
 }
