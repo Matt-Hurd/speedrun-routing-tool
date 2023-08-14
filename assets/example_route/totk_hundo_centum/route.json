@@ -100,12 +100,6 @@
           "layerId": "sky"
         },
         {
-          "thingId": "Npc_HiddenKorokGround -- sky -- 16",
-          "layerId": "sky",
-          "shortNote": "Inside a tree trunk. Remove the leaves and then pick up the rock.",
-          "htmlNote": "<p><img src=\"https://www.zeldadungeon.net/wiki/images/thumb/5/52/Korok0858.jpg/800px-Korok0858.jpg\"></p>"
-        },
-        {
           "thingId": "LocationArea : Cave_CentralHyrule_0017 -- sky -- 1",
           "layerId": "sky"
         },
@@ -13584,6 +13578,12 @@
           "layerId": "sky",
           "shortNote": "Climb up the big tree and pick up the rock at the top.",
           "htmlNote": "<p><img src=\"https://www.zeldadungeon.net/wiki/images/thumb/d/de/Korok0576.jpg/800px-Korok0576.jpg\"></p>"
+        },
+        {
+          "thingId": "Npc_HiddenKorokGround -- sky -- 16",
+          "layerId": "sky",
+          "shortNote": "Inside a tree trunk. Remove the leaves and then pick up the rock.",
+          "htmlNote": "<p><img src=\"https://www.zeldadungeon.net/wiki/images/thumb/5/52/Korok0858.jpg/800px-Korok0858.jpg\"></p>"
         },
         {
           "thingId": "RBox_Field_A : SpObj_FlameThrower_Capsule_A_01 : SpObj_WindGenerator_Capsule_A_01 : SpObj_CookSet_Capsule_A_01 -- sky -- 0",
