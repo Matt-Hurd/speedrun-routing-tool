@@ -17,7 +17,7 @@ function RouteSelection() {
 
   useEffect(() => {
     const loadDefaultRoutes = async () => {
-      const response = await fetch(process.env.PUBLIC_URL + "/assets/default_routes.json");
+      const response = await fetch(new URL("/assets/default_routes.json", import.meta.url).href);
       const data = await response.json();
       setGameOptions(data);
     };

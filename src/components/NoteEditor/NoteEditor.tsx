@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import ReactQuill, { Quill } from "react-quill";
-import BlotFormatter from "quill-blot-formatter";
+import BlotFormatter from "quill-blot-formatter/dist/BlotFormatter";
 
 import "react-quill/dist/quill.snow.css";
 import "./NoteEditor.scss";
@@ -51,7 +51,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ notes, onNotesChange }) => {
 
   useEffect(() => {
     if (quillRef.current) {
-      let quill = quillRef.current.getEditor();
+      const quill = quillRef.current.getEditor();
       quill.getModule("toolbar").addHandler("image", selectLocalImage);
     }
   }, [quillRef, selectLocalImage]);

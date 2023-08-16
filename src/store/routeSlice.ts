@@ -22,18 +22,15 @@ async function fetchFromUrl(url: string) {
   }
 
   const data = await response.json();
-  let split = url.split("/");
+  const split = url.split("/");
   data.url = split.slice(0, split.length - 1).join("/") + "/";
   return data;
 }
 
-export const loadRoute = createAsyncThunk<Route, string, { dispatch: AppDispatch }>(
-  "route/load",
-  async (routeUrl, thunkAPI) => {
-    const response = await fetchFromUrl(routeUrl);
-    return response;
-  },
-);
+export const loadRoute = createAsyncThunk<Route, string, { dispatch: AppDispatch }>("route/load", async (routeUrl) => {
+  const response = await fetchFromUrl(routeUrl);
+  return response;
+});
 
 const routeSlice = createSlice({
   name: "route",

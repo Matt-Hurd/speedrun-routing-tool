@@ -1,28 +1,44 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Mosaic, MosaicWindow, MosaicBranch, MosaicNode } from "react-mosaic-component";
+import { useSelector } from "react-redux";
+import dropRight from "lodash/dropRight";
+import { filter } from "lodash";
+
+import {
+  Mosaic,
+  MosaicWindow,
+  MosaicBranch,
+  getPathToCorner,
+  Corner,
+  getNodeAtPath,
+  getOtherDirection,
+  updateTree,
+  getLeaves,
+  MosaicDirection,
+  MosaicParent,
+  MosaicNode,
+  RemoveButton,
+} from "react-mosaic-component";
+import "./RunMosaic.css";
+import "@blueprintjs/core/lib/css/blueprint.css";
+import "@blueprintjs/icons/lib/css/blueprint-icons.css";
 import "react-mosaic-component/react-mosaic-component.css";
 import "react-mosaic-component/styles/index.less";
 
+import Toolbar from "./Toolbar";
 import MapDisplay from "../MapDisplay/MapDisplay";
 import ProgressDisplay from "../ProgressDisplay/ProgressDisplay";
 import RouteListDisplay from "../RouteListDisplay/RouteListDisplay";
-import { useAppDispatch } from "../../hooks";
-
-import "./RunMosaic.css";
-import { loadRoute, selectRouteStatus } from "../../store/routeSlice";
-import { useSelector } from "react-redux";
 import BranchNotesDisplay from "../BranchNotesDisplay/BranchNotesDisplay";
 import PointNotesDisplay from "../PointNotesDisplay/PointNotesDisplay";
-import { incrementProgress, decrementProgress, incrementSection, decrementSection } from "../../store/progressSlice";
-
-import "@blueprintjs/core/lib/css/blueprint.css";
-import "@blueprintjs/icons/lib/css/blueprint-icons.css";
-
 import UpcomingDisplay from "../UpcomingDisplay/UpcomingDisplay";
+
+import { useAppDispatch } from "../../hooks";
+import { loadRoute, selectRouteStatus } from "../../store/routeSlice";
 import StorageManager from "../../utils/StorageManager";
-import liveSplitService from "../../services/LiveSplitWebSocket";
 import { RootState } from "../../store";
+import { useKeyBindings } from "./useKeyBindings";
+import { useLivesplit } from "./useLiveSplit";
 
 type RunParams = {
   routeUrl: string;
@@ -32,37 +48,48 @@ const RunMosaic: React.FC = () => {
   const { routeUrl } = useParams<RunParams>();
   const routeStatus = useSelector(selectRouteStatus);
   const dispatch = useAppDispatch();
-  const liveSplit = liveSplitService;
   const darkMode = useSelector((state: RootState) => state.userPreferences.darkMode);
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      switch (event.key) {
-        case "ArrowLeft":
-          if (event.ctrlKey && event.shiftKey) {
-            dispatch(decrementSection());
-          } else {
-            dispatch(decrementProgress());
-          }
-          break;
-        case "ArrowRight":
-          if (event.ctrlKey && event.shiftKey) {
-            dispatch(incrementSection());
-          } else {
-            dispatch(incrementProgress());
-          }
-          break;
-        default:
-          break;
-      }
-    };
+  const initialLayoutStorage = StorageManager.getItem("layout");
+  const initialLayout = initialLayoutStorage
+    ? JSON.parse(initialLayoutStorage)
+    : {
+        direction: "row",
+        first: {
+          direction: "column",
+          first: "Map",
+          second: {
+            first: "Route List",
+            second: {
+              first: "Upcoming Display",
+              second: "Progress",
+              direction: "column",
+              splitPercentage: 60,
+            },
+            direction: "row",
+            splitPercentage: 70,
+          },
+          splitPercentage: 67,
+        },
+        second: {
+          first: "Point Notes",
+          second: "Branch Notes",
+          direction: "column",
+        },
+        splitPercentage: 77,
+      };
 
-    window.addEventListener("keydown", handleKeyDown);
+  const [currentNode, setCurrentNode] = useState<MosaicNode<string> | null>(initialLayout);
 
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [dispatch]);
+  const findMissingDisplays = (node: MosaicNode<string> | null) => {
+    const allDisplays = ["Map", "Progress", "Route List", "Point Notes", "Branch Notes", "Upcoming Display"];
+    const allVisibleDisplays = getLeaves(node);
+    return filter(allDisplays, (display) => {
+      return !allVisibleDisplays.includes(display);
+    });
+  };
+
+  const [availableDisplays, setAvailableDisplays] = useState<string[]>(findMissingDisplays(currentNode));
 
   useEffect(() => {
     if (routeUrl === undefined) return;
@@ -71,26 +98,8 @@ const RunMosaic: React.FC = () => {
     }
   }, [dispatch, routeUrl, routeStatus]);
 
-  useEffect(() => {
-    function handleLoad() {
-      (async () => {
-        liveSplit.connect();
-      })();
-    }
-    if (document.readyState === "complete") {
-      handleLoad();
-    } else {
-      window.addEventListener("load", handleLoad);
-      return () => {
-        window.removeEventListener("load", handleLoad);
-      };
-    }
-    return () => {
-      if (liveSplit) {
-        liveSplit.disconnect();
-      }
-    };
-  }, [liveSplit]);
+  useKeyBindings();
+  useLivesplit();
 
   if (routeStatus !== "succeeded") {
     return <div>Loading...</div>;
@@ -123,50 +132,73 @@ const RunMosaic: React.FC = () => {
     }
 
     return (
-      <MosaicWindow path={path} title={id}>
+      <MosaicWindow path={path} title={id} toolbarControls={[<RemoveButton />]}>
         {component}
       </MosaicWindow>
     );
   };
 
-  const onChange = (currentNode: MosaicNode<string> | null) => {
-    StorageManager.setItem("layout", JSON.stringify(currentNode));
+  const onChange = (newCurrentNode: MosaicNode<string> | null) => {
+    StorageManager.setItem("layout", JSON.stringify(newCurrentNode));
+    setCurrentNode(newCurrentNode);
+    setAvailableDisplays(findMissingDisplays(newCurrentNode));
   };
-
-  const initialLayoutStorage = StorageManager.getItem("layout");
-  const initialLayout = initialLayoutStorage
-    ? JSON.parse(initialLayoutStorage)
-    : {
-        direction: "row",
-        first: {
-          direction: "column",
-          first: "Map",
-          second: {
-            first: "Route List",
-            second: {
-              first: "Upcoming Display",
-              second: "Progress",
-              direction: "column",
-              splitPercentage: 60,
-            },
-            direction: "row",
-            splitPercentage: 70,
-          },
-          splitPercentage: 67,
-        },
-        second: {
-          first: "Point Notes",
-          second: "Branch Notes",
-          direction: "column",
-        },
-        splitPercentage: 77,
-      };
 
   const darkModeClass = darkMode ? "darkmode" : "";
 
+  const addToTopRight = (displayType: string) => {
+    console.log(currentNode);
+    if (currentNode) {
+      const path = getPathToCorner(currentNode, Corner.TOP_RIGHT);
+      const parent = getNodeAtPath(currentNode, dropRight(path)) as MosaicParent<string>;
+      const destination = getNodeAtPath(currentNode, path) as MosaicNode<string>;
+      const direction: MosaicDirection = parent ? getOtherDirection(parent.direction) : "row";
+
+      let first: MosaicNode<string>;
+      let second: MosaicNode<string>;
+      if (direction === "row") {
+        first = destination;
+        second = displayType;
+      } else {
+        first = displayType;
+        second = destination;
+      }
+
+      const newTree = updateTree(currentNode, [
+        {
+          path,
+          spec: {
+            $set: {
+              direction,
+              first,
+              second,
+            },
+          },
+        },
+      ]);
+      setCurrentNode(newTree);
+      setAvailableDisplays(findMissingDisplays(newTree));
+    }
+  };
+
+  const handleToolbarButtonClick = (action: string) => {
+    console.log("Button action:", action);
+  };
+
+  const handleToolbarAddDisplay = (selectedOption: string) => {
+    addToTopRight(selectedOption);
+  };
+
   return (
     <div className={"run-mosaic " + darkModeClass}>
-      <Mosaic renderTile={renderWindow} onChange={onChange} initialValue={initialLayout} blueprintNamespace="bp5" />
+      {availableDisplays.length !== 0 && (
+        <Toolbar
+          onButtonClick={handleToolbarButtonClick}
+          onAddDisplay={handleToolbarAddDisplay}
+          missingDisplays={availableDisplays}
+        />
+      )}
+      <Mosaic renderTile={renderWindow} onChange={onChange} value={currentNode} blueprintNamespace="bp5" />
     </div>
   );
 };
