@@ -8,22 +8,22 @@ body {
 
 @font-face {
   font-family: ZeldaAncient;
-  src: url("../assets/fonts/Nin-ZeldaBotW-Ancient.bfotf.otf");
+  src: url("/assets/fonts/Nin-ZeldaBotW-Ancient.bfotf.otf");
 }
 
 @font-face {
   font-family: ZeldaGlyphs;
-  src: url("../assets/fonts/Nin-ZeldaGlyphs-v2-Deco.bfotf.otf");
+  src: url("/assets/fonts/Nin-ZeldaGlyphs-v2-Deco.bfotf.otf");
 }
 
 @font-face {
   font-family: ZeldaMain;
-  src: url("../assets/fonts/nintendo_NTLG-DB_DH_002.bfotf.otf");
+  src: url("/assets/fonts/nintendo_NTLG-DB_DH_002.bfotf.otf");
 }
 
 @font-face {
   font-family: ZeldaMainSub;
-  src: url("../assets/fonts/ninP_RodinNTLG-B_DH_003_subset.bfotf.otf");
+  src: url("/assets/fonts/ninP_RodinNTLG-B_DH_003_subset.bfotf.otf");
 }
 
 code {

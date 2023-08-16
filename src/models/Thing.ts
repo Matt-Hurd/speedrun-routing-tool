@@ -17,6 +17,4 @@ export class Shrine extends Thing {
   subText: string = "";
 }
 
-export class Item extends Thing {
-  itemSpecificProperty: any;
-}
+export class Item extends Thing {}
