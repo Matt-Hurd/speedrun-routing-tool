@@ -1,7 +1,7 @@
 import "leaflet/dist/leaflet.css";
 
 import "./leaflet_tile_workaround.js";
-import { MapContainer, Pane, TileLayer } from "react-leaflet";
+import { MapContainer, Pane, TileLayer, ImageOverlay } from "react-leaflet";
 import { useSelector } from "react-redux";
 import { selectProgress } from "../../store/progressSlice";
 import { RouteMarkers } from "./RouteMarkers";
@@ -36,8 +36,11 @@ const MapDisplay: React.FC = () => {
       />
       <RouteLines />
       <MapUpdate activePoint={activePoint} />
+      <Pane name="tile_bg" style={{ zIndex: 1 }}>
+        <TileLayer url={route.game.layers[activePoint.layerId].imagePath} bounds={outerBounds} />
+      </Pane>
       <Pane name="bg" style={{ zIndex: 0 }}>
-        <TileLayer url={route.game.layers[activePoint.layerId].imagePath} />
+        <ImageOverlay url={route.url + route.game.layers[activePoint.layerId].baseImagePath} bounds={outerBounds} />
       </Pane>
       <MapEvents />
     </MapContainer>

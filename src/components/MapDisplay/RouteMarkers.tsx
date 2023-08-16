@@ -25,7 +25,7 @@ export const RouteMarkers: React.FC<RouteMarkersProps> = ({ branch, activeThing 
   const icons: Record<string, Icon> = {};
 
   const defaultIcon = L.icon({
-    iconUrl: "/assets/images/route_icons/blank.png",
+    iconUrl: new URL("/assets/images/route_icons/blank.png", import.meta.url).href,
     iconSize: [40, 40],
     iconAnchor: [20, 20],
   });

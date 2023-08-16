@@ -17,7 +17,11 @@ export const store = configureStore({
       notes: notesReducer,
     }),
   ),
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(createStateSyncMiddleware(config)),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      immutableCheck: false,
+      serializableCheck: false,
+    }).concat(createStateSyncMiddleware(config)),
 });
 
 initStateWithPrevTab(store);

@@ -87,17 +87,19 @@ const ProgressDisplay: React.FC = () => {
       </div>
       <div className={"progress-icons"}>
         <div className={"progress-icon"}>
-          <img src={"/assets/images/progress/shrine.png"} alt="Shrines" /> {counts["Shrine"] + shrineOffset}
+          <img src={new URL("/assets/images/progress/shrine.png", import.meta.url).href} alt="Shrines" />{" "}
+          {counts["Shrine"] + shrineOffset}
         </div>
         <div className={"progress-icon"}>
-          <img src={"/assets/images/progress/lightroot.png"} alt="Lightroots" /> {counts["Lightroot"] + lightrootOffset}
+          <img src={new URL("/assets/images/progress/lightroot.png", import.meta.url).href} alt="Lightroots" />{" "}
+          {counts["Lightroot"] + lightrootOffset}
         </div>{" "}
         <div className={"progress-icon"}>
-          <img src={"/assets/images/progress/korok.png"} alt="Koroks" /> {counts["Korok"] + korokOffset} (
-          {counts["Korok"]})
+          <img src={new URL("/assets/images/progress/korok.png", import.meta.url).href} alt="Koroks" />{" "}
+          {counts["Korok"] + korokOffset} ({counts["Korok"]})
         </div>
         <div className={"progress-icon"}>
-          <img src={"/assets/images/progress/bubbulfrog.png"} alt="Bubbulgems" />{" "}
+          <img src={new URL("/assets/images/progress/bubbulfrog.png", import.meta.url).href} alt="Bubbulgems" />{" "}
           {counts["Bubbulfrog"] + bubbulfrogOffset}
         </div>
       </div>
