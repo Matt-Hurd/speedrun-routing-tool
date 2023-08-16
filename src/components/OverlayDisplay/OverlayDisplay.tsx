@@ -23,6 +23,7 @@ const TOTAL_LIGHTROOT = 120;
 const TOTAL_BUBBULFROG = 147;
 
 interface OverlayDisplayProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   progress: any;
   route: Route | null;
 }
@@ -151,4 +152,6 @@ const mapStateToProps = (state: RootState) => {
   return { progress: state.progress, route };
 };
 
-export default connect(mapStateToProps)(OverlayDisplay);
+const display = connect(mapStateToProps)(OverlayDisplay);
+
+export default display;

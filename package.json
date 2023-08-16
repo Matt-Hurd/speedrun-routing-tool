@@ -10,6 +10,9 @@
     "preview": "vite preview",
     "prepare": "husky install"
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,css,scss}": "prettier --write"
+  },
   "dependencies": {
     "@blueprintjs/core": "^5.2.0",
     "@blueprintjs/icons": "^5.1.5",
@@ -29,8 +32,10 @@
   },
   "devDependencies": {
     "@types/leaflet": "^1.9.3",
+    "@types/leaflet-polylinedecorator": "^1.6.1",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "@types/redux-state-sync": "^3.1.5",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react": "^4.0.3",
@@ -40,6 +45,7 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "husky": "^8.0.3",
     "less": "^4.2.0",
+    "lint-staged": "^14.0.0",
     "sass": "^1.65.1",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",

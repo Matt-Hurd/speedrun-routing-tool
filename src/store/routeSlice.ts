@@ -22,21 +22,19 @@ async function fetchFromUrl(url: string) {
   }
 
   const data = await response.json();
-  let split = url.split("/");
+  const split = url.split("/");
   data.url = split.slice(0, split.length - 1).join("/") + "/";
   return data;
 }
 
-export const loadRoute = createAsyncThunk<Route, string, { dispatch: AppDispatch }>(
-  "route/load",
-  async (routeUrl, thunkAPI) => {
-    const response = await fetchFromUrl(routeUrl);
-    return response;
-  },
-);
+export const loadRoute = createAsyncThunk<Route, string, { dispatch: AppDispatch }>("route/load", async (routeUrl) => {
+  const response = await fetchFromUrl(routeUrl);
+  return response;
+});
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const convertPayloadToRoute = (payload: any) => {
-  let newThings: Record<string, Record<string, Thing>> = {};
+  const newThings: Record<string, Record<string, Thing>> = {};
   payload.things.forEach((thing: Thing) => {
     if (!newThings[thing.layerId]) {
       newThings[thing.layerId] = {};

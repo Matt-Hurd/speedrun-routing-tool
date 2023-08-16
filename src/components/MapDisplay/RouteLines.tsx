@@ -14,7 +14,7 @@ const RouteLines: React.FC = () => {
   if (!route) return null;
 
   const polylines = [];
-  let visibleLayerId = route.branches[branchIndex].points[pointIndex].layerId;
+  const visibleLayerId = route.branches[branchIndex].points[pointIndex].layerId;
   let lastLayerId = null;
   let lastPosition = null;
 

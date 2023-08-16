@@ -51,7 +51,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ notes, onNotesChange }) => {
 
   useEffect(() => {
     if (quillRef.current) {
-      let quill = quillRef.current.getEditor();
+      const quill = quillRef.current.getEditor();
       quill.getModule("toolbar").addHandler("image", selectLocalImage);
     }
   }, [quillRef, selectLocalImage]);

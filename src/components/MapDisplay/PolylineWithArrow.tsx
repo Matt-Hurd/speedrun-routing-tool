@@ -3,6 +3,7 @@ import { useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet-polylinedecorator";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const PolylineWithArrow: React.FC<{ positions: any; color: string; warp: boolean }> = ({ positions, color, warp }) => {
   const map = useMap();
 
