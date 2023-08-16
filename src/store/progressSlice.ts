@@ -122,21 +122,21 @@ export const progressSlice = createSlice({
   name: "progress",
   initialState,
   reducers: {
-    setProgress: (state, action) => {
+    setProgress: (_state, action) => {
       return action.payload;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(incrementProgress.fulfilled, (state, action) => {
+    builder.addCase(incrementProgress.fulfilled, (_state, action) => {
       return action.payload;
     });
-    builder.addCase(decrementProgress.fulfilled, (state, action) => {
+    builder.addCase(decrementProgress.fulfilled, (_state, action) => {
       return action.payload;
     });
-    builder.addCase(incrementSection.fulfilled, (state, action) => {
+    builder.addCase(incrementSection.fulfilled, (_state, action) => {
       return action.payload;
     });
-    builder.addCase(decrementSection.fulfilled, (state, action) => {
+    builder.addCase(decrementSection.fulfilled, (_state, action) => {
       return action.payload;
     });
   },

@@ -36,14 +36,14 @@ const ProgressDisplay: React.FC = () => {
       if (bidx === branchIndex) return pointIndex;
       return route.branches[bidx].points.length;
     };
-    let newCounts: { [type: string]: number } = {
+    const newCounts: { [type: string]: number } = {
       Korok: 0,
       Shrine: 0,
       Lightroot: 0,
       Bubbulfrog: 0,
     };
 
-    let visitedThings = new Set();
+    const visitedThings = new Set();
 
     for (let bidx = 0; bidx <= branchIndex; bidx++) {
       for (let pidx = 0; pidx < getMaxPointIdx(bidx, pointIndex); pidx++) {
@@ -87,19 +87,17 @@ const ProgressDisplay: React.FC = () => {
       </div>
       <div className={"progress-icons"}>
         <div className={"progress-icon"}>
-          <img src={process.env.PUBLIC_URL + "/assets/images/progress/shrine.png"} alt="Shrines" />{" "}
-          {counts["Shrine"] + shrineOffset}
+          <img src={"/assets/images/progress/shrine.png"} alt="Shrines" /> {counts["Shrine"] + shrineOffset}
         </div>
         <div className={"progress-icon"}>
-          <img src={process.env.PUBLIC_URL + "/assets/images/progress/lightroot.png"} alt="Lightroots" />{" "}
-          {counts["Lightroot"] + lightrootOffset}
+          <img src={"/assets/images/progress/lightroot.png"} alt="Lightroots" /> {counts["Lightroot"] + lightrootOffset}
         </div>{" "}
         <div className={"progress-icon"}>
-          <img src={process.env.PUBLIC_URL + "/assets/images/progress/korok.png"} alt="Koroks" />{" "}
-          {counts["Korok"] + korokOffset} ({counts["Korok"]})
+          <img src={"/assets/images/progress/korok.png"} alt="Koroks" /> {counts["Korok"] + korokOffset} (
+          {counts["Korok"]})
         </div>
         <div className={"progress-icon"}>
-          <img src={process.env.PUBLIC_URL + "/assets/images/progress/bubbulfrog.png"} alt="Bubbulgems" />{" "}
+          <img src={"/assets/images/progress/bubbulfrog.png"} alt="Bubbulgems" />{" "}
           {counts["Bubbulfrog"] + bubbulfrogOffset}
         </div>
       </div>

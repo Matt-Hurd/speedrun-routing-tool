@@ -50,7 +50,7 @@ class OverlayDisplay extends React.Component<OverlayDisplayProps> {
     let newShrineCount = 0;
     let newLightrootCount = 0;
     let newBubbulfrogCount = 0;
-    let newDungeonStatus = { ...initialDungeonStatus };
+    const newDungeonStatus = { ...initialDungeonStatus };
 
     for (let bidx = 0; bidx <= progress.branchIndex; bidx++) {
       const branch = route.branches[bidx];
@@ -134,7 +134,7 @@ class OverlayDisplay extends React.Component<OverlayDisplayProps> {
           {Object.entries(dungeonStatus).map(([dungeon, isComplete]) => (
             <motion.img
               key={dungeon}
-              src={process.env.PUBLIC_URL + `/assets/images/overlay/${dungeon}.png`}
+              src={`/assets/images/overlay/${dungeon}.png`}
               initial={{ opacity: isComplete ? 1 : 0.3 }}
               animate={{ opacity: isComplete ? 1 : 0.3 }}
             />
