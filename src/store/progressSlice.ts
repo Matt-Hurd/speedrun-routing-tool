@@ -19,7 +19,7 @@ export const incrementProgress = createAsyncThunk("progress/increment", async (_
 
   if (state.route.data) {
     const point = state.route.data.branches[progress.branchIndex].points[progress.pointIndex];
-    const thing = state.route.data.things[point.layerId][point.thingId];
+    const thing = state.route.data.things[point.thingId];
     if (
       liveSplit.isConnected() &&
       ((thing.type === "Shrine" && point.action === "COMPLETE") || thing.type === "Lightroot")
@@ -70,7 +70,7 @@ export const decrementProgress = createAsyncThunk("progress/decrement", async (_
     }
     if (newProgress) {
       const point = state.route.data.branches[newProgress.branchIndex].points[newProgress.pointIndex];
-      const thing = state.route.data.things[point.layerId][point.thingId];
+      const thing = state.route.data.things[point.thingId];
       if (
         liveSplit.isConnected() &&
         ((thing.type === "Shrine" && point.action === "COMPLETE") || thing.type === "Lightroot")

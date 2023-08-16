@@ -1,11 +1,12 @@
 export default class Thing {
-  id: string = "";
+  uid: string = "";
   name: string = "";
   coordinates: { x: number; y: number; z: number } = { x: 0, y: 0, z: 0 };
   layerId: string = "";
   dependencyIds: string[] = [];
   icon: string = "";
   type: string = "";
+  isNativeObject: boolean = true;
 }
 
 export class Korok extends Thing {

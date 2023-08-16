@@ -59,7 +59,7 @@ class OverlayDisplay extends React.Component<OverlayDisplayProps> {
 
       for (let pidx = 0; pidx < pointCount; pidx++) {
         const point = branch.points[pidx];
-        const thing = route.things[point.layerId][point.thingId] as Thing;
+        const thing = route.things[point.thingId] as Thing;
 
         switch (thing.type) {
           case "Korok":

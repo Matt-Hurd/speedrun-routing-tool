@@ -48,8 +48,8 @@ export const RouteMarkers: React.FC<RouteMarkersProps> = ({ branch, activeThing 
   };
 
   useEffect(() => {
-    if (activeThing && markerRefs.current.has(activeThing.id)) {
-      markerRefs.current.get(activeThing.id).openPopup();
+    if (activeThing && markerRefs.current.has(activeThing.uid)) {
+      markerRefs.current.get(activeThing.uid).openPopup();
     }
   }, [activeThing]);
 
@@ -57,35 +57,38 @@ export const RouteMarkers: React.FC<RouteMarkersProps> = ({ branch, activeThing 
 
   return (
     <LayerGroup>
-      {branch.points.map((point, index) => (
-        <Marker
-          key={index}
-          opacity={
-            (hideCompletedMarkers ? pointIndex : 0) <= index &&
-            route.things[point.layerId][point.thingId].layerId === activeThing.layerId
-              ? 1
-              : 0
+      {branch.points.map((point, index) => {
+        const currentThing = route.things[point.thingId];
+        const { coordinates, name, type } = currentThing;
+        const isKorok = type === "Korok";
+
+        let opacity = 0;
+        if (currentThing.layerId === activeThing.layerId) {
+          if (hideCompletedMarkers && pointIndex <= index) {
+            opacity = 1;
+          } else if (!hideCompletedMarkers) {
+            opacity = 1;
           }
-          position={[
-            -route.things[point.layerId][point.thingId].coordinates.x,
-            route.things[point.layerId][point.thingId].coordinates.y,
-          ]}
-          icon={getIconForThing(route.things[point.layerId][point.thingId])}
-          ref={(ref) => markerRefs.current.set(point.thingId, ref)}
-        >
-          <Popup autoPan={false}>
-            {route.things[point.layerId][point.thingId].name}
-            <br />
-            {route.things[point.layerId][point.thingId].type === "Korok"
-              ? (route.things[point.layerId][point.thingId] as Korok).korokType
-              : point.shortNote}
-            <br />
-            {route.things[point.layerId][point.thingId].coordinates.y.toFixed(0)} |{" "}
-            {route.things[point.layerId][point.thingId].coordinates.x.toFixed(0)} |{" "}
-            {route.things[point.layerId][point.thingId].coordinates.z.toFixed(0)}
-          </Popup>
-        </Marker>
-      ))}
+        }
+
+        return (
+          <Marker
+            key={index}
+            opacity={opacity}
+            position={[-coordinates.x, coordinates.y]}
+            icon={getIconForThing(currentThing)}
+            ref={(ref) => markerRefs.current.set(point.thingId, ref)}
+          >
+            <Popup autoPan={false}>
+              {name}
+              <br />
+              {isKorok ? (currentThing as Korok).korokType : point.shortNote}
+              <br />
+              {coordinates.y.toFixed(0)} | {coordinates.x.toFixed(0)} | {coordinates.z.toFixed(0)}
+            </Popup>
+          </Marker>
+        );
+      })}
     </LayerGroup>
   );
 };

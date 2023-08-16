@@ -22,6 +22,7 @@ const MapDisplay: React.FC = () => {
   if (!route) return null;
 
   const activePoint = route.branches[branchIndex].points[pointIndex];
+  const activeThing = route.things[activePoint.thingId];
 
   const style = {
     height: "100%",
@@ -30,17 +31,14 @@ const MapDisplay: React.FC = () => {
 
   return (
     <MapContainer style={style} bounds={outerBounds} zoom={0} maxZoom={7} minZoom={-5} crs={crs} keyboard={false}>
-      <RouteMarkers
-        branch={route.branches[branchIndex]}
-        activeThing={route.things[activePoint.layerId][activePoint.thingId]}
-      />
+      <RouteMarkers branch={route.branches[branchIndex]} activeThing={activeThing} />
       <RouteLines />
       <MapUpdate activePoint={activePoint} />
       <Pane name="tile_bg" style={{ zIndex: 1 }}>
         <TileLayer url={route.game.layers[activePoint.layerId].imagePath} bounds={outerBounds} />
       </Pane>
       <Pane name="bg" style={{ zIndex: 0 }}>
-        <ImageOverlay url={route.url + route.game.layers[activePoint.layerId].baseImagePath} bounds={outerBounds} />
+        <ImageOverlay url={route.url + route.game.layers[activeThing.layerId].baseImagePath} bounds={outerBounds} />
       </Pane>
       <MapEvents />
     </MapContainer>

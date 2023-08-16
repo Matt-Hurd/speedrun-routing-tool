@@ -26,7 +26,7 @@ const UpcomingDisplay: React.FC = () => {
 
       for (let pidx = bidx === branchIndex ? pointIndex : 0; pidx < route.branches[bidx].points.length; pidx++) {
         const point = route.branches[bidx].points[pidx];
-        const thing = route.things[point.layerId][point.thingId];
+        const thing = route.things[point.thingId];
 
         if (thing.type === "Shrine" && point.action === "COMPLETE") {
           const shrine = thing as Shrine;

@@ -19,7 +19,7 @@ const RouteListDisplay: React.FC = () => {
 
   const getNote = (point: Point) => {
     if (point.shortNote !== "") return point.shortNote;
-    const thing = route.things[point.layerId][point.thingId];
+    const thing = route.things[point.thingId];
     if (thing.type === "Korok") {
       const korok = thing as Korok;
       return korok.korokType;
@@ -45,7 +45,7 @@ const RouteListDisplay: React.FC = () => {
                   ref={bIdx === branchIndex && pIdx === pointIndex ? activePointRef : null}
                 >
                   <div className="routeList__pointId">{pIdx}</div>
-                  <div className="routeList__pointName">{route.things[point.layerId][point.thingId].name}</div>
+                  <div className="routeList__pointName">{route.things[point.thingId].name}</div>
                   <div className="routeList__pointNotes">{getNote(point)}</div>
                 </div>
               ))}

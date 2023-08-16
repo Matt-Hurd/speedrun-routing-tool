@@ -5,7 +5,7 @@ export default class Route {
   url: string;
   game: Game;
   branches: Branch[] = [];
-  things: Record<string, Record<string, Thing>> = {};
+  things: Record<string, Thing> = {};
 
   constructor(name: string, url: string, game: Game) {
     this.name = name;

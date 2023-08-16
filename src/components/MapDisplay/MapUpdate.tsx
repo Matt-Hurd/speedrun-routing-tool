@@ -14,10 +14,7 @@ export const MapUpdate: React.FC<MapUpdateProps> = ({ activePoint }) => {
 
   useEffect(() => {
     if (route)
-      map.setView([
-        -route.things[activePoint.layerId][activePoint.thingId].coordinates.x,
-        route.things[activePoint.layerId][activePoint.thingId].coordinates.y,
-      ]);
+      map.setView([-route.things[activePoint.thingId].coordinates.x, route.things[activePoint.thingId].coordinates.y]);
   }, [activePoint, map, route]);
 
   return null;
