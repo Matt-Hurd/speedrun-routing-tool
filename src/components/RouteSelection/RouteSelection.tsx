@@ -19,7 +19,15 @@ function RouteSelection() {
     const loadDefaultRoutes = async () => {
       const response = await fetch(process.env.PUBLIC_URL + "/assets/default_routes.json");
       const data = await response.json();
-      setGameOptions(data);
+
+      const newData = data.map((gameOption: GameOption) => ({
+        ...gameOption,
+        routes: gameOption.routes.map((routeOption: RouteOption) => ({
+          ...routeOption,
+          path: routeOption.path.startsWith("/") ? process.env.PUBLIC_URL + routeOption.path : routeOption.path,
+        })),
+      }));
+      setGameOptions(newData);
     };
 
     loadDefaultRoutes();
