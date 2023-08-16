@@ -1,0 +1,15 @@
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  height: 3vh;
+}
+
+.toolbar button {
+  margin-right: 10px;
+}
+
+.toolbar select {
+  margin-left: auto; /* pushes it to the right end of the toolbar */
+}
