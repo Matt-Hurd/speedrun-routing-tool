@@ -17,17 +17,9 @@ function RouteSelection() {
 
   useEffect(() => {
     const loadDefaultRoutes = async () => {
-      const response = await fetch(process.env.PUBLIC_URL + "/assets/default_routes.json");
+      const response = await fetch("/assets/default_routes.json");
       const data = await response.json();
-
-      const newData = data.map((gameOption: GameOption) => ({
-        ...gameOption,
-        routes: gameOption.routes.map((routeOption: RouteOption) => ({
-          ...routeOption,
-          path: routeOption.path.startsWith("/") ? process.env.PUBLIC_URL + routeOption.path : routeOption.path,
-        })),
-      }));
-      setGameOptions(newData);
+      setGameOptions(data);
     };
 
     loadDefaultRoutes();

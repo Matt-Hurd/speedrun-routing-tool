@@ -7,7 +7,7 @@ class LiveSplitWebSocket {
   private pendingRequests: {
     [id: string]: {
       resolve: (value: string | PromiseLike<string>) => void;
-      reject: (reason?: any) => void;
+      reject: (reason?: string) => void;
     };
   } = {};
 
@@ -21,7 +21,7 @@ class LiveSplitWebSocket {
   }
 
   isConnected(): boolean {
-    return process.env.NODE_ENV !== "production" && this.socket?.readyState === WebSocket.OPEN;
+    return !import.meta.env.PROD && this.socket?.readyState === WebSocket.OPEN;
   }
 
   connect() {

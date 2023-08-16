@@ -1,6 +1,6 @@
 class StorageManager {
-  static setItem(key: string, value: any) {
-    if (process.env.NODE_ENV !== "production") {
+  static setItem(key: string, value: unknown) {
+    if (!import.meta.env.PROD) {
       // Prevent current "Production" build from leaving a mess for testers
       localStorage.setItem(key, JSON.stringify(value));
     }
