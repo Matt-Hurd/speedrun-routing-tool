@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "https://matt-hurd.github.io/totum/static/css/main.d8ec98b3.css",
-    "main.js": "https://matt-hurd.github.io/totum/static/js/main.c7a4c23e.js",
+    "main.js": "https://matt-hurd.github.io/totum/static/js/main.611861ec.js",
     "static/js/787.eeaed3d0.chunk.js": "https://matt-hurd.github.io/totum/static/js/787.eeaed3d0.chunk.js",
     "static/media/nintendo_NTLG-DB_DH_002.bfotf.otf": "https://matt-hurd.github.io/totum/static/media/nintendo_NTLG-DB_DH_002.bfotf.bc9a55193b3193807654.otf",
     "static/media/ninP_RodinNTLG-B_DH_003_subset.bfotf.otf": "https://matt-hurd.github.io/totum/static/media/ninP_RodinNTLG-B_DH_003_subset.bfotf.46bf47ff55a3c67eccb6.otf",
@@ -19,11 +19,11 @@
     "static/media/Nin-ZeldaBotW-Ancient.bfotf.otf": "https://matt-hurd.github.io/totum/static/media/Nin-ZeldaBotW-Ancient.bfotf.b4bf6795973b44f8c20d.otf",
     "index.html": "https://matt-hurd.github.io/totum/index.html",
     "main.d8ec98b3.css.map": "https://matt-hurd.github.io/totum/static/css/main.d8ec98b3.css.map",
-    "main.c7a4c23e.js.map": "https://matt-hurd.github.io/totum/static/js/main.c7a4c23e.js.map",
+    "main.611861ec.js.map": "https://matt-hurd.github.io/totum/static/js/main.611861ec.js.map",
     "787.eeaed3d0.chunk.js.map": "https://matt-hurd.github.io/totum/static/js/787.eeaed3d0.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d8ec98b3.css",
-    "static/js/main.c7a4c23e.js"
+    "static/js/main.611861ec.js"
   ]
 }
