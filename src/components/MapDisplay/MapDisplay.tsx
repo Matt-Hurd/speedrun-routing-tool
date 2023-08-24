@@ -30,12 +30,12 @@ const MapDisplay: React.FC = () => {
   };
 
   return (
-    <MapContainer style={style} bounds={outerBounds} zoom={0} maxZoom={7} minZoom={-5} crs={crs} keyboard={false}>
+    <MapContainer style={style} bounds={outerBounds} zoom={0} maxZoom={7} minZoom={1} crs={crs} keyboard={false}>
       <RouteMarkers branch={route.branches[branchIndex]} activeThing={activeThing} />
       <RouteLines />
       <MapUpdate activePoint={activePoint} />
       <Pane name="tile_bg" style={{ zIndex: 1 }}>
-        <TileLayer url={route.game.layers[activeThing.layerId].imagePath} bounds={outerBounds} />
+        <TileLayer url={route.game.layers[activeThing.layerId].imagePath} bounds={outerBounds} minZoom={1} />
       </Pane>
       <Pane name="bg" style={{ zIndex: 0 }}>
         <ImageOverlay url={route.url + route.game.layers[activeThing.layerId].baseImagePath} bounds={outerBounds} />
