@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 interface RouteOption {
   name: string;
   path: string;
+  gh?: boolean;
 }
 
 interface GameOption {
@@ -36,9 +37,12 @@ function RouteSelection() {
         <div key={game.name}>
           <h3>{game.name}</h3>
           {game.routes.map((route) => (
-            <Link key={route.path} to={`/route/${encodeURIComponent(route.path)}`}>
-              {route.name}
-            </Link>
+            <div>
+              <Link key={route.path} to={`/route/${route.gh ? route.path : encodeURIComponent(route.path)}`}>
+                {route.name}
+              </Link>
+              <br />
+            </div>
           ))}
         </div>
       ))}

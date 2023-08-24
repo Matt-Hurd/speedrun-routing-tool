@@ -3,12 +3,14 @@
     "name": "Tears of the Kingdom",
     "routes": [
       {
-        "name": "Centum v1.1",
-        "path": "assets/example_route/totk_hundo_centum/route.json"
+        "name": "All Shrines v1.0",
+        "gh": true,
+        "path": "gh/Matt-Hurd/totk-speedrun-routes/all_shrines_abahbob_1.0/"
       },
       {
-        "name": "Hundo Remote",
-        "path": "https://raw.githubusercontent.com/Matt-Hurd/totk-speedrun-routes/master/totk_hundo_abah/route.json"
+        "name": "Centum v1.2",
+        "gh": true,
+        "path": "gh/Matt-Hurd/totk-speedrun-routes/hundo_centum_v1.2/"
       }
     ]
   }

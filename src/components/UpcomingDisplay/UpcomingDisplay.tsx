@@ -28,7 +28,7 @@ const UpcomingDisplay: React.FC = () => {
         const point = route.branches[bidx].points[pidx];
         const thing = route.things[point.thingId];
 
-        if (thing.type === "Shrine" && point.action === "COMPLETE") {
+        if (thing.type === "Shrine" && (point.action === "COMPLETE" || !point.action)) {
           const shrine = thing as Shrine;
           if (shrine.isProvingGrounds) {
             provingGroundFound = true;

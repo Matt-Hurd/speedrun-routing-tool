@@ -1,4 +1,4 @@
-enum Action {
+export enum Action {
   Warp = "WARP",
   Complete = "COMPLETE",
   Activate = "ACTIVATE",
