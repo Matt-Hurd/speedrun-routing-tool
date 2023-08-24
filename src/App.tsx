@@ -10,6 +10,7 @@ const App: React.FC = () => (
   <Provider store={store}>
     <Router>
       <Routes>
+        <Route path="/route/gh/:user/:repo/:path" element={<RunMosaic />} />
         <Route path="/route/:routeUrl" element={<RunMosaic />} />
         <Route path="/overlay" element={<OverlayDisplay />} />
         <Route path="/" element={<RouteSelection />} />

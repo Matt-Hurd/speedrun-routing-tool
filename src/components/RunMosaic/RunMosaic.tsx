@@ -42,10 +42,13 @@ import { useLivesplit } from "./useLiveSplit";
 
 type RunParams = {
   routeUrl: string;
+  user?: string;
+  repo?: string;
+  path?: string;
 };
 
 const RunMosaic: React.FC = () => {
-  const { routeUrl } = useParams<RunParams>();
+  const { routeUrl, user, repo, path } = useParams<RunParams>();
   const routeStatus = useSelector(selectRouteStatus);
   const dispatch = useAppDispatch();
   const darkMode = useSelector((state: RootState) => state.userPreferences.darkMode);
@@ -92,11 +95,16 @@ const RunMosaic: React.FC = () => {
   const [availableDisplays, setAvailableDisplays] = useState<string[]>(findMissingDisplays(currentNode));
 
   useEffect(() => {
-    if (routeUrl === undefined) return;
+    if (routeUrl === undefined && user === undefined) return;
     if (routeStatus === "idle") {
-      dispatch(loadRoute(routeUrl));
+      if (routeUrl) {
+        dispatch(loadRoute(routeUrl));
+      } else {
+        const ghUrl = `https://raw.githubusercontent.com/${user}/${repo}/master/${path}/route.json`;
+        dispatch(loadRoute(ghUrl));
+      }
     }
-  }, [dispatch, routeUrl, routeStatus]);
+  }, [dispatch, routeUrl, routeStatus, user, repo, path]);
 
   useKeyBindings();
   useLivesplit();
