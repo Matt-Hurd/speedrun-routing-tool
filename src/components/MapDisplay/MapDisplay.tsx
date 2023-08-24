@@ -38,7 +38,10 @@ const MapDisplay: React.FC = () => {
         <TileLayer url={route.game.layers[activeThing.layerId].imagePath} bounds={outerBounds} minZoom={1} />
       </Pane>
       <Pane name="bg" style={{ zIndex: 0 }}>
-        <ImageOverlay url={route.url + route.game.layers[activeThing.layerId].baseImagePath} bounds={outerBounds} />
+        <ImageOverlay
+          url={new URL(`/assets/images/maps/${activeThing.layerId}.png`, import.meta.url).href}
+          bounds={outerBounds}
+        />
       </Pane>
       <MapEvents />
     </MapContainer>
