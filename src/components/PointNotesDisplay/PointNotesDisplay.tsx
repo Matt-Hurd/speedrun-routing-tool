@@ -13,10 +13,10 @@ const getDefaultNote = (point: Point, thing: Thing) => {
   } else if (thing.type === "Korok") {
     return (thing as Korok).korokType;
   } else if (thing.type === "Shrine") {
-    if ((thing as Shrine).isProvingGrounds && point.action === "COMPLETE")
-      return '<span style="color: rgb(230, 0, 0); background-color: rgb(0, 0, 0);" class="ql-size-huge">ZUGGLE SHIELD</span>';
-    if (point.action === "COMPLETE" && chestShrines.includes(thing.name))
-      return '<span style="color: rgb(230, 0, 0); background-color: rgb(0, 0, 0);" class="ql-size-huge">OPEN CHEST</span>';
+    if ((thing as Shrine).isProvingGrounds && (point.action === "COMPLETE" || !point.action))
+      return '<span class="ql-size-huge">ZUGGLE SHIELD</span>';
+    if ((point.action === "COMPLETE" || !point.action) && chestShrines.includes(thing.name))
+      return '<span class="ql-size-huge">OPEN CHEST</span>';
   }
   return "";
 };
