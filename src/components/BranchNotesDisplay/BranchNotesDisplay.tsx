@@ -12,7 +12,7 @@ const BranchNotesDisplay: React.FC = () => {
 
   useEffect(() => {
     if (!route) return;
-    const savedNotes = StorageManager.getItem(`${route.game.name}_${route.name}_${branchIndex}`);
+    const savedNotes = StorageManager.getItem(`${route.game.name}_${route.name}_${route.version}_b_${branchIndex}`);
     if (savedNotes) {
       setNotes(savedNotes);
     } else {
@@ -23,11 +23,11 @@ const BranchNotesDisplay: React.FC = () => {
   const handleNotesChange = (content: string) => {
     if (!route) return null;
     if (content === "<p><br></p>" || content === "<p></p>") {
-      StorageManager.removeItem(`${route.game.name}_${route.name}_${branchIndex}`);
+      StorageManager.removeItem(`${route.game.name}_${route.name}_${route.version}_b_${branchIndex}`);
       return;
     }
     setNotes(content);
-    StorageManager.setItem(`${route.game.name}_${route.name}_${branchIndex}`, content);
+    StorageManager.setItem(`${route.game.name}_${route.name}_${route.version}_b_${branchIndex}`, content);
   };
 
   return <NoteEditor notes={notes} onNotesChange={handleNotesChange} />;
