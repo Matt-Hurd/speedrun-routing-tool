@@ -140,7 +140,7 @@ const RunMosaic: React.FC = () => {
     }
 
     return (
-      <MosaicWindow path={path} title={id} toolbarControls={[<RemoveButton />]}>
+      <MosaicWindow path={path} title={id} toolbarControls={[<RemoveButton key={id} />]}>
         {component}
       </MosaicWindow>
     );
