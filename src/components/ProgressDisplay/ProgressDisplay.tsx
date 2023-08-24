@@ -50,7 +50,7 @@ const ProgressDisplay: React.FC = () => {
         const point = route.branches[bidx].points[pidx];
         const thing = route.things[point.thingId];
 
-        if (thing.type === "Shrine" && point.action !== "COMPLETE") continue;
+        if (thing.type === "Shrine" && point.action !== "COMPLETE" && point.action) continue;
 
         if (!visitedThings.has(point.thingId)) {
           visitedThings.add(point.thingId);
