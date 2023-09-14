@@ -1,9 +1,6 @@
 class StorageManager {
   static setItem(key: string, value: unknown) {
-    if (!import.meta.env.PROD) {
-      // Prevent current "Production" build from leaving a mess for testers
-      localStorage.setItem("totum." + key, JSON.stringify(value));
-    }
+    localStorage.setItem("totum." + key, JSON.stringify(value));
   }
 
   static getItem(key: string) {
