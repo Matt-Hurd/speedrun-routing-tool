@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from ".";
 import liveSplitService from "../services/LiveSplitWebSocket";
 
-interface ProgressState {
+export interface ProgressState {
   branchIndex: number;
   pointIndex: number;
 }
@@ -25,7 +25,14 @@ export const incrementProgress = createAsyncThunk("progress/increment", async (_
       ((thing.type === "Shrine" && point.action === "COMPLETE") || thing.type === "Lightroot")
     ) {
       const currentSplitName = await liveSplit.getCurrentSplitName();
-      if (currentSplitName.endsWith(thing.name)) {
+
+      const shrineName = thing.name.replace(" Shrine", "").replace(" Lightroot", "");
+
+      const sanitizedCurrentSplitName = currentSplitName.startsWith("-")
+        ? currentSplitName.substring(1)
+        : currentSplitName;
+
+      if (sanitizedCurrentSplitName === shrineName) {
         liveSplit.split();
       }
     }
