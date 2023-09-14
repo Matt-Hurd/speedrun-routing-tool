@@ -11,6 +11,21 @@
         "name": "Centum v1.2",
         "gh": true,
         "path": "gh/Matt-Hurd/totk-speedrun-routes/hundo_centum_v1.2/"
+      },
+      {
+        "name": "Any% Scuffed",
+        "gh": true,
+        "path": "gh/Matt-Hurd/totk-speedrun-routes/any_scuffed_abahbob_1.0/"
+      },
+      {
+        "name": "AD Scuffed",
+        "gh": true,
+        "path": "gh/Matt-Hurd/totk-speedrun-routes/ad_scuffed_abahbob_1.0/"
+      },
+      {
+        "name": "AMQ Scuffed",
+        "gh": true,
+        "path": "gh/Matt-Hurd/totk-speedrun-routes/amq_scuffed_abahbob_1.0/"
       }
     ]
   }
