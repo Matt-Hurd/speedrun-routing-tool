@@ -5,6 +5,7 @@ export default class Route {
   url: string;
   game: Game;
   version: string;
+  category: string = "";
   branches: Branch[] = [];
   things: Record<string, Thing> = {};
 
