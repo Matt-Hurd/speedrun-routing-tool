@@ -31,7 +31,7 @@ Totum allows users to:
 Clone the repository:
 
 ```sh
-git clone https://github.com/matt-hurd/totum.git
+git clone https://github.com/totum-tools/totum.git
 cd totum
 ```
 
@@ -51,7 +51,7 @@ npm start
 
 Contributions are welcome. Just make PRs.
 
-We use GitHub issues to track bugs and enhancements. If you find a bug or have an idea for an improvement, please [submit an issue](https://github.com/Matt-Hurd/totum/issues/new).
+We use GitHub issues to track bugs and enhancements. If you find a bug or have an idea for an improvement, please [submit an issue](https://github.com/totum-tools/totum/issues/new).
 
 ## License
 
