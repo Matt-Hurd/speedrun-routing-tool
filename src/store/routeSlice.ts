@@ -35,7 +35,12 @@ export const loadRoute = createAsyncThunk<Route, string, { dispatch: AppDispatch
 const routeSlice = createSlice({
   name: "route",
   initialState,
-  reducers: {},
+  reducers: {
+    uploadRoute: (state, action: PayloadAction<Route>) => {
+      state.data = action.payload;
+      state.status = "succeeded";
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loadRoute.pending, (state) => {
@@ -56,5 +61,7 @@ const routeSlice = createSlice({
 export const selectRouteStatus = (state: RootState) => state.route.status;
 export const selectRouteData = (state: RootState) => state.route.data;
 export const selectRouteError = (state: RootState) => state.route.error;
+
+export const { uploadRoute } = routeSlice.actions;
 
 export default routeSlice.reducer;
