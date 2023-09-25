@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { uploadRoute } from "../../store/routeSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { Route } from "../../models";
+import { useDispatch } from "react-redux";
 
 interface RouteOption {
   name: string;
@@ -13,6 +16,8 @@ interface GameOption {
 }
 
 function RouteSelection() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [gameOptions, setGameOptions] = useState<GameOption[]>([]);
   const [customRouteUrl, setCustomRouteUrl] = useState<string>("");
 
@@ -28,6 +33,26 @@ function RouteSelection() {
 
   const handleCustomRouteInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCustomRouteUrl(event.target.value);
+  };
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const content = e.target?.result;
+          if (typeof content === "string") {
+            const parsedRoute: Route = JSON.parse(content);
+            dispatch(uploadRoute(parsedRoute));
+            navigate("/uploaded");
+          }
+        } catch (error) {
+          console.error("Failed to parse route:", error);
+          // Handle the error. Maybe update the state to show an error message.
+        }
+      };
+      reader.readAsText(file);
+    }
   };
 
   return (
@@ -54,6 +79,8 @@ function RouteSelection() {
         placeholder="Input remote route URL"
       />
       {customRouteUrl && <Link to={`/route/${encodeURIComponent(customRouteUrl)}`}>Go</Link>}
+      <h3>.. Or upload a route file</h3>
+      <input type="file" accept=".json" onChange={handleFileUpload} />
     </div>
   );
 }

@@ -41,7 +41,7 @@ import { useKeyBindings } from "./useKeyBindings";
 import { useLivesplit } from "./useLiveSplit";
 
 type RunParams = {
-  routeUrl: string;
+  routeUrl?: string;
   user?: string;
   repo?: string;
   path?: string;
