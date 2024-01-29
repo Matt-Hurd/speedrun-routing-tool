@@ -8,10 +8,11 @@ import { RouteMarkers } from "./RouteMarkers";
 import { MapUpdate } from "./MapUpdate";
 import { MapEvents } from "./MapEvents";
 import RouteLines from "./RouteLines";
-import { outerBounds, crs } from "./mapConstants";
+import { crs } from "./mapConstants";
 import { selectRouteData } from "../../store/routeSlice";
 
 import "./leaflet_tile_workaround.js";
+import { LatLngBounds } from "leaflet";
 
 const MapDisplay: React.FC = () => {
   const progress = useSelector(selectProgress);
@@ -23,6 +24,16 @@ const MapDisplay: React.FC = () => {
 
   const activePoint = route.branches[branchIndex].points[pointIndex];
   const activeThing = route.things[activePoint.thingId];
+  const layer = route.game.layers[activeThing.layerId];
+  const basePath = layer.baseImagePath;
+  const imageUrl = basePath.startsWith("/") ? route.url + basePath : basePath;
+  const xoffset = -960;
+  const yoffset = -540;
+  const scale = 0.1;
+  const outerBounds = new LatLngBounds(
+    [yoffset * scale, xoffset * scale],
+    [(yoffset + 1080) * scale, (xoffset + 1920) * scale]
+  );
 
   const style = {
     height: "100%",
@@ -34,14 +45,13 @@ const MapDisplay: React.FC = () => {
       <RouteMarkers branch={route.branches[branchIndex]} activeThing={activeThing} />
       <RouteLines />
       <MapUpdate activePoint={activePoint} />
-      <Pane name="tile_bg" style={{ zIndex: 1 }}>
-        <TileLayer url={route.game.layers[activeThing.layerId].imagePath} bounds={outerBounds} minZoom={1} />
-      </Pane>
+      {layer.imagePath && (
+        <Pane name="tile_bg" style={{ zIndex: 1 }}>
+          <TileLayer url={route.game.layers[activeThing.layerId].imagePath} bounds={outerBounds} minZoom={1} />
+        </Pane>
+      )}
       <Pane name="bg" style={{ zIndex: 0 }}>
-        <ImageOverlay
-          url={new URL(`/assets/images/maps/${activeThing.layerId}.png`, import.meta.url).href}
-          bounds={outerBounds}
-        />
+        <ImageOverlay url={imageUrl} bounds={outerBounds} />
       </Pane>
       <MapEvents />
     </MapContainer>

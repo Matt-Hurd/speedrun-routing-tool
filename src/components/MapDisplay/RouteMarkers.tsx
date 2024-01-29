@@ -8,6 +8,7 @@ import { selectProgress } from "../../store/progressSlice";
 import "./popup.css";
 import { selectRouteData } from "../../store/routeSlice";
 import L, { Icon } from "leaflet";
+import { convertPoint3DTo2D } from "./projectionUtils";
 
 interface RouteMarkersProps {
   branch: Branch;
@@ -71,11 +72,23 @@ export const RouteMarkers: React.FC<RouteMarkersProps> = ({ branch, activeThing 
           }
         }
 
+        
+        let long = coordinates.x;
+        let lat = -coordinates.z;
+        const layer = route.game.layers[currentThing.layerId];
+
+        if (layer.rotation) {
+          const converted = convertPoint3DTo2D(coordinates, layer)
+          lat = converted.x;
+          long = converted.y;
+        }
+
+
         return (
           <Marker
             key={index}
             opacity={opacity}
-            position={[-coordinates.x, coordinates.y]}
+            position={[lat, long]}
             icon={getIconForThing(currentThing)}
             ref={(ref) => markerRefs.current.set(point.thingId, ref)}
           >
