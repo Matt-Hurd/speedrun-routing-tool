@@ -7,6 +7,9 @@
 - `CTRL + SHIFT + Arrow Right` - Progress the map forward by a full branch.
 - `CTRL + SHIFT + Arrow Left` - Undo the progress by a full branch.
 
+## Try Me
+https://totum-tools.github.io/totum/#/route/gh/totum-tools/totk-speedrun-routes/hundo_centum_v1.2/
+
 ## Table of Contents
 
 - [Features](#features)
