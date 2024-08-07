@@ -53,7 +53,7 @@ const UpcomingDisplay: React.FC = () => {
   }, [route, branchIndex, pointIndex]);
 
   return (
-    <div className={"upcoming-window"}>
+    <div className={"upcoming-window"} id="upcomingDisplay">
       <p>Before next proving ground:</p>
       <p>Points: {points}</p>
       <p>Rock Koroks: {rockKorokCount}</p>

@@ -30,7 +30,16 @@ const MapDisplay: React.FC = () => {
   };
 
   return (
-    <MapContainer style={style} bounds={outerBounds} zoom={0} maxZoom={7} minZoom={1} crs={crs} keyboard={false}>
+    <MapContainer
+      style={style}
+      bounds={outerBounds}
+      zoom={0}
+      maxZoom={7}
+      minZoom={1}
+      crs={crs}
+      keyboard={false}
+      id="mapDisplay"
+    >
       <RouteMarkers branch={route.branches[branchIndex]} activeThing={activeThing} />
       <RouteLines />
       <MapUpdate activePoint={activePoint} />
