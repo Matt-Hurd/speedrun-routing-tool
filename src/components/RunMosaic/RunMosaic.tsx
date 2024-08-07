@@ -93,6 +93,10 @@ const RunMosaic: React.FC = () => {
         "Here you can add notes that stay visible for entire branches. These will be saved between sessions.",
       elementId: "branchNotesDisplay",
     },
+    {
+      title: "Mosaic",
+      description: "Each of these panels can be individually dragged, dropped, and resized to meet your preferences.",
+    },
   ];
 
   const initialLayoutStorage = StorageManager.getItem("layout");
