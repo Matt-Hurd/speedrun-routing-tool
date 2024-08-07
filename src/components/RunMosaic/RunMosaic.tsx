@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import dropRight from "lodash/dropRight";
 import { filter } from "lodash";
+import TutorialDisplay from "../TutorialDisplay/TutorialDisplay";
 
 import {
   Mosaic,
@@ -52,6 +53,47 @@ const RunMosaic: React.FC = () => {
   const routeStatus = useSelector(selectRouteStatus);
   const dispatch = useAppDispatch();
   const darkMode = useSelector((state: RootState) => state.userPreferences.darkMode);
+
+  const tutorialSteps = [
+    {
+      title: "Map",
+      description:
+        "This is the primary map. \nNavigate using the mouse.\nTo Advance or Decrement the route, use the Left/Right arrow keys.",
+      elementId: "mapDisplay",
+    },
+    {
+      title: "Route",
+      description: "Here's the list of all of the upcoming points on the map. Some may have additional comments.",
+      elementId: "routeListDisplay",
+    },
+    {
+      title: "Upcoming",
+      description: "This displays information that informs you of how many of a specific interaction are coming up.",
+      elementId: "upcomingDisplay",
+    },
+    {
+      title: "Progress",
+      description:
+        "This keeps track of how many of each item you have already collected, with optional offsets to account for mistakes.",
+      elementId: "progressDisplay",
+    },
+    {
+      title: "Overlay",
+      description: "The overlay can be opened and chroma-keyed to provide information on livestreams.",
+      elementId: "progressDisplay",
+    },
+    {
+      title: "Point Notes",
+      description: "Here you can add notes for specific points. These will be saved between sessions.",
+      elementId: "pointNotesDisplay",
+    },
+    {
+      title: "Branch Notes",
+      description:
+        "Here you can add notes that stay visible for entire branches. These will be saved between sessions.",
+      elementId: "branchNotesDisplay",
+    },
+  ];
 
   const initialLayoutStorage = StorageManager.getItem("layout");
   const initialLayout = initialLayoutStorage
@@ -199,6 +241,7 @@ const RunMosaic: React.FC = () => {
 
   return (
     <div className={"run-mosaic " + darkModeClass}>
+      <TutorialDisplay steps={tutorialSteps} />
       {availableDisplays.length !== 0 && (
         <Toolbar
           onButtonClick={handleToolbarButtonClick}

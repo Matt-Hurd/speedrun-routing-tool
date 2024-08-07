@@ -27,10 +27,11 @@ Quill.register("modules/blotFormatter", BlotFormatter);
 
 interface NoteEditorProps {
   notes: string;
+  id: string;
   onNotesChange: (content: string) => void;
 }
 
-const NoteEditor: React.FC<NoteEditorProps> = ({ notes, onNotesChange }) => {
+const NoteEditor: React.FC<NoteEditorProps> = ({ notes, onNotesChange, id }) => {
   const quillRef = useRef<ReactQuill>(null);
 
   const insertToEditor = useCallback(
@@ -56,7 +57,7 @@ const NoteEditor: React.FC<NoteEditorProps> = ({ notes, onNotesChange }) => {
     }
   }, [quillRef, selectLocalImage]);
 
-  return <ReactQuill ref={quillRef} modules={modules} value={notes} onChange={onNotesChange} />;
+  return <ReactQuill ref={quillRef} modules={modules} value={notes} onChange={onNotesChange} id={id} />;
 };
 
 export default NoteEditor;

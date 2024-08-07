@@ -74,7 +74,7 @@ const ProgressDisplay: React.FC = () => {
   }, [route, branchIndex, pointIndex]);
 
   return (
-    <div className={"progress-window"}>
+    <div className={"progress-window"} id="progressDisplay">
       {" "}
       <button className={"overlay-window-button"} onClick={openOverlayWindow}>
         Open Overlay Window

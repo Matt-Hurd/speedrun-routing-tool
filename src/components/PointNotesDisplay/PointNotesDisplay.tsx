@@ -53,7 +53,7 @@ const PointNotesDisplay: React.FC = () => {
     StorageManager.setItem(`${route.game.name}_${route.name}_${route.version}_p_${branchIndex}_${pointIndex}`, content);
   };
 
-  return <NoteEditor notes={notes} onNotesChange={handleNotesChange} />;
+  return <NoteEditor notes={notes} onNotesChange={handleNotesChange} id="pointNotesDisplay" />;
 };
 
 export default PointNotesDisplay;

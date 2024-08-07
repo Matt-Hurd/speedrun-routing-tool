@@ -30,7 +30,7 @@ const BranchNotesDisplay: React.FC = () => {
     StorageManager.setItem(`${route.game.name}_${route.name}_${route.version}_b_${branchIndex}`, content);
   };
 
-  return <NoteEditor notes={notes} onNotesChange={handleNotesChange} />;
+  return <NoteEditor notes={notes} onNotesChange={handleNotesChange} id="branchNotesDisplay" />;
 };
 
 export default BranchNotesDisplay;
